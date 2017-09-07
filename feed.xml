@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <description>CML Team, CML Consulting, Chatbots, Data Science, IT-Consulting, Blockchain</description>
+    <link>http://www.cmlteam.com/</link>
+    <atom:link href="http://www.cmlteam.com/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Thu, 07 Sep 2017 18:14:17 +0000</pubDate>
+    <lastBuildDate>Thu, 07 Sep 2017 18:14:17 +0000</lastBuildDate>
+    <generator>Jekyll v3.5.2</generator>
+    
+      <item>
+        <title>Party Bunny Chatbot</title>
+        <description>
+</description>
+        <pubDate>Fri, 18 Jul 2014 00:00:00 +0000</pubDate>
+        <link>http://www.cmlteam.com/web%20development/2014/07/18/project-1/</link>
+        <guid isPermaLink="true">http://www.cmlteam.com/web%20development/2014/07/18/project-1/</guid>
+        
+        
+        <category>Web Development</category>
+        
+      </item>
+    
+      <item>
+        <title>Party Animal Chatbot</title>
+        <description>
+</description>
+        <pubDate>Thu, 17 Jul 2014 00:00:00 +0000</pubDate>
+        <link>http://www.cmlteam.com/web%20development/2014/07/17/project-2/</link>
+        <guid isPermaLink="true">http://www.cmlteam.com/web%20development/2014/07/17/project-2/</guid>
+        
+        
+        <category>Web Development</category>
+        
+      </item>
+    
+      <item>
+        <title>Moodic Chatbot</title>
+        <description>
+</description>
+        <pubDate>Wed, 16 Jul 2014 00:00:00 +0000</pubDate>
+        <link>http://www.cmlteam.com/web%20development/2014/07/16/project-3/</link>
+        <guid isPermaLink="true">http://www.cmlteam.com/web%20development/2014/07/16/project-3/</guid>
+        
+        
+        <category>Web Development</category>
+        
+      </item>
+    
+      <item>
+        <title>Moodic Alexa Skill</title>
+        <description>
+</description>
+        <pubDate>Tue, 15 Jul 2014 00:00:00 +0000</pubDate>
+        <link>http://www.cmlteam.com/web%20development/2014/07/15/project-4/</link>
+        <guid isPermaLink="true">http://www.cmlteam.com/web%20development/2014/07/15/project-4/</guid>
+        
+        
+        <category>Web Development</category>
+        
+      </item>
+    
+  </channel>
+</rss>
