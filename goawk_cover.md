@@ -1,8 +1,13 @@
+---
+title: 'Volodymyr Gubarkov - Code Coverage for GoAWK'
+description: 'How I contributed to the GoAWK project by implementing the code coverage functionality'
+image: goawk_cover.png
+---
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
+
 # Code Coverage for GoAWK
 
 _December 2022_
-
-[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
 
 ### TL;DR
 
