@@ -1,5 +1,5 @@
 ---
-title: 'Volodymyr Gubarkov - Code Coverage for GoAWK'
+title: 'Code Coverage for GoAWK'
 description: 'How I contributed to the GoAWK project by implementing the code coverage functionality'
 image: goawk_cover.png
 ---
