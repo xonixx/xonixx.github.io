@@ -1,5 +1,7 @@
 # Code Coverage for GoAWK
 
+_December 2022_
+
 ### TL;DR
 
 I contributed to the [GoAWK](https://github.com/benhoyt/goawk) project by implementing the [code coverage](https://github.com/benhoyt/goawk/blob/master/docs/cover.md) functionality.
