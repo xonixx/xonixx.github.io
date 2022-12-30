@@ -4,6 +4,7 @@
 
 - [LinkedIn](https://www.linkedin.com/in/gubarkovv/)
 - [GitHub](https://github.com/xonixx)
+- [Email](mailto:xonixx@gmail.com)
 
 ## Blog
 
