@@ -41,7 +41,14 @@ I used a pdftk tool for that
 sudo apt install pdftk
 ```
 
-And came up with a small automation to do the job: [prepare_joined.awk](https://github.com/xonixx/bilingual_books/blob/main/prepare_joined.awk)
+and came up with a small automation to do the job: [prepare_joined.awk](https://github.com/xonixx/bilingual_books/blob/main/prepare_joined.awk)
+
+Just run
+```
+awk -f prepare_joined.awk source.pdf translated.pdf 
+```
+
+You'll get `combined.pdf` as a result.
 
 ![](bilingual_books1.png)
 
