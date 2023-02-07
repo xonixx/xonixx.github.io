@@ -54,7 +54,7 @@ You'll get `combined.pdf` as a result.
 
 ### 3. Generate final bilingual book PDF
                                         
-To do so just open merged PDF in Google Chrome and Print.
+To do so just open the combined PDF in Google Chrome and Print.
 
 The key point here is to use *Pages per sheet: 2* here.
 
