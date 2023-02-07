@@ -30,14 +30,24 @@ Indeed, the translation can be not ideal, but:
 - Google Translation is much better nowadays
 
 ### 3. Merge source & translated PDFs
-
-Now what you need to do, is to merge the two PDF but in a specific way. 
+               
+This step is a bit tricky and technical. You need to merge the two PDFs, but in a specific way. 
 
 You need to build a merged PDF where the source and target PDF pages go interleaved. That is: 1st page source, 1st page target, 2nd page source, 2nd page target, and so on.
 
+I used a pdftk tool for that 
+
+```
+sudo apt install pdftk
+```
+
+And came up with a small automation to do the job: [prepare_joined.awk](https://github.com/xonixx/bilingual_books/blob/main/prepare_joined.awk)
+
 ![](bilingual_books1.png)
 
-### 3. Generate final bilingual book using Google Chrome - Print
+### 3. Generate final bilingual book PDF
+                                        
+To do so just open merged PDF in Google Chrome and Print.
 
 The key point here is to use *Pages per sheet: 2* here.
 
@@ -45,6 +55,6 @@ The key point here is to use *Pages per sheet: 2* here.
 
 ### 4. Profit!
   
-Now you can just print the final PDF, and enjoy the final bilingual book!
+Now you can just print the final PDF to paper or put in on your Kindle, and enjoy your bilingual book!
 
 ![](bilingual_books3.png)
