@@ -27,7 +27,7 @@ As complex as it sounds, as easy it is. I've used the online service [https://ww
 
 Indeed, the translation can be not ideal, but:
 - No big deal, since you use authentic source text, and it's fine to use less perfect translation
-- Google Translation is much better nowadays
+- Automatic translation is much better nowadays
 
 ### 3. Merge source & translated PDFs
                
