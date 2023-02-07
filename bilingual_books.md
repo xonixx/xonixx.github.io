@@ -52,7 +52,7 @@ You'll get `combined.pdf` as a result.
 
 ![](bilingual_books1.png)
 
-### 3. Generate final bilingual book PDF
+### 4. Generate final bilingual book PDF
                                         
 To do so just open the combined PDF in Google Chrome and Print.
 
@@ -60,7 +60,7 @@ The key point here is to use *Pages per sheet: 2* here.
 
 ![](bilingual_books2.png)
 
-### 4. Profit!
+### 5. Profit!
   
 Now you can just print the final PDF to paper or put it on your Kindle. Enjoy your bilingual book!
 
