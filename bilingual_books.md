@@ -33,7 +33,7 @@ Indeed, the translation can be not ideal, but:
                
 This step is a bit tricky and technical. You need to merge the two PDFs, but in a specific way. 
 
-You need to build a merged PDF where the source and target PDF pages go interleaved. That is: 1st page source, 1st page target, 2nd page source, 2nd page target, and so on.
+You need to build a merged PDF where the source and translated PDF pages go interleaved. That is: 1st page source, 1st page translated, 2nd page source, 2nd page translated, and so on.
 
 I used a pdftk tool for that 
 
