@@ -62,6 +62,6 @@ The key point here is to use *Pages per sheet: 2* here.
 
 ### 4. Profit!
   
-Now you can just print the final PDF to paper or put in on your Kindle, and enjoy your bilingual book!
+Now you can just print the final PDF to paper or put it on your Kindle. Enjoy your bilingual book!
 
 ![](bilingual_books3.png)
