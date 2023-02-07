@@ -1,11 +1,11 @@
 ---
-title: 'Create bilingual book yourself'
+title: 'Create bilingual books yourself'
 description: 'I describe a simple approach to create bilingual books for own usage'
 image: bilingual_books2.png
 ---
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
 
-# Create bilingual book yourself
+# Create bilingual books yourself
 
 _February 2023_
 
@@ -21,7 +21,7 @@ First, buy online or find somewhere a PDF of the book you want to turn into bili
 
 Now you need to translate the text of the source PDF to the language you know. 
 
-As complex as it sounds, as easy it is. I've used the online service https://www.onlinedoctranslator.com/en/translationform. You upload source PDF, and receive translated (with Google Translate) PDF.
+As complex as it sounds, as easy it is. I've used the online service [https://www.onlinedoctranslator.com/en/translationform](https://www.onlinedoctranslator.com/en/translationform). You upload source PDF, and receive translated (with Google Translate) PDF.
 
 *To those who say using Google Translate is not OK:*
 

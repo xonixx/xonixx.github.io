@@ -8,6 +8,6 @@
 
 ## Blog
 
-- [Create bilingual book yourself](bilingual_books.md) (February 2023)
+- [Create bilingual books yourself](bilingual_books.md) (February 2023)
 - [Code Coverage for GoAWK](goawk_cover.md) (December 2022)
 
