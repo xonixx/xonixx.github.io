@@ -23,9 +23,7 @@ Next, you'll need to translate the text of the source PDF into the language you 
 
 As complex as it sounds, as easy it is. I used the online service [https://www.onlinedoctranslator.com/en/translationform](https://www.onlinedoctranslator.com/en/translationform). Simply upload the source PDF and receive a translated version (Google Translate is used).
 
-_For those who object to using Google Translate here._ It's true that automatic translations aren't always perfect, but:
-- For our task it's not a big deal. We use authentic source text, and it's fine to use less perfect translation.
-- Automatic translations have improved significantly in recent years.
+For those who object to using Google Translate here. It's true that automatic translations aren't always perfect. But for our task it's not a big deal. We use authentic source text, and it's fine to use less perfect translation. Besides, automatic translations have improved significantly in recent years.
 
 ### 3. Merge the source & translated PDFs
 
@@ -54,7 +52,7 @@ You'll get `combined.pdf` as a result.
                                         
 To do so just open the combined PDF in Google Chrome and hit Print.
 
-The key point here is to use *Pages per sheet: 2* setting.
+The key point here is to use <u>Pages per sheet: 2</u> setting.
 
 ![](bilingual_books2.png)
 
