@@ -52,7 +52,7 @@ You'll get `combined.pdf` as a result.
                                         
 To do so just open the combined PDF in Google Chrome and hit Print.
 
-The key point here is to use <u>Pages per sheet: 2</u> setting.
+The key point here is to use <ins>Pages per sheet: 2</ins> setting.
 
 ![](bilingual_books2.png)
 
