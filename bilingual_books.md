@@ -1,6 +1,6 @@
 ---
 title: 'Create bilingual books yourself'
-description: 'I describe a simple approach to create bilingual books for own usage'
+description: 'I describe a simple method to create bilingual books for personal use'
 image: bilingual_books2.png
 ---
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
@@ -9,28 +9,26 @@ image: bilingual_books2.png
 
 _February 2023_
 
-Bilingual books are very useful in language learning. 
+Bilingual books are incredibly useful for language learners. 
 
-I'll describe a relatively simple approach one can create a bilingual books for own usage.
-    
-### 1. Acquire  PDF
+I'll outline a simple process for creating your own bilingual books. 
 
-First, buy online or find somewhere a PDF of the book you want to turn into bilingual. The book must be in a language you learn.  
+### 1. Obtain the PDF
 
-### 2. Translate PDF
+First, buy online or find a PDF of the book you want to turn into a bilingual. _It must be in a language you're learning._  
 
-Now you need to translate the text of the source PDF to the language you know. 
+### 2. Translate the PDF
 
-As complex as it sounds, as easy it is. I've used the online service [https://www.onlinedoctranslator.com/en/translationform](https://www.onlinedoctranslator.com/en/translationform). You upload source PDF, and receive translated (with Google Translate) PDF.
+Next, you'll need to translate the text of the source PDF into the language you know. 
 
-*To those who say using Google Translate is not OK:*
+As complex as it sounds, as easy it is. I used the online service [https://www.onlinedoctranslator.com/en/translationform](https://www.onlinedoctranslator.com/en/translationform). Simply upload the source PDF and receive a translated version (Google Translate is used).
 
-Indeed, the translation can be not ideal, but:
-- No big deal, since you use authentic source text, and it's fine to use less perfect translation
-- Automatic translation is much better nowadays
+_For those who object to using Google Translate here._ It's true that automatic translations aren't always perfect, but:
+- For our task it's not a big deal. We use authentic source text, and it's fine to use less perfect translation.
+- Automatic translations have improved significantly in recent years.
 
-### 3. Merge source & translated PDFs
-               
+### 3. Merge the source & translated PDFs
+
 This step is a bit tricky and technical. You need to merge the two PDFs, but in a specific way. 
 
 You need to build a merged PDF where the source and translated PDF pages go interleaved. That is: 1st page source, 1st page translated, 2nd page source, 2nd page translated, and so on.
@@ -41,7 +39,7 @@ I used a pdftk tool for that
 sudo apt install pdftk
 ```
 
-and came up with a small automation to do the job: [prepare_joined.awk](https://github.com/xonixx/bilingual_books/blob/main/prepare_joined.awk)
+and came up with a small automation script to do the job: [prepare_joined.awk](https://github.com/xonixx/bilingual_books/blob/main/prepare_joined.awk).
 
 Just run
 ```
@@ -52,16 +50,16 @@ You'll get `combined.pdf` as a result.
 
 ![](bilingual_books1.png)
 
-### 4. Generate final bilingual book PDF
+### 4. Generate the final bilingual book PDF
                                         
-To do so just open the combined PDF in Google Chrome and Print.
+To do so just open the combined PDF in Google Chrome and hit Print.
 
-The key point here is to use *Pages per sheet: 2* here.
+The key point here is to use *Pages per sheet: 2* setting.
 
 ![](bilingual_books2.png)
 
 ### 5. Profit!
   
-Now you can just print the final PDF to paper or put it on your Kindle. Enjoy your bilingual book!
+Now you can just print the final PDF on paper or put it to your Kindle. Enjoy your bilingual book!
 
 ![](bilingual_books3.png)
