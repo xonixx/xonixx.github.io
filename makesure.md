@@ -16,18 +16,18 @@ Examples of such tasks are:
 - running tests/linters,
 - launching the necessary docker containers,
 - running database migrations,
-- actually, the assembly of the project,
+- actually, building the project,
 - documentation generation,
 - automating the publication of releases,
 - deployment, etc.
 
-However, assembly systems are often used for such purposes.
+However, build tools are often used for such purposes.
 
-[Make](https://en.wikipedia.org/wiki/Make_(software)) is perhaps the most famous of these tools.
+[Make](https://en.wikipedia.org/wiki/Make_(software)) is perhaps the most famous of them.
 
 Similar functionality is known to nodejs developers and loved by them in the form of scripts in package.json (npm run-scripts). Java veterans will remember Ant.
 
-But nodejs/Ant needs to be installed, make, although capable of doing *task runner* functions, is rather inconvenient in this role, being in fact a very old school *build tool* with many "features" that follow.
+But nodejs/Ant needs to be installed, make, although capable of doing *task runner* functions, is rather inconvenient in this role, being in fact a very old school *build tool* with all the ensuing consequences.
 
 And shell scripts require some system and inevitable routine in writing (argument handling, help messages, etc.).
 
@@ -62,7 +62,7 @@ What is this? This is a tool that can work with a `Makesurefile` like this:
 @depends_on deployed
 ```
 
-In essence, these are named pieces of the shell (called targets) combined in one file. This makes it easy to list the goals (with explanatory text):
+In essence, these are named pieces of the shell (called goals) combined in one file. This makes it easy to list the goals (with explanatory text):
 ```
 $ ./makesure -l
 Available goals:
@@ -75,15 +75,15 @@ Available goals:
 and call any of them by name:
 ```shell
 $ ./makesure deployed
-$ ./makesure              # the target named default will be executed by default
+$ ./makesure              # the goal named 'default' will be called if none provided
 ```
 Yes, it's that simple.
 
-However, that's not all. Targets can [declare](https://github.com/xonixx/makesure#depends_on) dependencies on other targets and makesure will take this into account when executing. This behavior is very close to the original `make`. A goal can also declare [a condition that it has already been reached](https://github.com/xonixx/makesure#reached_if). In this case, the target body (the corresponding shell script) will no longer be executed. This simple mechanism makes it very convenient and declarative to express the idempotent logic of work, and, in other words, to speed up the assembly, since what has already been done will not be repeated. This feature has already been inspired by ideas from Ansible.
+However, that's not all. Goals can [declare](https://github.com/xonixx/makesure#depends_on) dependencies on other goals and makesure will take this into account when executing. This behavior is very close to the original `make`. A goal can also declare [a condition that it has already been reached](https://github.com/xonixx/makesure#reached_if). In this case, the goal body (the corresponding shell script) will no longer be executed. This simple mechanism makes it very convenient and declarative to express the idempotent logic of work, and, in other words, to speed up the build, since what has already been done will not be repeated. This feature has been inspired by ideas from Ansible.
 
 This was the introduction. I wanted to focus in this article on highlighting the design process of one of the features of this tool.
 
-Let's imagine that we will be designing the ability to define global variables that are available to all targets.
+Let's imagine that we will be designing the ability to define global variables that are available to all goals.
 
 Well, something like
 
@@ -112,7 +112,7 @@ fi
 
 The idea was to get closer in functionality to `make` without introducing a separate programming language, but to use the familiar shell.
 
-A couple of aggravating moments. First, note that under the hood, each of the `@goal` scripts runs in a separate shell process. This is done intentionally to eliminate the possibility of dependencies through global variables between targets, which can make the execution logic more imperative and confusing. `make` in this sense behaves in a similar way, or rather even "worse" - where each line is executed in a separate shell.
+A couple of aggravating moments. First, note that under the hood, each of the `@goal` scripts runs in a separate shell process. This is done intentionally to eliminate the possibility of dependencies through global variables between goals, which can make the execution logic more imperative and confusing. `make` in this sense behaves in a similar way, or rather even "worse" - where each line is executed in a separate shell.
 
 Secondly, I wanted the prelude script to be executed only once, regardless of how many goals would be executed in the process.
 
@@ -162,14 +162,14 @@ My first impulse was to fix this problem and cover this case with the missing te
 However, instead I [thought hard](https://github.com/xonixx/makesure/pull/81#issuecomment-975958930).
 It turns out that this is a function that even I myself (the author and main user of the tool) do not use in my scripts. Otherwise, I would have already discovered this problem.
 
-But what if we completely remove the concept of prelude as an arbitrary script in front of the targets? Leave only `@define`?
+But what if we completely remove the concept of prelude as an arbitrary script in front of the goals? Leave only `@define`?
 Why not? After all, [less is more](https://en.wikipedia.org/wiki/Minimalism#Software_and_UI_design), and [worse is better](https://en.wikipedia.org/wiki/Worse_is_better).
 
 Here are a few thoughts that guided me:
 
 - This feature is not widely used (or not used at all) and has implementation bugs
 - We don't know how to properly use this functionality yet. It may be misused/abused.
-- Introduces uncertainty. If such complex initialization logic is needed, why not use a separate `@goal initialized` target for that?
+- Introduces uncertainty. If such complex initialization logic is needed, why not use a separate `@goal initialized` goal for that?
 - Complicates the implementation and makes it less productive due to the use of temporary files.
 
 And in general, when developing a product or library, it is very important to implement the minimum possible functionality, and exactly the one that users need now. Quite often, developers are tempted to add some obvious improvements and features that are not critical and/or redundant, simply because it seems simple. Moreover, for the same reason, it is often useful to explicitly exclude certain features/use cases. Because you can always add them later if there is an explicit request from users. Removing some kind of unsuccessful feature can be much more problematic.
