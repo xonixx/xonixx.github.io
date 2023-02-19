@@ -177,7 +177,7 @@ Here are a few thoughts that guided me:
 - Introduces uncertainty. If such complex initialization logic is needed, why not use a separate `@goal initialized` goal for that?
 - Complicates the implementation and makes it less productive due to the use of temporary files.
 
-*And in general, when developing a product or library, it is very important to implement the minimum possible functionality, and exactly the one that users need now. Quite often, developers are tempted to add some obvious improvements and features that are not critical and/or redundant, simply because it seems simple. Moreover, for the same reason, it is often useful to explicitly exclude certain features/use cases. Because you can always add them later if there is an explicit request from users. Removing some kind of unsuccessful feature can be much more problematic.*
+*And in general, when developing a product or library, it is very important to implement the minimum possible functionality, and exactly the one that users need now. Quite often, developers are tempted to add some obvious improvements and features that are not critical and/or are redundant, simply because it seems simple. Moreover, for the same reason, it is often useful to explicitly exclude certain features/use cases. Because you can always add them later if there is an explicit request from users. Removing some kind of unsuccessful feature can be much more problematic.*
 
 So I've decided. We cut down the concept of prelude, leaving only the possibility of `@define`.
 
