@@ -35,26 +35,27 @@ Although, for example, [Taskfile](https://github.com/adriancooney/Taskfile) is a
 
 And so [makesure](https://github.com/xonixx/makesure) was born.
 
-What is this? This is a tool that can work with a `Makesurefile` like this:
+What is it? It's a tool that understands a `Makesurefile` like this:
 
-```
+```shell
 @goal downloaded
-@doc downloads code archive
+@doc 'downloads the code archive'
 @reached_if [[ -f code.tar.gz ]]
    wget http://domain/code.tar.gz
   
-@goal-extracted
+@goal extracted
+@doc 'extracts the code'
 @depends_on downloaded
    tar xzf code.tar.gz
 
 @goal built
-@doc builds the project
+@doc 'builds the project'
 @depends_on extracted
    npm install
    npm run build
 
 @goal deployed
-@doc deploys the built project
+@doc 'deploys the built project'
 @depends_on built
    scp -C -r build/* user@domain:~/www
 
@@ -66,11 +67,11 @@ In essence, these are named pieces of the shell (called goals) combined in one f
 ```
 $ ./makesure -l
 Available goals:
-   downloaded : downloads code archive
-   extracted
-   built : builds the project
-   deployed : deploys the built project
-   default
+  downloaded : downloads the code archive
+  extracted  : extracts the code
+  built      : builds the project
+  deployed   : deploys the built project
+  default
 ```
 and call any of them by name:
 ```shell
@@ -79,7 +80,7 @@ $ ./makesure              # the goal named 'default' will be called if none prov
 ```
 Yes, it's that simple.
 
-However, that's not all. Goals can [declare](https://github.com/xonixx/makesure#depends_on) dependencies on other goals and makesure will take this into account when executing. This behavior is very close to the original `make`. A goal can also declare [a condition that it has already been reached](https://github.com/xonixx/makesure#reached_if). In this case, the goal body (the corresponding shell script) will no longer be executed. This simple mechanism makes it very convenient and declarative to express the idempotent logic of work, and, in other words, to speed up the build, since what has already been done will not be repeated. This feature has been inspired by ideas from Ansible.
+However, that's not all. Goals can [declare](https://github.com/xonixx/makesure#depends_on) dependencies on other goals and makesure will take this into account when executing. This behavior is very close to the original `make`. A goal can also declare [a condition that it has already been reached](https://github.com/xonixx/makesure#reached_if). In this case, the goal body (the corresponding shell script) will no longer be executed. This simple mechanism makes it very convenient and declarative to express the idempotent logic of work. In other words, to speed up the build, since what has already been done will not be repeated. This feature has been inspired by ideas from Ansible.
 
 This was the introduction. I wanted to focus in this article on highlighting the design process of one of the features of this tool.
 
@@ -248,7 +249,7 @@ The fact is that the tool is designed in such a way that its syntax is completel
 
 In general, removing the possibility of variable substitution would also be an option. But it turns out that the few who already use makesure, myself included, are already [relying](https://github.com/xonixx/makesure/pull/81#issuecomment-976174461) on this feature.
 
-The result of painful reflections was a compromise solution. We still pass the string to the shell for execution, but before that we validate it with a carefully written [regular expression](https://github.com/xonixx/makesure/blob/v0.9.16/makesure.awk#L154). Yes, I know that [regex parsing is not allowed](https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454). But we don't parse! We only cut off invalid options, and the shell parses. An interesting point. In fact, this regular expression is more strict than the shell parser:
+The result of painful reflections was a compromise solution. We still pass the string to the shell for execution, but before that we validate it with a carefully written [regular expression](https://github.com/xonixx/makesure/blob/v0.9.16/makesure.awk#L154). Yes, I know that [regex parsing is not allowed](https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454). But we don't parse! We only cut off invalid options, and the shell parses. An interesting point. In fact, this regular expression is stricter than the shell parser:
 
 ```shell
 @define VERSION=1.2.3 # makesure won't accept
