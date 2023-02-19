@@ -113,7 +113,7 @@ fi
 
 The idea was to get closer in functionality to `make` without introducing a separate programming language, but to use the familiar shell.
 
-A couple of aggravating moments. First, note that under the hood, each of the `@goal` scripts runs in a separate shell process. This is done intentionally to eliminate the possibility of dependencies through global variables between goals, which can make the execution logic more imperative and confusing. `make` in this sense behaves in a similar way, or rather even "worse" - where each line is executed in a separate shell.
+A couple of important moments. First, note that under the hood, each of the `@goal` scripts runs in a separate shell process. This is done intentionally to eliminate the possibility of dependencies through global variables between goals, which can make the execution logic more imperative and confusing. `make` in this sense behaves in a similar way, or rather even "worse" - where each line is executed in a separate shell.
 
 Secondly, I wanted the prelude script to be executed only once, regardless of how many goals would be executed in the process.
 
@@ -129,26 +129,26 @@ Thirdly, it should be possible to override the value of the variable at startup,
 ./makesure built -D VERSION=0.0.2
 ```
 
-The first and second points don't mix well, except for the simple possibility of mixing in a prelude script at the beginning of each `@goal` script as an execution model.
+The first and second points don't mix well. This excludes the simple possibility of mixing in a prelude script at the beginning of each `@goal` script as an execution model.
 
 As a result, the solution was nevertheless found. Every occurrence of `defile VAR=val` was replaced under the hood with something like `VAR=val; echo "VAR='$VAR'" >> /tmp/makesure_values` and implicitly prefixed each `@goal` script with `. /tmp/makesure_values`.
 
-There were some additional nuances associated with the implementation of the third paragraph, but they are not too significant to mention.
+There were some additional nuances associated with the implementation of the third point, but they are not too significant to mention.
 
-Somehow it worked, but the sediment remained. It's kind of inelegant or something. Temporary files will obviously not benefit the speed of execution, plus you need to do additional gestures to clean them up.
+Somehow it worked, but the sediment remained. It's kind of inelegant or something. Temporary files are obviously not good for the speed of execution. Plus you need to do additional gestures to clean them up.
 
 Regarding speed, on systems where [/dev/shm](https://superuser.com/a/45509/682392) is present (all modern Linuxes?) it has been used instead of `/tmp`. macOS - ☹️ - it's not supported there.
 
-Regarding the guarantee of cleaning up temporary files - the test suite [has been finalized] (https://github.com/xonixx/makesure/blob/v0.9.14/Makesurefile#L77) in such a way as to fall if suddenly for some reason garbage has not been removed.
+Regarding the guarantee of cleaning up temporary files - the test suite [has been modified](https://github.com/xonixx/makesure/blob/v0.9.14/Makesurefile#L77) in such a way as to crash if, for some reason, the garbage was not removed.
 
-As is usually the case, a fresh perspective from someone not previously involved in the case can be very valuable.
+As is usually the case, a fresh perspective from someone not previously involved in the project can be very valuable.
 
-So, at some point I received a [pull-request] (https://github.com/xonixx/makesure/pull/81/files) with a proposal to optimize this part of the logic. The participant suggested to apply simpler logic without temporary files. For a while I was at a loss. How did I not think of this solution before? However, plunging into some memories, I realized that my solution was not accidental.
+So, at some point I received a [pull-request](https://github.com/xonixx/makesure/pull/81/files) with a proposal to optimize this part of the logic. The participant suggested to apply simpler logic without temporary files. For a while I was at a loss. How did I not think of this solution before? However, plunging into some memories, I realized that my solution was not accidental.
 
 The fact is that according to my plan there should have been an opportunity to do so
 
 ```shell
-A=Hello # invisible to goals
+A=Hello              # invisible to goals
 @define B="$A world" # visible to goals
 ```
 
