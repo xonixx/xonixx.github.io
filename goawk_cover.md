@@ -82,7 +82,7 @@ $ command --that --will --cause error
 
 (in my case the `command` is `makesure`)
 
-When running such tests, `tush` runs all lines starting with `$` and simply compares the actual output with the expected output using a normal diff. If there is a difference, the test fails and the diff is displayed to the user.
+When running such tests, `tush` runs all lines starting with `$` and simply compares the actual output with the expected output using a normal `diff`. If there is a difference, the test fails and the diff is displayed to the user.
 
 In essence, such tests are end-to-end tests that are on the top of the well-known [testing pyramid](https://automationpanda.com/2018/08/01/the-testing-pyramid/). This is very good, since this style of testing is equivalent to how a _real_ user uses the tool, giving a much higher chance of catching _real_ bugs. 
 
