@@ -244,8 +244,8 @@ Why is the extra implementation complexity unacceptable? Because one of the fund
 
 You may ask: why rely on bash syntax at all? Why not introduce your own limited syntax, say something like this:
 
-```
-@define W 'world'
+```shell
+@define W  'world'
 @define HW 'hello {{W}}'
 ```
 
