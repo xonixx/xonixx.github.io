@@ -181,6 +181,8 @@ Here are a few thoughts that guided me:
 
 So I've decided. We cut down the concept of prelude, leaving only the possibility of `@define`.
 
+---
+
 However, the questions do not end there.
 
 - Perhaps it also makes sense to rework the syntax:
