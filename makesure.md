@@ -82,6 +82,8 @@ However, that's not all. Goals can [declare](https://github.com/xonixx/makesure#
 
 This was the introduction. Now I want to focus on highlighting the design process of one of the features of this tool.
 
+## Designing `@define`
+
 Let's imagine that we will be designing the ability to define global variables that are available to all goals.
 
 Well, something like
@@ -175,7 +177,7 @@ Here are a few thoughts that guided me:
 - Introduces uncertainty. If such complex initialization logic is needed, why not use a separate `@goal initialized` goal for that?
 - Complicates the implementation and makes it less productive due to the use of temporary files.
 
-And in general, when developing a product or library, it is very important to implement the minimum possible functionality, and exactly the one that users need now. Quite often, developers are tempted to add some obvious improvements and features that are not critical and/or redundant, simply because it seems simple. Moreover, for the same reason, it is often useful to explicitly exclude certain features/use cases. Because you can always add them later if there is an explicit request from users. Removing some kind of unsuccessful feature can be much more problematic.
+*And in general, when developing a product or library, it is very important to implement the minimum possible functionality, and exactly the one that users need now. Quite often, developers are tempted to add some obvious improvements and features that are not critical and/or redundant, simply because it seems simple. Moreover, for the same reason, it is often useful to explicitly exclude certain features/use cases. Because you can always add them later if there is an explicit request from users. Removing some kind of unsuccessful feature can be much more problematic.*
 
 So I've decided. We cut down the concept of prelude, leaving only the possibility of `@define`.
 
@@ -251,7 +253,7 @@ The thing is that the tool is designed in such a way that its syntax is complete
 
 In general, removing the possibility of variable substitution would also be an option. But it turns out that the few who already use makesure, myself included, are already [relying](https://github.com/xonixx/makesure/pull/81#issuecomment-976174461) on this feature.
 
-The result of painful reflections was a compromise solution. We still pass the string to the shell for execution, but before that we validate it with a carefully written [regular expression](https://github.com/xonixx/makesure/blob/v0.9.16/makesure.awk#L154). Yes, I know that [parsing with regular expressions is bad manners](https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454). But we don't parse! We only cut off invalid inputs, and the shell parses. An interesting point. In fact, this regular expression is stricter than the shell parser:
+The result of painful reflections was a compromise solution. We still pass the string to the shell for execution, but before that we validate it with a carefully written [regular expression](https://github.com/xonixx/makesure/blob/v0.9.16/makesure.awk#L154). Yes, I know that [parsing with regular expressions is bad manners](https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454). But we don't parse! We only cut off invalid inputs, and the shell parses. An interesting point to note. It appears that this regular expression is stricter than the shell parser:
 
 ```shell
 @define VERSION=1.2.3      # makesure won't accept
@@ -265,7 +267,9 @@ Which I find even a plus, as it is more consistent.
 
 Overall, this directive is well covered with tests - both [what should be parsed](https://github.com/xonixx/makesure/blob/v0.9.16/tests/16_define_validation.sh) and [what shouldn't](https://github.com/xonixx/makesure/blob/v0.9.16/tests/16_define_validation_error.sh).
 
+---
+
 So let's summarize. We designed a feature. Then we redesigned it, while being able to simplify and reduce the code, speed it up and add additional checks.
 
 If you are interested, I invite you to try out the [makesure](https://github.com/xonixx/makesure) utility in your projects.
-The more so as it doesn't require installation [(how is that?)](https://github.com/xonixx/makesure#installation) and is [very portable](https://github.com/xonixx/makesure#os) .
+The more so as it doesn't require installation [(how is that?)](https://github.com/xonixx/makesure#installation) and is [very portable](https://github.com/xonixx/makesure#os).
