@@ -21,17 +21,15 @@ Examples of such tasks are:
 - automating the publication of releases,
 - deployment, etc.
 
-However, build tools are often used for such purposes.
+Often, build tools are used for such purposes.
 
 [Make](https://en.wikipedia.org/wiki/Make_(software)) is perhaps the most famous of them.
 
 Similar functionality is known to nodejs developers and loved by them in the form of scripts in package.json (npm run-scripts). Java veterans will remember Ant.
 
-But nodejs/Ant needs to be installed, make, although capable of doing *task runner* functions, is rather inconvenient in this role, being in fact a very old school *build tool* with all the ensuing consequences.
+But nodejs/Ant needs to be installed. `make`, although capable of serving as a *task runner*, is rather inconvenient in this role, being in fact a very old school *build tool* with all the ensuing consequences.
 
-And shell scripts require some system and inevitable routine in writing (argument handling, help messages, etc.).
-
-Although, for example, [Taskfile](https://github.com/adriancooney/Taskfile) is a great template for such scripts.
+And the shell scripts require some system and inevitable routine in writing (argument handling, help messages, etc.). Although, for example, [Taskfile](https://github.com/adriancooney/Taskfile) is a great template for such scripts.
 
 And so [makesure](https://github.com/xonixx/makesure) was born.
 
@@ -82,7 +80,7 @@ Yes, it's that simple.
 
 However, that's not all. Goals can [declare](https://github.com/xonixx/makesure#depends_on) dependencies on other goals and makesure will take this into account when executing. This behavior is very close to the original `make`. A goal can also declare [a condition that it has already been reached](https://github.com/xonixx/makesure#reached_if). In this case, the goal body (the corresponding shell script) will no longer be executed. This simple mechanism makes it very convenient and declarative to express the idempotent logic of work. In other words, to speed up the build, since what has already been done will not be repeated. This feature has been inspired by ideas from Ansible.
 
-This was the introduction. I wanted to focus in this article on highlighting the design process of one of the features of this tool.
+This was the introduction. Now I want to focus on highlighting the design process of one of the features of this tool.
 
 Let's imagine that we will be designing the ability to define global variables that are available to all goals.
 
@@ -96,7 +94,9 @@ Well, something like
    echo "Testing $VERSION ..."
 ```
 
-Initially, I wanted to design this part in the most general way. So, I decided that the tool will have the concept of prelude - this is a script that comes before all `@goal` declarations. The purpose of this script will be to initialize global variables. Well, some such hypothetical example
+Initially, I wanted to design this part in the most general way. So, I decided that the tool will have the concept of prelude - this is a script that comes before all `@goal` declarations. The purpose of this script will be to initialize global variables. 
+
+Something like
 
 ```shell
 # prelude starts
@@ -111,9 +111,9 @@ fi
    echo "Building $VERSION ..."
 ```
 
-The idea was to get closer in functionality to `make` without introducing a separate programming language, but to use the familiar shell.
+The idea was to get closer in functionality to `make` without introducing a separate programming language, but to rely on the familiar shell.
 
-A couple of important moments. First, note that under the hood, each of the `@goal` scripts runs in a separate shell process. This is done intentionally to eliminate the possibility of dependencies through global variables between goals, which can make the execution logic more imperative and confusing. `make` in this sense behaves in a similar way, or rather even "worse" - where each line is executed in a separate shell.
+A couple of important moments. First, note that under the hood, each of the `@goal` scripts runs in a separate shell process. This is done on purpose to eliminate the possibility of dependencies through global variables between goals, which can make the execution logic more imperative and confusing. `make` in this sense behaves in a similar way, or rather even "worse" - there each line is executed in a separate shell.
 
 Secondly, I wanted the prelude script to be executed only once, regardless of how many goals would be executed in the process.
 
@@ -131,19 +131,21 @@ Thirdly, it should be possible to override the value of the variable at startup,
 
 The first and second points don't mix well. This excludes the simple possibility of mixing in a prelude script at the beginning of each `@goal` script as an execution model.
 
-As a result, the solution was nevertheless found. Every occurrence of `defile VAR=val` was replaced under the hood with something like `VAR=val; echo "VAR='$VAR'" >> /tmp/makesure_values` and implicitly prefixed each `@goal` script with `. /tmp/makesure_values`.
+As a result, the solution was nevertheless found. Every occurrence of `@defile VAR=val` was replaced under the hood with something like `VAR=val; echo "VAR='$VAR'" >> /tmp/makesure_values` and implicitly prefixed each `@goal` script with `. /tmp/makesure_values`.
 
 There were some additional nuances associated with the implementation of the third point, but they are not too significant to mention.
 
-Somehow it worked, but the sediment remained. It's kind of inelegant or something. Temporary files are obviously not good for the speed of execution. Plus you need to do additional gestures to clean them up.
+Somehow it worked, but I was not 100% happy. It's kind of inelegant or something. Temporary files are obviously not good for the performance. Plus you need to do additional gestures to clean them up.
 
 Regarding speed, on systems where [/dev/shm](https://superuser.com/a/45509/682392) is present (all modern Linuxes?) it has been used instead of `/tmp`. macOS - ☹️ - it's not supported there.
 
 Regarding the guarantee of cleaning up temporary files - the test suite [has been modified](https://github.com/xonixx/makesure/blob/v0.9.14/Makesurefile#L77) in such a way as to crash if, for some reason, the garbage was not removed.
 
+---
+
 As is usually the case, a fresh perspective from someone not previously involved in the project can be very valuable.
 
-So, at some point I received a [pull-request](https://github.com/xonixx/makesure/pull/81/files) with a proposal to optimize this part of the logic. The participant suggested to apply simpler logic without temporary files. For a while I was at a loss. How did I not think of this solution before? However, plunging into some memories, I realized that my solution was not accidental.
+At some point I received a [pull-request](https://github.com/xonixx/makesure/pull/81/files) with a proposal to optimize this part of the logic. The participant suggested to apply simpler logic without temporary files. For a while I was a bit confused. How did I not think of this solution before? However, plunging into some memories, I realized that my solution was not accidental.
 
 The fact is that according to my plan there should have been an opportunity to do so
 
