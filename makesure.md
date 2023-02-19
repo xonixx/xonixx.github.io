@@ -1,3 +1,12 @@
+---
+title: 'makesure - make with a human face'
+description: 'I describe the ideas behind the makesure tool and the development process for one of its aspects.'
+---
+
+# makesure - make with a human face
+
+_February 2023_
+
 How many of you use all sorts of helper shell scripts in your projects? It can also be Python or Perl scripts. Typically, such scripts are used during the build phase or for other project automation tasks.
 
 Examples of such tasks are:
@@ -23,7 +32,7 @@ And shell scripts require some system and inevitable routine in writing (argumen
 Although, for example, [Taskfile](https://github.com/adriancooney/Taskfile) is a great template for such scripts.
 
 And so [makesure](https://github.com/xonixx/makesure) was born.
-<cut text="What is this?"/>
+
 What is this? This is a tool that can work with a `Makesurefile` like this:
 
 ```
@@ -62,9 +71,9 @@ Available goals:
    default
 ```
 and call any of them by name:
-```
-$ ./make sure deployed
-$ ./makesure # the target named default will be executed by default
+```shell
+$ ./makesure deployed
+$ ./makesure              # the target named default will be executed by default
 ```
 Yes, it's that simple.
 
@@ -114,7 +123,7 @@ Obviously, the initialization script can be resource-intensive, say
 Thirdly, it should be possible to override the value of the variable at startup, like so
 
 ```
-./make sure built -D VERSION=0.0.2
+./makesure built -D VERSION=0.0.2
 ```
 
 The first and second points don't mix well, except for the simple possibility of mixing in a prelude script at the beginning of each `@goal` script as an execution model.
@@ -144,7 +153,7 @@ According to my idea, this is achieved by the fact that already "calculated" `@d
 
 And this fundamentally does not work in the method proposed by the participant.
 
-What was my surprise when I [found] (https://github.com/xonixx/makesure/pull/81#issuecomment-974904922) that this case does not work with my implementation either!
+What was my surprise when I [found](https://github.com/xonixx/makesure/pull/81#issuecomment-974904922) that this case does not work with my implementation either!
 
 My first impulse was to fix this problem and cover this case with the missing tests.
 
@@ -200,17 +209,17 @@ A custom parser would be a good option if it weren't for the extreme complexity 
 Do you know how many ways you can define a variable with the value `hello world` in Bash?
 
 ```shell
-H=hello\world
+H=hello\ world
 H='hello world'
 H=$'hello world'
 H="hello world"
 W=world
 H="hello $W"
-H=hello\$W
+H=hello\ $W
 H='hello '$W
 H='hello'\ $W
 H=$'hello '"world"
-H='hello'$'world'
+H='hello'$' world'
 H=$'hello'\ $'world'
 H='hello'$' '"world"
 H='hello world';
@@ -237,7 +246,7 @@ The fact is that the tool is designed in such a way that its syntax is completel
 
 In general, removing the possibility of variable substitution would also be an option. But it turns out that the few who already use makesure, myself included, are already [relying](https://github.com/xonixx/makesure/pull/81#issuecomment-976174461) on this feature.
 
-The result of painful reflections was a compromise solution. We still pass the string to the shell for execution, but before that we validate it with a carefully written [regular] (https://github.com/xonixx/makesure/blob/v0.9.16/makesure.awk#L154). Yes, I know that [regex parsing is not allowed](https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454). But we don't parse! We only cut off invalid options, and the shell parses. An interesting point. In fact, this regular expression is more strict than the shell parser:
+The result of painful reflections was a compromise solution. We still pass the string to the shell for execution, but before that we validate it with a carefully written [regular expression](https://github.com/xonixx/makesure/blob/v0.9.16/makesure.awk#L154). Yes, I know that [regex parsing is not allowed](https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454). But we don't parse! We only cut off invalid options, and the shell parses. An interesting point. In fact, this regular expression is more strict than the shell parser:
 
 ```shell
 @define VERSION=1.2.3 # makesure won't accept
@@ -249,7 +258,7 @@ The result of painful reflections was a compromise solution. We still pass the s
 
 What I find even a plus, because. it's more consistent.
 
-Otherwise, this directive is well covered with tests - both [what should be parsed](https://github.com/xonixx/makesure/blob/v0.9.16/tests/16_define_validation.sh) and [what should not be ](https://github.com/xonixx/makesure/blob/v0.9.16/tests/16_define_validation_error.sh).
+Otherwise, this directive is well covered with tests - both [what should be parsed](https://github.com/xonixx/makesure/blob/v0.9.16/tests/16_define_validation.sh) and [what should not be](https://github.com/xonixx/makesure/blob/v0.9.16/tests/16_define_validation_error.sh).
 
 Let's summarize. Designed a feature. Then they redesigned it, and at the same time they were able to simplify and reduce the code, speed it up and at the same time add additional checks.
 
