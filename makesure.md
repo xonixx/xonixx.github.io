@@ -175,7 +175,7 @@ Here are a few thoughts that guided me:
 
 And in general, when developing a product or library, it is very important to implement the minimum possible functionality, and exactly the one that users need now. Quite often, developers are tempted to add some obvious improvements and features that are not critical and/or redundant, simply because it seems simple. Moreover, for the same reason, it is often useful to explicitly exclude certain features/use cases. Because you can always add them later if there is an explicit request from users. Removing some kind of unsuccessful feature can be much more problematic.
 
-It's decided. We cut down the concept of prelude, leaving only the possibility of `@define`.
+So I've decided. We cut down the concept of prelude, leaving only the possibility of `@define`.
 
 However, the questions do not end there.
 
@@ -205,7 +205,7 @@ If you try to add a simple regular expression to match `VARNAME=`, then this is 
 
 Naturally, I would like to prohibit such "opportunities".
 
-We have a dilemma. Either we refuse to transfer to the shell and add an ad-hoc parser for this directive, or we have what we have.
+We have a dilemma. Either we refuse to pass to the shell and add an ad-hoc parser for this directive, or we have what we have.
 
 A custom parser would be a good option if it weren't for the extreme complexity that needs to be added.
 
@@ -227,7 +227,7 @@ H=$'hello'\ $'world'
 H='hello'$' '"world"
 H='hello world';
 H="hello world" # with comment
-H=$'hello world' ; # with semicolon, spaces and comments
+H=$'hello world'    ;            # with semicolon, spaces and comments
 # etc.
 ```
 
@@ -243,29 +243,27 @@ You may ask: why rely on bash syntax at all? Why not introduce your own limited 
 @define HW 'hello {{W}}'
 ```
 
-The idea is tempting, but not without flaws, as it introduces a complication of the mental complexity of the instrument.
+The idea is tempting, but not without flaws. It introduces a complication of the mental complexity of the instrument.
 
-The fact is that the tool is designed in such a way that its syntax is completely within the syntax of the shell. This is extremely handy as you can choose the shell highlight for `Makesurefile` in your IDE and [it will work](https://github.com/xonixx/makesure/blob/main/Makesurefile)! But this also means that it is necessary that all syntactic constructions carry the same meaning as in the shell. Obviously, the logic of value substitution in the hypothetical lightweight syntax does not correspond to the shell model and the user will have to know this additionally.
+The thing is that the tool is designed in such a way that its syntax is completely within the syntax of the shell. This is extremely handy as you can choose the shell highlight for `Makesurefile` in your IDE and [it will work](https://github.com/xonixx/makesure/blob/main/Makesurefile)! But this also means that it is necessary that all syntactic constructions carry the same meaning as in the shell. Obviously, the logic of value substitution in the hypothetical lightweight syntax does not correspond to the shell model and the user will have to know this additionally.
 
 In general, removing the possibility of variable substitution would also be an option. But it turns out that the few who already use makesure, myself included, are already [relying](https://github.com/xonixx/makesure/pull/81#issuecomment-976174461) on this feature.
 
-The result of painful reflections was a compromise solution. We still pass the string to the shell for execution, but before that we validate it with a carefully written [regular expression](https://github.com/xonixx/makesure/blob/v0.9.16/makesure.awk#L154). Yes, I know that [regex parsing is not allowed](https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454). But we don't parse! We only cut off invalid options, and the shell parses. An interesting point. In fact, this regular expression is stricter than the shell parser:
+The result of painful reflections was a compromise solution. We still pass the string to the shell for execution, but before that we validate it with a carefully written [regular expression](https://github.com/xonixx/makesure/blob/v0.9.16/makesure.awk#L154). Yes, I know that [parsing with regular expressions is bad manners](https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454). But we don't parse! We only cut off invalid inputs, and the shell parses. An interesting point. In fact, this regular expression is stricter than the shell parser:
 
 ```shell
-@define VERSION=1.2.3 # makesure won't accept
-@define VERSION='1.2.3' # OK
+@define VERSION=1.2.3      # makesure won't accept
+@define VERSION='1.2.3'    # OK
 
-@define HW=${HELLO}world # makesure won't accept
+@define HW=${HELLO}world   # makesure won't accept
 @define HW="${HELLO}world" # OK
 ```
 
-What I find even a plus, because. it's more consistent.
+Which I find even a plus, as it is more consistent.
 
-Otherwise, this directive is well covered with tests - both [what should be parsed](https://github.com/xonixx/makesure/blob/v0.9.16/tests/16_define_validation.sh) and [what should not be](https://github.com/xonixx/makesure/blob/v0.9.16/tests/16_define_validation_error.sh).
+Overall, this directive is well covered with tests - both [what should be parsed](https://github.com/xonixx/makesure/blob/v0.9.16/tests/16_define_validation.sh) and [what shouldn't](https://github.com/xonixx/makesure/blob/v0.9.16/tests/16_define_validation_error.sh).
 
-Let's summarize. Designed a feature. Then they redesigned it, and at the same time they were able to simplify and reduce the code, speed it up and at the same time add additional checks.
-
-At this, perhaps, it is worth stopping your story.
+So let's summarize. We designed a feature. Then we redesigned it, while being able to simplify and reduce the code, speed it up and add additional checks.
 
 If you are interested, I invite you to try out the [makesure](https://github.com/xonixx/makesure) utility in your projects.
-Moreover, it does not require installation [(how is it?)](https://github.com/xonixx/makesure#installation) and [well portable](https://github.com/xonixx/makesure#os) .
+The more so as it doesn't require installation [(how is that?)](https://github.com/xonixx/makesure#installation) and is [very portable](https://github.com/xonixx/makesure#os) .
