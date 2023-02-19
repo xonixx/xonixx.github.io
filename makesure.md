@@ -244,10 +244,12 @@ Why is the extra implementation complexity unacceptable? Because one of the fund
 
 You may ask: why rely on bash syntax at all? Why not introduce your own limited syntax, say something like this:
 
+{% raw %}
 ```shell
 @define W  'world'
 @define HW 'hello {{W}}'
 ```
+{% endraw %}
 
 The idea is tempting, but not without flaws. It introduces a complication of the mental complexity of the instrument.
 
