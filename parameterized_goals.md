@@ -127,4 +127,15 @@ So I used to have [this piece](https://github.com/xonixx/makesure/tree/e54733e43
 > - Goals with parameters, like in [just](https://github.com/casey/just#recipe-parameters)
 >   - We deliberately don't support this feature. The idea is that the build file should be self-contained, so have all the information to run in it, no external parameters should be required. This should be much easier for the final user to run a build. The other reason is that the idea of goal parameterization doesn't play well with dependencies. The tool however has limited parameterization capabilities via `./makesure -D VAR=value`.
 
+It appears that actually what we didn't want to support was calling goals with arguments from CLI. Parametrized goals themselves appeared to be really needed feature as explained by examples above.
+
 ## Implementation concerns
+
+Idea of parameterized goals lived for quite some time in my head. The first design draft attempt was [this](https://github.com/xonixx/makesure/issues/96). But it appeared to be dead end in this form, so was discarded.   
+So for a long time I resisted to add the feature. Firstly, due to increased complexity that will not be needed in a majority of typical usage scenarios. But mostly, because it’s tricky to do while preserving the declarative semantics of dependencies.
+You see, dependency of one goal on another is fundamentally different from function call.
+
+But this is not impossible.
+For example, just does have parameterized goals.
+
+I need some time to think on this in depth.
