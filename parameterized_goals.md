@@ -1,7 +1,7 @@
 ---
 title: 'Adding parameterized goals to makesure'
 description: 'Parameterized goals - great way to declarative code reuse in makesure'
-image: makesure.png
+image: parameterized_goals2.png
 ---
 
 # Adding parameterized goals to makesure
@@ -115,7 +115,7 @@ No wonder people [started using Makesure as very simple Ansible replacement](htt
 
 Next, I want to talk a bit about how I designed this function and what principles I followed.
 
-## The items to take into consideration
+## Design principles
 
 I design the tool very minimalistic. In accordance with the principle [worse is better](https://en.wikipedia.org/wiki/Worse_is_better) all else being equal I prefer not to add a feature to the project than to add it. In other words, the necessity of a feature must be absolutely outstanding to justify its addition.
 
@@ -127,27 +127,57 @@ So I used to have [this piece](https://github.com/xonixx/makesure/tree/e54733e43
 > - Goals with parameters, like in [just](https://github.com/casey/just#recipe-parameters)
 >   - We deliberately don't support this feature. The idea is that the build file should be self-contained, so have all the information to run in it, no external parameters should be required. This should be much easier for the final user to run a build. The other reason is that the idea of goal parameterization doesn't play well with dependencies. The tool however has limited parameterization capabilities via `./makesure -D VAR=value`.
 
-It appears that actually what we didn't want to support was calling goals with arguments from CLI. Parametrized goals themselves appeared to be really needed feature as explained by examples above.
+It appears that actually what we didn't want to support was calling goals with arguments from CLI. Thus, this part [was re-worded a bit](https://github.com/xonixx/makesure/tree/b549d2ef575d601de05a9630e527f755a4d83252#omitted-features). Parametrized goals themselves appeared to be really needed feature as explained by examples above.
 
-## Implementation concerns
+## Implementation process
 
-Idea of parameterized goals lived for quite some time in my head. The first design draft attempt was [this](https://github.com/xonixx/makesure/issues/96). But it appeared to be a dead end in this form, so was discarded.   
-So for a long time I resisted to add the feature. Firstly, due to increased complexity that will not be needed in a majority of typical usage scenarios. But mostly, because it’s tricky to do while preserving the declarative semantics of dependencies.
-You see, dependency of one goal on another is fundamentally different from function call.
+Idea of parameterized goals lived for quite some time in my head. The first design draft attempt was [this](https://github.com/xonixx/makesure/issues/96). But it appeared to be a dead end in this form (simply, I didn't like the result), so it was discarded.   
 
-But this is not impossible.
-For example, [just](https://github.com/casey/just) does have parameterized goals.
+For a long time I resisted to add the feature. Firstly, due to increasing complexity that will not be needed in a majority of typical `makesure` usage scenarios. But mostly, because it’s tricky to do while preserving the declarative semantics of dependencies. You see, dependency of one goal on another is fundamentally different from function call (more on this further).
+
+But this was not impossible. For example, [just](https://github.com/casey/just) does have parameterized goals.
 
 I needed some time to think on the problem in depth.
 
 Adding the feature needed lots of thorough consideration to:
 
-- come up with good syntax: easy to use and easy to parse
-- accidentally not to introduce alternative ways of doing the same
-- avoid considerable complication of implementation and adding lots of KB to code size. You see, the makesure is tiny one-file script [designed to be zero-install](https://github.com/xonixx/makesure/tree/e54733e43553b3eb656a8b5b03bf6a0be208397f#installation), it must be extremely lightweight.  
-- understand all possible implications of new feature to the existing ones, so make sure they play well in all reasonable combinations
+- Come up with good syntax: easy to use and easy to parse.
+- Accidentally not to introduce alternative ways of doing the same.
+- Avoid considerable complication of implementation and adding lots of KB to code size. You see, `makesure` is a tiny one-file script [designed to be zero-install](https://github.com/xonixx/makesure/tree/e54733e43553b3eb656a8b5b03bf6a0be208397f#installation), it must be extremely lightweight.  
+- Understand all possible implications of new feature to the existing ones, so make sure they play well in all reasonable combinations.
+ 
+*** 
 
-I started from https://github.com/xonixx/makesure/blob/main/docs/parameterized_goals.md
+I started from drafting the basic design points in the [document](https://github.com/xonixx/makesure/blob/main/docs/parameterized_goals.md). 
+
+Obviously, I started from the design of the syntax for the feature, and quickly came to the solution with two keywords `@params` and `@args` (it was inspired by `async` + `await` from JavaScript).
+        
+I also considered the syntax 
+```shell
+@goal greet(H, W)
+  echo "$H $W!"
+  
+@goal default
+@depends_on greet('hello', 'world') 
+@depends_on greet('hi', 'there') 
+```
+
+And despite it's more natural for a programmer over the chosen:
+```shell
+@goal greet @params H W
+  echo "$H $W!"
+  
+@goal default
+@depends_on greet @args 'hello' 'world' 
+@depends_on greet @args 'hi' 'there' 
+```
+
+but I settled on the former for these reasons:
+
+1. It's much more complex to parse. Remember, worse is better.
+2. The syntax of `Makesurefile` is design on purpose to be a valid shell syntax (though, the semantic can differ). This gives free syntax highlighting in IDEs and [on GitHub](https://github.com/xonixx/makesure/blob/main/Makesurefile). 
+
+![Makesurefile highlighting in IDE](parameterized_goals2.png)
 
 I used as a playground https://github.com/xonixx/awk_lab/blob/main/parameterized_goals.awk
 
