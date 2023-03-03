@@ -131,11 +131,18 @@ It appears that actually what we didn't want to support was calling goals with a
 
 ## Implementation concerns
 
-Idea of parameterized goals lived for quite some time in my head. The first design draft attempt was [this](https://github.com/xonixx/makesure/issues/96). But it appeared to be dead end in this form, so was discarded.   
+Idea of parameterized goals lived for quite some time in my head. The first design draft attempt was [this](https://github.com/xonixx/makesure/issues/96). But it appeared to be a dead end in this form, so was discarded.   
 So for a long time I resisted to add the feature. Firstly, due to increased complexity that will not be needed in a majority of typical usage scenarios. But mostly, because it’s tricky to do while preserving the declarative semantics of dependencies.
 You see, dependency of one goal on another is fundamentally different from function call.
 
 But this is not impossible.
-For example, just does have parameterized goals.
+For example, [just](https://github.com/casey/just) does have parameterized goals.
 
-I need some time to think on this in depth.
+I needed some time to think on the problem in depth.
+
+Adding the feature needed lots of thorough consideration to:
+
+- come up with good syntax: easy to use and easy to parse
+- accidentally not to introduce alternative ways of doing the same
+- avoid considerable complication of implementation and adding lots of KB to code size. You see, the makesure is tiny one-file script [designed to be zero-install](https://github.com/xonixx/makesure/tree/e54733e43553b3eb656a8b5b03bf6a0be208397f#installation), it must be extremely lightweight.  
+- understand all possible implications of new feature to the existing ones, so make sure they play well in all reasonable combinations
