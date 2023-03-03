@@ -109,8 +109,22 @@ Pretty impressive, huh? To make it more prominent just check [the diff of the ch
 
 I want to mention also the other case for parameterized goals. You see, makesure happened to have very simple yet powerful facility [@reached_if](https://github.com/xonixx/makesure#reached_if). A goal can declare a condition that it has already been reached. In this case, the goal body (the corresponding shell script) will no longer be executed. This simple mechanism makes it very convenient and declarative to express the **idempotent** logic of work. In other words, to speed up the build, since what has already been done will not be repeated. This feature has been inspired by ideas from Ansible.
 
-Not surprising, people [started using Makesure as very simple Ansible replacer](https://github.com/xonixx/makesure/issues/112). But at that time it lacked the parameterized goals, and so again they suffered from [repetitive code with no easy way to reuse](https://github.com/xonixx/makesure/issues/112#issuecomment-1242065047). 
+No wonder people [started using Makesure as very simple Ansible replacement](https://github.com/xonixx/makesure/issues/112). But at that time it lacked the parameterized goals, and so again they suffered from [repetitive code with no easy way to reuse](https://github.com/xonixx/makesure/issues/112#issuecomment-1242065047).
+
+***
+
+Next, I want to talk a bit about how I designed this function and what principles I followed.
 
 ## The items to take into consideration
+
+I design the tool very minimalistic. In accordance with the principle [worse is better](https://en.wikipedia.org/wiki/Worse_is_better) all else being equal I prefer not to add a feature to the project than to add it. In other words, the necessity of a feature must be absolutely outstanding to justify its addition.
+
+*And in general, when developing a product or library, it is very important to implement the minimum possible functionality, and exactly the one that users need now. Quite often, developers are tempted to add some obvious improvements and features that are not critical and/or are redundant, simply because it seems simple. Moreover, for the same reason, it is often useful to explicitly exclude certain features/use cases. Because you can always add them later if there is an explicit request from users. Removing some kind of unsuccessful feature can be much more problematic.*
+
+So I used to have [this piece](https://github.com/xonixx/makesure/tree/e54733e43553b3eb656a8b5b03bf6a0be208397f#omitted-features) in documentation.
+
+> **Omitted features**
+> - Goals with parameters, like in [just](https://github.com/casey/just#recipe-parameters)
+>   - We deliberately don't support this feature. The idea is that the build file should be self-contained, so have all the information to run in it, no external parameters should be required. This should be much easier for the final user to run a build. The other reason is that the idea of goal parameterization doesn't play well with dependencies. The tool however has limited parameterization capabilities via `./makesure -D VAR=value`.
 
 ## Implementation concerns
