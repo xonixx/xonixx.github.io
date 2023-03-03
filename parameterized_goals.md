@@ -146,3 +146,9 @@ Adding the feature needed lots of thorough consideration to:
 - accidentally not to introduce alternative ways of doing the same
 - avoid considerable complication of implementation and adding lots of KB to code size. You see, the makesure is tiny one-file script [designed to be zero-install](https://github.com/xonixx/makesure/tree/e54733e43553b3eb656a8b5b03bf6a0be208397f#installation), it must be extremely lightweight.  
 - understand all possible implications of new feature to the existing ones, so make sure they play well in all reasonable combinations
+
+I started from https://github.com/xonixx/makesure/blob/main/docs/parameterized_goals.md
+
+I used as a playground https://github.com/xonixx/awk_lab/blob/main/parameterized_goals.awk
+
+I want to elaborate a bit about declarative semantics and complexity. 
