@@ -109,7 +109,7 @@ Pretty impressive, huh? To make it more prominent just check [the diff of the ch
 
 I want to mention also the other case for parameterized goals. You see, makesure happened to have very simple yet powerful facility [@reached_if](https://github.com/xonixx/makesure#reached_if). A goal can declare a condition that it has already been reached. In this case, the goal body (the corresponding shell script) will no longer be executed. This simple mechanism makes it very convenient and declarative to express the **idempotent** logic of work. In other words, to speed up the build, since what has already been done will not be repeated. This feature has been inspired by ideas from Ansible.
 
-No wonder people [started using Makesure as very simple Ansible replacement](https://github.com/xonixx/makesure/issues/112). But at that time it lacked the parameterized goals, and so again they suffered from [repetitive code with no easy way to reuse](https://github.com/xonixx/makesure/issues/112#issuecomment-1242065047).
+No wonder people [started using Makesure as very simple Ansible replacement](https://github.com/xonixx/makesure/issues/112). But at that time it lacked parameterized goals, and so again they suffered from [repetitive code with no easy way to reuse](https://github.com/xonixx/makesure/issues/112#issuecomment-1242065047).
 
 ***
 
@@ -119,7 +119,7 @@ Next, I want to talk a bit about how I designed this function and what principle
 
 I design the tool very minimalistic. In accordance with the principle [worse is better](https://en.wikipedia.org/wiki/Worse_is_better) all else being equal I prefer not to add a feature to the project than to add it. In other words, the necessity of a feature must be absolutely outstanding to justify its addition.
 
-*And in general, when developing a product or library, it is very important to implement the minimum possible functionality, and exactly the one that users need now. Quite often, developers are tempted to add some obvious improvements and features that are not critical and/or are redundant, simply because it seems simple. Moreover, for the same reason, it is often useful to explicitly exclude certain features/use cases. Because you can always add them later if there is an explicit request from users. Removing some kind of unsuccessful feature can be much more problematic.*
+*In general, when developing a product or library, it is very important to implement the minimum possible functionality, and exactly the one that users need now. Quite often, developers are tempted to add some obvious improvements and features that are not critical and/or are redundant, simply because it seems simple. Moreover, for the same reason, it is often useful to explicitly exclude certain features/use cases. Because you can always add them later if there is an explicit request from users. Removing some kind of unsuccessful feature can be much more problematic.*
 
 So I used to have [this piece](https://github.com/xonixx/makesure/tree/e54733e43553b3eb656a8b5b03bf6a0be208397f#omitted-features) in documentation.
 
@@ -127,13 +127,28 @@ So I used to have [this piece](https://github.com/xonixx/makesure/tree/e54733e43
 > - Goals with parameters, like in [just](https://github.com/casey/just#recipe-parameters)
 >   - We deliberately don't support this feature. The idea is that the build file should be self-contained, so have all the information to run in it, no external parameters should be required. This should be much easier for the final user to run a build. The other reason is that the idea of goal parameterization doesn't play well with dependencies. The tool however has limited parameterization capabilities via `./makesure -D VAR=value`.
 
-It appears that actually what we didn't want to support was calling goals with arguments from CLI. Thus, this part [was re-worded a bit](https://github.com/xonixx/makesure/tree/b549d2ef575d601de05a9630e527f755a4d83252#omitted-features). Parametrized goals themselves appeared to be really needed feature as explained by examples above.
+It appears that actually what we didn't want to support was calling goals with arguments from CLI. Thus, this part [was re-worded a bit](https://github.com/xonixx/makesure/tree/b549d2ef575d601de05a9630e527f755a4d83252#omitted-features). 
+
+Parametrized goals themselves appeared to be really needed feature as explained by examples above.
 
 ## Implementation process
 
 Idea of parameterized goals lived for quite some time in my head. The first design attempt was [this](https://github.com/xonixx/makesure/issues/96). But it appeared to be a dead end in this form (simply, I didn't like the result), so it was discarded.   
 
-For a long time I resisted to add the feature. Firstly, due to increasing complexity that will not be needed in a majority of typical `makesure` usage scenarios. But mostly, because it’s tricky to do while preserving the declarative semantics of dependencies. You see, dependency of one goal on another is fundamentally different from function call (more on this further).
+For a long time I resisted to add the feature. Firstly, due to increasing complexity that will not be needed in a majority of typical `makesure` usage scenarios. But mostly, because it’s tricky to do while preserving the declarative semantics of dependencies. You see, dependency of one goal on another is fundamentally different from function call.
+
+Why is so? You see, the dependency tree is resolved by `makesure` before running the goals! This is why, for example, it's possible to report a loop in dependencies as an error rather than falling into infinite execution loop. Also, the run-only-once semantic for reaching goals: 
+
+```shell
+@goal a
+@depends_on b c
+
+@goal b
+@depends_on c
+
+@goal c
+  echo "Reaching c ..." # must be printed only once
+```
 
 But this was not impossible. For example, [just](https://github.com/casey/just) does have parameterized goals.
 
@@ -174,7 +189,7 @@ I also considered the syntax:
 Despite the latter is more natural for a programmer, I settled on the former for the following reasons:
 
 1. It's much easier to parse. Remember, worse is better.
-2. The syntax of `Makesurefile` is design on purpose to be a valid shell syntax (though, the semantic can differ). This gives a free syntax highlighting in IDEs and [on GitHub](https://github.com/xonixx/makesure/blob/main/Makesurefile). 
+2. The syntax of `Makesurefile` is designed on purpose to be a valid shell syntax (though, the semantic can differ). This gives a free syntax highlighting in IDEs and [on GitHub](https://github.com/xonixx/makesure/blob/main/Makesurefile). 
 
 ![Makesurefile highlighting in IDE](parameterized_goals2.png)
 
