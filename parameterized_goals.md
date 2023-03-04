@@ -202,3 +202,13 @@ I used as a playground https://github.com/xonixx/awk_lab/blob/main/parameterized
 I want to elaborate a bit about declarative semantics and complexity.
 
 ## Result
+
+The parameterized goals feature was implemented and delivered in the latest release [0.9.20](https://github.com/xonixx/makesure/releases/tag/v0.9.20).
+
+As I mentioned above, the requirement to keep the tool small was very important. Before the addition the tool [weighted around 20 KB](https://github.com/xonixx/makesure/blob/v0.9.19/makesure). I anticipated that the feature must be rather complex in implementation, but I felt that it should not take more than 5 KB to add it. Amazing, but eventually the tool became [only 2 KB bigger](https://github.com/xonixx/makesure/blob/v0.9.20/makesure)! This is due to [some minification tricks](https://github.com/xonixx/makesure/blob/v0.9.20/Makesurefile#L172) I've added in this release.  
+
+In addition to refactorings above this also allowed to [improve a bit](https://github.com/xonixx/makesure/commit/7a15ad9bcd43aefd70f329c35132a83ea9b1117c) the own `Makesurefile` of Makesure project! Yes, [we eat our own dog food](https://en.wikipedia.org/wiki/Eating_your_own_dog_food).   
+           
+***
+
+If you find this article interesting and would like to try the tool yourself please find [installation instructions](https://github.com/xonixx/makesure#installation).
