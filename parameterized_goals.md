@@ -137,7 +137,7 @@ Idea of parameterized goals lived for quite some time in my head. The first desi
 
 For a long time I resisted to add the feature. Firstly, due to increasing complexity that will not be needed in a majority of typical `makesure` usage scenarios. But mostly, because it’s tricky to do while preserving the declarative semantics of dependencies. You see, dependency of one goal on another is fundamentally different from function call.
 
-Why is so? You see, the dependency tree is resolved by `makesure` before running the goals! This is why, for example, it's possible to report a loop in dependencies as an error rather than falling into infinite execution loop. Also, the run-only-once semantic for reaching goals: 
+Why is so? You see, the dependency tree is resolved by `makesure` before running the goals! This is why, for example, it is possible to report a cycle in dependencies as an error, rather than falling into an infinite execution loop. Also, the run-only-once semantic for reaching goals: 
 
 ```shell
 @goal a
@@ -152,9 +152,7 @@ Why is so? You see, the dependency tree is resolved by `makesure` before running
 
 But this was not impossible. For example, [just](https://github.com/casey/just) does have parameterized goals.
 
-I needed some time to think on the problem in depth.
-
-Adding the feature needed lots of thorough consideration to:
+I needed some time to think on the problem in depth. Adding the feature needed lots of thorough consideration to:
 
 - Come up with good syntax: easy to use and easy to parse.
 - Accidentally not to introduce alternative ways of doing the same.
