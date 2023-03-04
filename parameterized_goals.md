@@ -174,10 +174,12 @@ And despite it's more natural for a programmer over the chosen:
 
 but I settled on the former for these reasons:
 
-1. It's much more complex to parse. Remember, worse is better.
-2. The syntax of `Makesurefile` is design on purpose to be a valid shell syntax (though, the semantic can differ). This gives free syntax highlighting in IDEs and [on GitHub](https://github.com/xonixx/makesure/blob/main/Makesurefile). 
+1. It's much easier to parse. Remember, worse is better.
+2. The syntax of `Makesurefile` is design on purpose to be a valid shell syntax (though, the semantic can differ). This gives a free syntax highlighting in IDEs and [on GitHub](https://github.com/xonixx/makesure/blob/main/Makesurefile). 
 
 ![Makesurefile highlighting in IDE](parameterized_goals2.png)
+
+Further, in the same [design document](https://github.com/xonixx/makesure/blob/main/docs/parameterized_goals.md) I analyzed other aspects of the feature in the form of Q and A. Mostly I strove to answer "No." to most of them in order to keep the feature as limited as possible, but at the same time useful for existing use-cases. If need be, later some or all of them can be added. But it's absolutely important to start from [something really simple but practical](https://world.hey.com/dhh/the-simplest-thing-that-could-possibly-work-8f0d8b43).
 
 I used as a playground https://github.com/xonixx/awk_lab/blob/main/parameterized_goals.awk
 
