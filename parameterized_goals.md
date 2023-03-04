@@ -229,9 +229,9 @@ we will have some pre-processing step before the execution to "materialize" (or 
 @depends_on 'greet@John'
 ```
 
-So it's the same logic, but no more parameterized goals. Instead, "materialized" goals are generated according to their usages. I believe, a more scientific term for this would be [monomorphization](https://en.wikipedia.org/wiki/Monomorphization).
-
-I used as a playground https://github.com/xonixx/awk_lab/blob/main/parameterized_goals.awk
+You see, it's the same logic, but no more parameterized goals. Instead, "materialized" goals are generated according to their usages. I believe, a more scientific term for this would be [monomorphization](https://en.wikipedia.org/wiki/Monomorphization). This was the key step, since it allowed to reuse the existing execution model that can already handle non-parameterized representation.
+                        
+Since the problem was very clear now, it was logical to solve it separately, apart from the main code. I did this in [separate playground repository](https://github.com/xonixx/awk_lab/blob/main/parameterized_goals.awk). Once this part was done and tested on its own, it was integrated into the core of the tool.
 
 ## Result
 
