@@ -131,9 +131,7 @@ It appears that actually what we didn't want to support was calling goals with a
 
 Parametrized goals themselves appeared to be really needed feature as explained by examples above.
 
-## Implementation process
-
-Idea of parameterized goals lived for quite some time in my head. The first design attempt was [this](https://github.com/xonixx/makesure/issues/96). But it appeared to be a dead end in this form (simply, I didn't like the result), so it was discarded.   
+## Design considerations
 
 For a long time I resisted to add the feature. Firstly, due to increasing complexity that will not be needed in a majority of typical `makesure` usage scenarios. But mostly, because it’s tricky to do while preserving the declarative semantics of dependencies. You see, dependency of one goal on another is fundamentally different from function call.
 
@@ -158,10 +156,12 @@ I needed some time to think on the problem in depth. Adding the feature needed l
 - Accidentally not to introduce alternative ways of doing the same.
 - Avoid considerable complication of implementation and adding lots of KB to code size. You see, `makesure` is a tiny one-file script [designed to be zero-install](https://github.com/xonixx/makesure/tree/e54733e43553b3eb656a8b5b03bf6a0be208397f#installation), it must be extremely lightweight.  
 - Understand all possible implications of new feature to the existing ones, so make sure they play well in all reasonable combinations.
- 
-*** 
 
-I started from drafting the basic design points in the [document](https://github.com/xonixx/makesure/blob/main/docs/parameterized_goals.md). 
+## Implementation process
+
+Idea of parameterized goals lived for quite some time in my head. The first design attempt was [this](https://github.com/xonixx/makesure/issues/96). But it appeared to be a dead end in this form (simply, I didn't like the result), so it was discarded.
+
+A lot of time has passed. I started the new design from drafting the basic design points in the [document](https://github.com/xonixx/makesure/blob/main/docs/parameterized_goals.md). 
 
 Obviously, I started from designing the syntax, and quickly came to the solution with two complementary keywords `@params` and `@args` (this was inspired by `async` + `await` from JavaScript):
 
