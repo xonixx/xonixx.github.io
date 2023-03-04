@@ -195,11 +195,11 @@ Despite the latter is more natural for a programmer, I settled on the former for
 
 [Further](https://github.com/xonixx/makesure/blob/main/docs/parameterized_goals.md#q-default-values), in the same design document I analyzed other aspects of the feature in the form of Q and A. Mostly I strove to answer "No." to most of them in order to keep the feature as limited as possible, but at the same time useful for existing use-cases. If need be, later some or all of them can be added. But it's absolutely important to start from [something really simple but practical](https://world.hey.com/dhh/the-simplest-thing-that-could-possibly-work-8f0d8b43).
 
+[And finally](https://github.com/xonixx/makesure/blob/main/docs/parameterized_goals.md#parameterized-goals-vs-existing-features) I thought through the interaction of the new feature with existing ones.
+
 ***
 
 I used as a playground https://github.com/xonixx/awk_lab/blob/main/parameterized_goals.awk
-
-I want to elaborate a bit about declarative semantics and complexity.
 
 ## Result
 
@@ -211,4 +211,4 @@ In addition to refactorings above this also allowed to [improve a bit](https://g
            
 ***
 
-If you find this article interesting and would like to try the tool yourself please find [installation instructions](https://github.com/xonixx/makesure#installation).
+If you find this article interesting and would like to try the tool for your project please find [installation instructions](https://github.com/xonixx/makesure#installation).
