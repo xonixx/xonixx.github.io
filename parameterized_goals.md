@@ -129,7 +129,7 @@ So I used to have [this piece](https://github.com/xonixx/makesure/tree/e54733e43
 
 It appears that actually what we didn't want to support was calling goals with arguments from CLI. Thus, this part [was re-worded a bit](https://github.com/xonixx/makesure/tree/b549d2ef575d601de05a9630e527f755a4d83252#omitted-features). 
 
-Parametrized goals themselves appeared to be really needed feature as explained by examples above.
+Parametrized goals themselves appeared to be really needed feature as explained by the examples above.
 
 ## Design considerations
 
@@ -165,7 +165,7 @@ A lot of time has passed. [Russia started aggressive and genocidal full scale wa
 
 I started the new design from drafting the basic design points in the [document](https://github.com/xonixx/makesure/blob/main/docs/parameterized_goals.md). 
 
-Obviously, I started from designing the syntax, and quickly came to the solution with two complementary keywords `@params` and `@args` (this was inspired by `async` + `await` from JavaScript):
+Obviously, I started from designing the syntax, and quickly came up with a solution with two complementary keywords `@params` and `@args` (this was inspired by `async` + `await` from JavaScript):
 
 ```shell
 @goal greet @params H W
@@ -198,6 +198,38 @@ Despite the latter is more natural for a programmer, I settled on the former for
 [And finally](https://github.com/xonixx/makesure/blob/main/docs/parameterized_goals.md#parameterized-goals-vs-existing-features) I thought through the interaction of the new feature with existing ones.
 
 ***
+
+Implementation-wise I had an idea for how this should be done. It is better to explain by example. Given this parameterized goal and its usage:
+```shell
+@goal greet @params WHO
+  echo "Hello $WHO!"
+  
+@goal greet_all
+@depends_on greet @args 'world' 
+@depends_on greet @args 'Jane' 
+@depends_on greet @args 'John' 
+```
+
+we will have some pre-processing step before the execution to "materialize" (or in other words, de-parameterize the goals):
+
+```shell
+@goal 'greet@world'
+  WHO=world
+  echo "Hello $WHO!"
+@goal 'greet@Jane'
+  WHO=Jane
+  echo "Hello $WHO!"
+@goal 'greet@John'
+  WHO=John
+  echo "Hello $WHO!"
+
+@goal greet_all
+@depends_on 'greet@world' 
+@depends_on 'greet@Jane' 
+@depends_on 'greet@John'
+```
+
+So it's the same logic, but no more parameterized goals. Instead, "materialized" goals are generated according to their usages. I believe, a more scientific term for this would be [monomorphization](https://en.wikipedia.org/wiki/Monomorphization).
 
 I used as a playground https://github.com/xonixx/awk_lab/blob/main/parameterized_goals.awk
 
