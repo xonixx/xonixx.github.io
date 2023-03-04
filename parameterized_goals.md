@@ -161,7 +161,9 @@ I needed some time to think on the problem in depth. Adding the feature needed l
 
 Idea of parameterized goals lived for quite some time in my head. The first design attempt was [this](https://github.com/xonixx/makesure/issues/96). But it appeared to be a dead end in this form (simply, I didn't like the result), so it was discarded.
 
-A lot of time has passed. I started the new design from drafting the basic design points in the [document](https://github.com/xonixx/makesure/blob/main/docs/parameterized_goals.md). 
+A lot of time has passed. [Russia started aggressive and genocidal full scale war against my country 🇺🇦Ukraine](https://en.wikipedia.org/wiki/2022_Russian_invasion_of_Ukraine). 
+
+I started the new design from drafting the basic design points in the [document](https://github.com/xonixx/makesure/blob/main/docs/parameterized_goals.md). 
 
 Obviously, I started from designing the syntax, and quickly came to the solution with two complementary keywords `@params` and `@args` (this was inspired by `async` + `await` from JavaScript):
 
