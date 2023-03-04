@@ -131,7 +131,7 @@ It appears that actually what we didn't want to support was calling goals with a
 
 ## Implementation process
 
-Idea of parameterized goals lived for quite some time in my head. The first design draft attempt was [this](https://github.com/xonixx/makesure/issues/96). But it appeared to be a dead end in this form (simply, I didn't like the result), so it was discarded.   
+Idea of parameterized goals lived for quite some time in my head. The first design attempt was [this](https://github.com/xonixx/makesure/issues/96). But it appeared to be a dead end in this form (simply, I didn't like the result), so it was discarded.   
 
 For a long time I resisted to add the feature. Firstly, due to increasing complexity that will not be needed in a majority of typical `makesure` usage scenarios. But mostly, because it’s tricky to do while preserving the declarative semantics of dependencies. You see, dependency of one goal on another is fundamentally different from function call (more on this further).
 
@@ -150,9 +150,18 @@ Adding the feature needed lots of thorough consideration to:
 
 I started from drafting the basic design points in the [document](https://github.com/xonixx/makesure/blob/main/docs/parameterized_goals.md). 
 
-Obviously, I started from the design of the syntax for the feature, and quickly came to the solution with two keywords `@params` and `@args` (it was inspired by `async` + `await` from JavaScript).
-        
-I also considered the syntax 
+Obviously, I started from designing the syntax, and quickly came to the solution with two complementary keywords `@params` and `@args` (this was inspired by `async` + `await` from JavaScript):
+
+```shell
+@goal greet @params H W
+  echo "$H $W!"
+  
+@goal default
+@depends_on greet @args 'hello' 'world' 
+@depends_on greet @args 'hi' 'there' 
+```        
+
+I also considered the syntax: 
 ```shell
 @goal greet(H, W)
   echo "$H $W!"
@@ -162,25 +171,19 @@ I also considered the syntax
 @depends_on greet('hi', 'there') 
 ```
 
-And despite it's more natural for a programmer over the chosen:
-```shell
-@goal greet @params H W
-  echo "$H $W!"
-  
-@goal default
-@depends_on greet @args 'hello' 'world' 
-@depends_on greet @args 'hi' 'there' 
-```
-
-but I settled on the former for these reasons:
+Despite the latter is more natural for a programmer, I settled on the former for the following reasons:
 
 1. It's much easier to parse. Remember, worse is better.
 2. The syntax of `Makesurefile` is design on purpose to be a valid shell syntax (though, the semantic can differ). This gives a free syntax highlighting in IDEs and [on GitHub](https://github.com/xonixx/makesure/blob/main/Makesurefile). 
 
 ![Makesurefile highlighting in IDE](parameterized_goals2.png)
 
-Further, in the same [design document](https://github.com/xonixx/makesure/blob/main/docs/parameterized_goals.md) I analyzed other aspects of the feature in the form of Q and A. Mostly I strove to answer "No." to most of them in order to keep the feature as limited as possible, but at the same time useful for existing use-cases. If need be, later some or all of them can be added. But it's absolutely important to start from [something really simple but practical](https://world.hey.com/dhh/the-simplest-thing-that-could-possibly-work-8f0d8b43).
+[Further](https://github.com/xonixx/makesure/blob/main/docs/parameterized_goals.md#q-default-values), in the same design document I analyzed other aspects of the feature in the form of Q and A. Mostly I strove to answer "No." to most of them in order to keep the feature as limited as possible, but at the same time useful for existing use-cases. If need be, later some or all of them can be added. But it's absolutely important to start from [something really simple but practical](https://world.hey.com/dhh/the-simplest-thing-that-could-possibly-work-8f0d8b43).
+
+***
 
 I used as a playground https://github.com/xonixx/awk_lab/blob/main/parameterized_goals.awk
 
-I want to elaborate a bit about declarative semantics and complexity. 
+I want to elaborate a bit about declarative semantics and complexity.
+
+## Result
