@@ -97,7 +97,7 @@ Much better!
 
 ***
 
-For more realistic example let's consider the build file of my project [intellij-awk](https://github.com/xonixx/intellij-awk) - the missing IntelliJ IDEA language support plugin for AWK. There, [starting line 119](https://github.com/xonixx/intellij-awk/blob/89d7c22572329c9f122550c69b60597bc0f4e9d9/Makesurefile#L119) I had some rather repetitive set of goals. They were responsible for downloading HTML documentation files from [Gawk online manual](https://www.gnu.org/software/gawk/manual/html_node/index.html), processing them and compiling the resulting file [std.awk](https://github.com/xonixx/intellij-awk/blob/main/src/main/resources/std.awk). This file is then used to provide documentation popups inside IDE:
+For more realistic example let's consider the build file of my project [intellij-awk](https://github.com/xonixx/intellij-awk) - "the missing IntelliJ IDEA language support plugin for AWK". There, [starting line 119](https://github.com/xonixx/intellij-awk/blob/89d7c22572329c9f122550c69b60597bc0f4e9d9/Makesurefile#L119) I had some rather repetitive set of goals. They were responsible for downloading HTML documentation files from [GNU Awk online manual](https://www.gnu.org/software/gawk/manual/html_node/String-Functions.html), processing them and compiling the resulting file [std.awk](https://github.com/xonixx/intellij-awk/blob/main/src/main/resources/std.awk). This file is then used to provide documentation popups inside IDE:
 
 ![documentation popup inside IDE](parameterized_goals1.png)
 
@@ -121,15 +121,15 @@ I design the tool very minimalistic. In accordance with the principle [worse is 
 
 *In general, when developing a product or library, it is very important to implement the minimum possible functionality, and exactly the one that users need now. Quite often, developers are tempted to add some obvious improvements and features that are not critical and/or are redundant, simply because it seems simple. Moreover, for the same reason, it is often useful to explicitly exclude certain features/use cases. Because you can always add them later if there is an explicit request from users. Removing some kind of unsuccessful feature can be much more problematic.*
 
-So I used to have [this piece](https://github.com/xonixx/makesure/tree/e54733e43553b3eb656a8b5b03bf6a0be208397f#omitted-features) in documentation.
+So I used to have [this piece](https://github.com/xonixx/makesure/tree/e54733e43553b3eb656a8b5b03bf6a0be208397f#omitted-features) in documentation:
 
 > **Omitted features**
 > - Goals with parameters, like in [just](https://github.com/casey/just#recipe-parameters)
 >   - We deliberately don't support this feature. The idea is that the build file should be self-contained, so have all the information to run in it, no external parameters should be required. This should be much easier for the final user to run a build. The other reason is that the idea of goal parameterization doesn't play well with dependencies. The tool however has limited parameterization capabilities via `./makesure -D VAR=value`.
 
-It appears that actually what we didn't want to support was calling goals with arguments from CLI. Thus, this part [was re-worded a bit](https://github.com/xonixx/makesure/tree/b549d2ef575d601de05a9630e527f755a4d83252#omitted-features). 
+It appears that actually what we didn't want to support was calling goals with arguments from CLI. So this part has been [slightly reformulated](https://github.com/xonixx/makesure/tree/b549d2ef575d601de05a9630e527f755a4d83252#omitted-features). 
 
-Parametrized goals themselves appeared to be really needed feature as explained by the examples above.
+By themselves, parameterized goals turned out to be a really necessary feature, as shown in the examples above.
 
 ## Design considerations
 
@@ -159,7 +159,7 @@ I needed some time to think on the problem in depth. Adding the feature needed l
 
 ## Implementation process
 
-Idea of parameterized goals lived for quite some time in my head. The first design attempt was [this](https://github.com/xonixx/makesure/issues/96). But it appeared to be a dead end in this form (simply, I didn't like the result), so it was discarded.
+The idea of parameterized goals lived for quite some time in my head. The first design attempt was [this](https://github.com/xonixx/makesure/issues/96). But it appeared to be a dead end in this form (simply, I didn't like the result), so it was discarded.
 
 A lot of time has passed. [Russia started aggressive and genocidal full scale war against my country 🇺🇦Ukraine](https://en.wikipedia.org/wiki/2022_Russian_invasion_of_Ukraine). 
 
@@ -229,7 +229,7 @@ we will have some pre-processing step before the execution to "materialize" (or 
 @depends_on 'greet@John'
 ```
 
-You see, it's the same logic, but no more parameterized goals. Instead, "materialized" goals are generated according to their usages. I believe, a more scientific term for this would be [monomorphization](https://en.wikipedia.org/wiki/Monomorphization). 
+You see, it's the same logic, but no more parameterized goals. Instead, "materialized" goals are generated according to their usages. I believe, a more scientific term for this is [monomorphization](https://en.wikipedia.org/wiki/Monomorphization). 
 
 This was a key step, since it allowed to reuse the existing execution model that could already handle non-parameterized representation.
                         
@@ -241,7 +241,9 @@ The parameterized goals feature was implemented and delivered in the latest rele
 
 As I mentioned above, the requirement to keep the tool small was very important. Before the addition the tool [weighted around 20 KB](https://github.com/xonixx/makesure/blob/v0.9.19/makesure). I anticipated that the feature must be rather complex in implementation, but I felt that it should not take more than 5 KB to add it. Amazing, but eventually the tool became [only 2 KB bigger](https://github.com/xonixx/makesure/blob/v0.9.20/makesure)! This is due to [some minification tricks](https://github.com/xonixx/makesure/blob/v0.9.20/Makesurefile#L172) I've added in this release.  
 
-In addition to refactorings above this also allowed to [improve a bit](https://github.com/xonixx/makesure/commit/7a15ad9bcd43aefd70f329c35132a83ea9b1117c) the own `Makesurefile` of Makesure project! Yes, [we eat our own dog food](https://en.wikipedia.org/wiki/Eating_your_own_dog_food).   
+In addition to refactorings above this also allowed to [improve a bit](https://github.com/xonixx/makesure/commit/7a15ad9bcd43aefd70f329c35132a83ea9b1117c) the own `Makesurefile` of Makesure project! Yes, [we eat our own dog food](https://en.wikipedia.org/wiki/Eating_your_own_dog_food).
+
+It's also interesting to note, that developing and debugging this new feature [revealed the bug](https://lists.gnu.org/archive/html/bug-gawk/2023-01/msg00026.html) in the latest version of GAWK (already fixed, thanks to Arnold Robbins).
            
 ***
 
