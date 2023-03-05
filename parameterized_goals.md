@@ -243,7 +243,7 @@ As I mentioned above, the requirement to keep the tool small was very important.
 
 In addition to refactorings above this also allowed to [improve a bit](https://github.com/xonixx/makesure/commit/7a15ad9bcd43aefd70f329c35132a83ea9b1117c) the own `Makesurefile` of Makesure project! Yes, [we eat our own dog food](https://en.wikipedia.org/wiki/Eating_your_own_dog_food).
 
-It's also interesting to note, that developing and debugging this new feature [revealed the bug](https://lists.gnu.org/archive/html/bug-gawk/2023-01/msg00026.html) in the latest version of GAWK (already fixed, thanks to Arnold Robbins).
+It's also interesting to note, that the developing and debugging of this new feature [revealed the bug](https://lists.gnu.org/archive/html/bug-gawk/2023-01/msg00026.html) in the latest version of GAWK (already fixed, thanks to Arnold Robbins).
            
 ***
 
