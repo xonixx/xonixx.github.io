@@ -241,7 +241,7 @@ The parameterized goals feature was implemented and delivered in the latest rele
 
 As I mentioned above, the requirement to keep the tool small was very important. Before the addition the tool [weighted around 20 KB](https://github.com/xonixx/makesure/blob/v0.9.19/makesure). I anticipated that the feature must be rather complex in implementation, but I felt that it should not take more than 5 KB to add it. Amazing, but eventually the tool became [only 2 KB bigger](https://github.com/xonixx/makesure/blob/v0.9.20/makesure)! This is due to [some minification tricks](https://github.com/xonixx/makesure/blob/v0.9.20/Makesurefile#L172) I've added in this release.  
 
-In addition to refactorings above this also allowed to [improve a bit](https://github.com/xonixx/makesure/commit/7a15ad9bcd43aefd70f329c35132a83ea9b1117c) the own `Makesurefile` of Makesure project! Yes, [we eat our own dog food](https://en.wikipedia.org/wiki/Eating_your_own_dog_food).
+In addition to refactoring opportunities mentioned above this also allowed to [improve a bit](https://github.com/xonixx/makesure/commit/7a15ad9bcd43aefd70f329c35132a83ea9b1117c) the own `Makesurefile` of Makesure project! Yes, [we eat our own dog food](https://en.wikipedia.org/wiki/Eating_your_own_dog_food).
 
 It's also interesting to note, that the development and debugging of this new feature [revealed the bug](https://lists.gnu.org/archive/html/bug-gawk/2023-01/msg00026.html) in the latest version of GAWK (already fixed, thanks to Arnold Robbins).
            
