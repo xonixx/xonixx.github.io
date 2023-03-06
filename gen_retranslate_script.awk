@@ -1,6 +1,6 @@
 BEGIN {
   MD = ARGV[1]
-#  print MD
+  #  print MD
   Text = ""
   PartNo = 0
   PerPart = 4000
@@ -11,7 +11,7 @@ BEGIN {
   print "#!/bin/sh\nrm " Retranslated > RetranslateScript
 }
 
-/```/ {
+/^```/ {
   if (InsideCode) {
     InsideCode = 0
     addText("X")
@@ -20,24 +20,24 @@ BEGIN {
   next
 }
 
-!InsideCode {
-  addText($0)
-  createPartIfNeeded()
+{
+  if (!InsideCode) addText($0)
+  if (length(Text) > PerPart){
+    createPart()
+  }
 }
 
 END {
-  createPartIfNeeded()
+  createPart()
 }
 
 function addText(s) { Text = Text "\n" s }
-function createPartIfNeeded(   part,part1,part2) {
-  if (length(Text) > PerPart){
-    printf "%s", Text > (part = TempFolder "/" MD "__part" PartNo ".md")
-    print "./soft/trans -brief -i " part " -o " (part1 = part "__1.md") " en:ru" >> RetranslateScript
-    print "./soft/trans -brief -i " part1" -o " (part2 = part "__2.md") " ru:en" >> RetranslateScript
-    print "cat " part2 " >> " Retranslated >> RetranslateScript
-    print "" >> RetranslateScript
-    PartNo++
-    Text = ""
-  }
+function createPart(   part,part1,part2) {
+  printf "%s", Text > (part = TempFolder "/" MD "__part" PartNo ".md")
+  print "./soft/trans -brief -no-auto -i " part " -o " (part1 = part "__1.md") " en:ru" >> RetranslateScript
+  print "./soft/trans -brief -no-auto -i " part1" -o " (part2 = part "__2.md") " ru:en" >> RetranslateScript
+  print "cat " part2 " >> " Retranslated >> RetranslateScript
+  print "" >> RetranslateScript
+  PartNo++
+  Text = ""
 }
