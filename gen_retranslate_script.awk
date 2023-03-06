@@ -3,11 +3,14 @@ BEGIN {
   print MD
   Text = ""
   PartNo = 0
-  PerPart = 1000
+  PerPart = 4000
+  TempFolder = "temp"
+  RetranslateScript = TempFolder "/retranslate.sh"
+  system("[ ! -d " TempFolder " ] && mkdir " TempFolder)
+  print "#!/bin/sh" > RetranslateScript
 }
 
 /```/ {
-#  print "!!!"
   if (InsideCode) {
     InsideCode = 0
     addText("X")
@@ -26,9 +29,10 @@ END {
 }
 
 function addText(s) { Text = Text "\n" s }
-function createPartIfNeeded() {
+function createPartIfNeeded(   part) {
   if (length(Text) > PerPart){
-    printf "%s", Text > MD "__part" PartNo ".md"
+    printf "%s", Text > (part = TempFolder "/" MD "__part" PartNo ".md")
+    print "./soft/trans -brief -i " part " -o " part "__1.md en:ru" >> RetranslateScript
     PartNo++
     Text = ""
   }

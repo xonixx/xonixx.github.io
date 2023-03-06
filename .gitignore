@@ -1,5 +1,4 @@
 /.idea/
 *.iml
 /soft/
-*_delme.md
-*__part*.md
+/temp/
