@@ -21,6 +21,6 @@
 
 @goal retranslate_pg
 @depends_on trans_installed
-  text="$(cat parameterized_goals.md)"
-  text="$(./soft/trans -b en:ru "$text")" # | ./soft/trans ru:en - -b > parameterized_goals_delme.md
-  echo "$text" > parameterized_goals_delme.md
+  awk -f gen_retranslate_script.awk parameterized_goals.md
+  sh temp/retranslate.sh
+  rm temp/*__part*.md
