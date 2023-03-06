@@ -18,3 +18,9 @@
 @goal _soft_folder_created @private
 @reached_if [[ -d "soft" ]]
   mkdir soft
+
+@goal retranslate_pg
+@depends_on trans_installed
+  text="$(cat parameterized_goals.md)"
+  text="$(./soft/trans -b en:ru "$text")" # | ./soft/trans ru:en - -b > parameterized_goals_delme.md
+  echo "$text" > parameterized_goals_delme.md
