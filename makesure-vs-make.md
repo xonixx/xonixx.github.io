@@ -8,6 +8,6 @@
 5. Makesure runs the entire recipe in a single shell invocation, make runs each line of the recipe in a separate shell. You need [to use `\`-splitting](https://www.gnu.org/software/make/manual/html_node/Splitting-Recipe-Lines.html) to run recipe as a whole, or use GNU-make-specific [.ONESHELL](https://www.gnu.org/software/make/manual/html_node/One-Shell.html) special target.
 6. Makesure has a built-in [timing](https://github.com/xonixx/makesure#options) capability (per-recipe and total).
 7. There are [multiple flavors of make](https://mmap.page/dive-into/make/) slightly inconsistent in syntax/behavior. Makesure, being [zero-install](https://github.com/xonixx/makesure#installation), is by design more consistent. 
-8. In Makesure all targets are _phony_ (in the sense of make). But you have explicit [@reached_if](https://github.com/xonixx/makesure#reached_if) directive to make a target declarative. 
-9. Makesure, being a task runner, doesn't support parallel recipes execution, make supports via `-j` flag.
-10. Make has own turing-complete programming language (see [Lisp in make](https://github.com/kanaka/mal/tree/master/impls/make)). Makesure is just goals + dependencies + handful of directives + bash/shell.
+8. In Makesure all targets are _phony_ (in the sense of make). But you have explicit [@reached_if](https://github.com/xonixx/makesure#reached_if) directive to make the target declarative. 
+9. Make has own turing-complete programming language (see [Lisp in make](https://github.com/kanaka/mal/tree/master/impls/make)). Makesure is just goals + dependencies + handful of directives + bash/shell.
+10. Makesure, being a task runner, doesn't support parallel recipes execution, make supports via `-j` flag.
