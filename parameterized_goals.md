@@ -3,6 +3,7 @@ title: 'Adding parameterized goals to makesure'
 description: 'Parameterized goals are a great way to declaratively reuse code in makesure'
 image: parameterized_goals2.png
 ---
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
 
 # Adding parameterized goals to makesure
 
