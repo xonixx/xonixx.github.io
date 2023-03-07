@@ -31,7 +31,7 @@ END {
   createPart()
 }
 
-function addText(s) { Text = Text "\n" s }
+function addText(s) { gsub(/[Mm]akesure/,"X1",s); Text = Text "\n" s }
 function createPart(   part,part1,part2) {
   printf "%s", Text > (part = TempFolder "/" MD "__part" PartNo ".md")
   print "./soft/trans -brief -no-auto -i " part " -o " (part1 = part "__1.md") " en:ru" >> RetranslateScript
