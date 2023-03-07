@@ -1,0 +1,26 @@
+# vim: syntax=bash
+
+@goal trans_installed
+@doc 'install translate shell'
+@depends_on _soft_folder_created
+@reached_if [[ -f soft/trans ]]
+  cd soft
+  wget git.io/trans
+  chmod +x ./trans
+  ./trans --version
+  echo
+  echo "Translate shell installed."
+
+@goal soft_installed
+@doc 'install required software'
+@depends_on trans_installed
+
+@goal _soft_folder_created @private
+@reached_if [[ -d "soft" ]]
+  mkdir soft
+
+@goal retranslate_pg
+@depends_on trans_installed
+  awk -f gen_retranslate_script.awk parameterized_goals.md
+  sh temp/retranslate.sh
+  rm temp/*__part*.md
