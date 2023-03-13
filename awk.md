@@ -1,0 +1,141 @@
+---
+title: 'AWK TODO'
+description: 'TODO'
+image: TODO
+---
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
+
+# AWK TODO
+
+_March 2023_
+
+## 4. Why awk? -better shell
+
+AWK is an interpreted language. It is very minimalistic.
+A meager minimum of features includes strings, numbers, functions, associative arrays, line-by-line I/O.
+Perhaps, we can say that it contains the minimum of features less than which it would be impossible to program on it at all.
+Canonical and very fascinating [book] (https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf) authored by the entire trio of A, W and K creators, which came out back in 1988, but it has not completely lost its relevance.
+
+> Read The AWK Programming Language, a joy to read, one of the finest docs ever written, I reckon.
+
+For a refresher on the basics of AWK, see [Awk in 20 Minutes](https://ferd.ca/awk-in-20-minutes.html).
+
+There is an opinion that Awk is not suitable for writing serious programs. Even Brian Kernighan (K in AWK) is convinced that his language is only good for small one-line programs.
+However, this does not prevent enthusiasts from creating very voluminous programs on awk:
+- [Translate shell](https://github.com/soimort/translate-shell)
+- [Compiler](https://news.ycombinator.com/item?id=13452043)
+- CPU TODO emulator
+
+The following experiments are also of interest:
+
+- [Git Implementation](https://github.com/djanderson/aho)
+- [Awklisp](https://github.com/darius/awklisp)
+- [Awkprolog](https://github.com/prolog8/awkprolog)
+
+And there is a simple explanation for this. A minimum of features liberates creativity. When there is only one way to do something, you don't spend a lot of time choosing that very way, but you concentrate on implementing a pure idea. There is no temptation to add unnecessary and often unnecessary abstractions, simply because with such restrictions it is almost impossible to implement them. In addition, there is a sports excitement - is it really possible to write something functional even in such a language.
+
+Surprisingly, you can actually get very far with Awk most of the time. Many who tried said they were surprised how well the Awk prototype worked. So, there was not even much point in rewriting it into some more traditional programming language.
+
+In principle, I am inclined to share this opinion and I am even ready to say that where you can get by with Awk, you do not need to involve Python, Ruby or Nodejs. For, as they say, a good programmer uses the most powerful tool for the task, while a hacker uses the least powerful one that leads to the goal.
+
+Personally, I've found AWK to be a surprisingly good replacement for larger than average shell scripts.
+Why?
+
+1. Portability (AWK - [part of the POSIX standard](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html)). Probably, Python in this sense will be [the most expressive opposite] (https://xkcd.com/1987/). And there will also be a lot of shells themselves. Either the more functional, but less versatile bash/zsh, or the standard, but less rich in POSIX features, sh, or the cool, but non-standard fish.
+2. Very clean C-like syntax
+3. Powerful associative arrays
+4. Powerful String Functions
+5. Easy interoperability with the shell. While the AWK core is very small, the full power of the standard *nix utilities is at your disposal.
+6. The language is very minimalistic and non-redundant, not changing since probably the year 1985. Therefore, even after reading the [canonical book] (https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf ), mentioned above, you can be sure that you know the whole language. It is unlikely that anyone would dare to say such a thing even about POSIX sh.
+
+The [blog post] (https://blog.jpalardy.com/posts/why-learn-awk/) conveys the same idea - in other words, and much more talented, but the meaning is the same.
+
+### Links
+
+- [The state of the AWK](https://lwn.net/Articles/820829/)
+
+
+## 5. Interesting facts of awk: no GC, etc.
+
+Surprisingly, the AWK language does not require a GC for its implementation. However, like sh/bash.
+
+The secret here is that the language, roughly speaking, simply lacks the ability to do 'new'. Thus, an associative array is declared simply by the fact that the corresponding variable is used 'as an array'.
+
+```awk
+arr["a"] = "b"
+```
+
+To Perl connoisseurs, this feature may be known as [Autovivification](https://en.wikipedia.org/wiki/Autovivification). In general, AWK is quite unequivocally a prototype of Perl. You can even say that Perl is a kind of AWK overgrowth on steroids ... However, we deviated.
+
+Likewise, a variable that is treated as a number (`i++`) will be implicitly declared as a numeric type, and so on.
+This is done, obviously, in order to be able to write the most compact code in one-liners, for which many of us are used to using Awk.
+
+It is also forbidden to return an array from a function, only a scalar value is allowed.
+
+```awk
+function f() {
+   a[1] = 2
+   return a # error
+}
+
+```
+But, you can pass an array to a function and fill it there
+
+```awk
+BEGIN {
+   fill(arr)
+   print arr[0] " " arr[1]
+}
+function fill(arr, i) { arr[i++] = "hello"; arr[i++] = "world" }
+```
+
+Another interesting feature. All variables are global by default. However, if you add a variable to the function parameters (like `i` above) it becomes local. Javascript works in a similar way, although there is also `var`/`let`/`const`.
+In practice, it is customary to separate "real" function parameters from "local" parameters with additional spaces for clarity.
+
+Actually, the use of local variables is a mechanism for automatic release of resources. Small [example](https://github.com/xonixx/gron.awk/blob/main/gron.awk#L81).
+```awk
+function NUMBER(res) {
+   return (tryParse1("-", res) || 1) &&
+     (tryParse1("0", res) || tryParse1("123456789", res) && (tryParseDigits(res)||1)) &&
+     (tryParse1(".", res) ? tryParseDigits(res) : 1) &&
+     (tryParse1("eE", res) ? (tryParse1("-+",res)||1) && tryParseDigits(res) : 1) &&
+     asm("number") && asm(res[0])
+}
+```
+
+The `NUMBER` function parses the number. `res` is a temporary array that will be removed automatically when the function exits.
+
+
+More of the interesting.
+
+```
+$ node -e 'function sum(n) { return n == 0 ? 0 : n + sum(n-1) }; console.info(sum(100000))'
+[eval]:1
+function sum(n) { return n == 0 ? 0 : n + sum(n-1) }; console.info(sum(100000))
+                   ^
+
+RangeError: Maximum call stack size exceeded
+     atsum([eval]:1:19)
+     atsum([eval]:1:43)
+     atsum([eval]:1:43)
+     atsum([eval]:1:43)
+     atsum([eval]:1:43)
+     atsum([eval]:1:43)
+     atsum([eval]:1:43)
+     atsum([eval]:1:43)
+     atsum([eval]:1:43)
+     atsum([eval]:1:43)
+```
+
+The same Gawk will chew a million and not choke:
+
+```
+$ gawk 'function sum(n) { return n == 0 ? 0 : n + sum(n-1) }; BEGIN { print sum(1000000) }'
+500000500000
+```
+
+By the way, GAWK [supports](https://blog.0branch.com/posts/2016-05-13-awk-tco.html) tail optimization.
+
+---
+
+About AWK syntax/grammar.
