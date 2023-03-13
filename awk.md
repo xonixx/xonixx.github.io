@@ -14,7 +14,7 @@ _March 2023_
 AWK is an interpreted language. It is very minimalistic.
 A meager minimum of features includes strings, numbers, functions, associative arrays, line-by-line I/O.
 Perhaps, we can say that it contains the minimum of features less than which it would be impossible to program on it at all.
-Canonical and very fascinating [book] (https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf) authored by the entire trio of A, W and K creators, which came out back in 1988, but it has not completely lost its relevance.
+Canonical and very fascinating [book](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf) authored by the entire trio of A, W and K creators, which came out back in 1988, but it has not completely lost its relevance.
 
 > Read The AWK Programming Language, a joy to read, one of the finest docs ever written, I reckon.
 
@@ -41,14 +41,14 @@ In principle, I am inclined to share this opinion and I am even ready to say tha
 Personally, I've found AWK to be a surprisingly good replacement for larger than average shell scripts.
 Why?
 
-1. Portability (AWK - [part of the POSIX standard](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html)). Probably, Python in this sense will be [the most expressive opposite] (https://xkcd.com/1987/). And there will also be a lot of shells themselves. Either the more functional, but less versatile bash/zsh, or the standard, but less rich in POSIX features, sh, or the cool, but non-standard fish.
+1. Portability (AWK - [part of the POSIX standard](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html)). Probably, Python in this sense will be [the most expressive opposite](https://xkcd.com/1987/). And there will also be a lot of shells themselves. Either the more functional, but less versatile bash/zsh, or the standard, but less rich in POSIX features, sh, or the cool, but non-standard fish.
 2. Very clean C-like syntax
 3. Powerful associative arrays
 4. Powerful String Functions
 5. Easy interoperability with the shell. While the AWK core is very small, the full power of the standard *nix utilities is at your disposal.
-6. The language is very minimalistic and non-redundant, not changing since probably the year 1985. Therefore, even after reading the [canonical book] (https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf ), mentioned above, you can be sure that you know the whole language. It is unlikely that anyone would dare to say such a thing even about POSIX sh.
+6. The language is very minimalistic and non-redundant, not changing since probably the year 1985. Therefore, even after reading the [canonical book](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf ), mentioned above, you can be sure that you know the whole language. It is unlikely that anyone would dare to say such a thing even about POSIX sh.
 
-The [blog post] (https://blog.jpalardy.com/posts/why-learn-awk/) conveys the same idea - in other words, and much more talented, but the meaning is the same.
+The [blog post](https://blog.jpalardy.com/posts/why-learn-awk/) conveys the same idea - in other words, and much more talented, but the meaning is the same.
 
 ### Links
 
