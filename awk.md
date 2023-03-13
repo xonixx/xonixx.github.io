@@ -50,10 +50,16 @@ Why?
 
 The [blog post](https://blog.jpalardy.com/posts/why-learn-awk/) conveys the same idea - in other words, and much more talented, but the meaning is the same.
 
-### Links
+I also want to cite a programmer [Vladimir Dinev](https://github.com/vladcc), who is creating some interesting projects with Awk:
 
-- [The state of the AWK](https://lwn.net/Articles/820829/)
-
+> ### [Why shell + awk?](https://github.com/vladcc/shawk#why-shell--awk)
+>Mainly because of this serendipitous observation:
+>
+>The shell takes as input a string, executes one or more commands based on that string, and these commands output more strings as their result. awk is really good at working with strings. It can read them, write them, split them, compare them, match a regex, mostly anything you would want to do with a string. With the added bonus of doing math. The shell can call awk and awk can call the shell. The shell can execute any process, thus awk can execute any process. Therefore awk can provide any input you can provide to the shell and make sense of any result. The shell and awk are best friends. With their help the Unix environment turns into this huge high level API. The equivalent of a function call is now running a process and all data gets an uniform representation - the string. Which is perfectly readable and writable by humans as well as by awk. Any script is now possible, all tedium begone!
+>
+>But wait - there's more. awk gives you the string, which can represent any scalar value. It also gives you the hash table, which can represent any object and data structure. It gives you a runtime stack, so you have recursion. It gives you pass by reference, so you can return more than a single value. So as long as your input and your output are text, any and all processing is possible. And what's made out of text? Source code. You got everything you need to read source, process source, and write source. And what can you do with that? Create a language, of course. And that language could as well be able to call the shell, which can call awk, which can call the shell, which...
+>
+>P.S. Also, bash and awk come with virtually any Unix environment, so that's pretty nice as well.
 
 ## 5. Interesting facts of awk: no GC, etc.
 
@@ -140,5 +146,17 @@ By the way, GAWK [supports](https://blog.0branch.com/posts/2016-05-13-awk-tco.ht
 
 ## About AWK syntax/grammar.
 
+I want to tell about a couple of findings I encountered while implementing the parser for AWK for [intellij-awk](https://github.com/xonixx/intellij-awk) project. 
+
+https://github.com/xonixx/intellij-awk/blob/main/doc/parser_quirks.md
+
 ## 8. Testing in different awks, goawk
 
+### Links
+
+- [The state of the AWK](https://lwn.net/Articles/820829/)
+- https://github.com/freznicek/awesome-awk
+- https://www.libhunt.com/topic/awk
+- https://github.com/patsie75
+- https://github.com/vladcc/shawk/blob/7420a88ce2025f3fe7390efb2b11e29d5b7b6b80/README.md#why-shell--awk
+- https://pmitev.github.io/to-awk-or-not/Python_vs_awk/
