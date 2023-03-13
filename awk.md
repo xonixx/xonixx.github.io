@@ -32,9 +32,14 @@ The following experiments are also of interest:
 - [Awklisp](https://github.com/darius/awklisp)
 - [Awkprolog](https://github.com/prolog8/awkprolog)
 
-And there is a simple explanation for this. A minimum of features liberates creativity. When there is only one way to do something, you don't spend a lot of time choosing that very way, but you concentrate on implementing a pure idea. There is no temptation to add unnecessary and often unnecessary abstractions, simply because with such restrictions it is almost impossible to implement them. In addition, there is a sports excitement - is it really possible to write something functional even in such a language.
+And there is a simple explanation for this. A minimum of features liberates creativity. When there is only one way to do something, you don't spend a lot of time choosing that very way, but you concentrate on implementing a pure idea. There is no temptation to add (often) unnecessary abstractions, simply because with such restrictions it is almost impossible to implement them. In addition, there is a sports excitement - is it really possible to write something functional even in such a language.
 
 Surprisingly, you can actually get very far with Awk most of the time. Many who tried said they were surprised how well the Awk prototype worked. So, there was not even much point in rewriting it into some more traditional programming language.
+
+> [I wrote a compiler in awk!](https://news.ycombinator.com/item?id=13452043)
+>
+> To bytecode; I wanted to use the awk-based compiler as the initial bootstrap stage for a self-hosted compiler. Disturbingly, it worked fine. Disappointingly, it was actually faster than the self-hosted version. But it's so not the right language to write compilers in. Not having actual datastructures was a problem. But it was a surprisingly clean 1.5kloc or so. awk's still my go-to language for tiny, one-shot programming and text processing tasks.
+
 
 In principle, I am inclined to share this opinion and I am even ready to say that where you can get by with Awk, you do not need to involve Python, Ruby or Nodejs. For, as they say, a good programmer uses the most powerful tool for the task, while a hacker uses the least powerful one that leads to the goal.
 
