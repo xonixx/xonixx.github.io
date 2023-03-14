@@ -9,7 +9,7 @@ image: TODO
 
 _March 2023_
 
-## 4. Why awk? -better shell
+## Why awk? -better shell
 
 AWK is an interpreted language. It is very minimalistic.
 A meager minimum of features includes strings, numbers, functions, associative arrays, line-by-line I/O.
@@ -24,7 +24,8 @@ There is an opinion that Awk is not suitable for writing serious programs. Even 
 However, this does not prevent enthusiasts from creating very voluminous programs on awk:
 - [Translate shell](https://github.com/soimort/translate-shell)
 - [Compiler](https://news.ycombinator.com/item?id=13452043)
-- CPU TODO emulator
+- TODO CPU emulator
+- TODO makesure
 
 The following experiments are also of interest:
 
@@ -66,7 +67,9 @@ I also want to cite a programmer [Vladimir Dinev](https://github.com/vladcc), wh
 >
 >P.S. Also, bash and awk come with virtually any Unix environment, so that's pretty nice as well.
 
-## 5. Interesting facts of awk: no GC, etc.
+## Interesting facts of awk: no GC, etc.
+
+TODO cite oilshell
 
 Surprisingly, the AWK language does not require a GC for its implementation. However, like sh/bash.
 
@@ -155,7 +158,9 @@ I want to tell about a couple of findings I encountered while implementing the p
 
 https://github.com/xonixx/intellij-awk/blob/main/doc/parser_quirks.md
 
-## 8. Testing in different awks, goawk
+## Different AWK implementations
+
+TODO
 
 ### Links
 
@@ -165,3 +170,4 @@ https://github.com/xonixx/intellij-awk/blob/main/doc/parser_quirks.md
 - https://github.com/patsie75
 - https://github.com/vladcc/shawk/blob/7420a88ce2025f3fe7390efb2b11e29d5b7b6b80/README.md#why-shell--awk
 - https://pmitev.github.io/to-awk-or-not/Python_vs_awk/
+- https://www.oilshell.org/blog/tags.html?tag=awk#awk
