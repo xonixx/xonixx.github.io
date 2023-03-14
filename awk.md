@@ -11,9 +11,11 @@ _March 2023_
 
 ## Why awk? -better shell
 
-AWK is an interpreted language. It is very minimalistic.
-A meager minimum of features includes strings, numbers, functions, associative arrays, line-by-line I/O.
+AWK - fascinating mini-language almost unchanged for decades. It is an interpreted language, very minimalistic.
+
+A bare minimum of features includes strings, numbers, functions, associative arrays, line-by-line I/O.
 Perhaps, we can say that it contains the minimum of features less than which it would be impossible to program on it at all.
+
 Canonical and very fascinating [book](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf) authored by the entire trio of A, W and K creators, which came out back in 1988, but it has not completely lost its relevance.
 
 > Read The AWK Programming Language, a joy to read, one of the finest docs ever written, I reckon.
@@ -33,7 +35,7 @@ The following experiments are also of interest:
 - [Awklisp](https://github.com/darius/awklisp)
 - [Awkprolog](https://github.com/prolog8/awkprolog)
 
-And there is a simple explanation for this. A minimum of features liberates creativity. When there is only one way to do something, you don't spend a lot of time choosing that very way, but you concentrate on implementing a pure idea. There is no temptation to add (often) unnecessary abstractions, simply because with such restrictions it is almost impossible to implement them. In addition, there is a sports excitement - is it really possible to write something functional even in such a language.
+And there is a simple explanation for this. A minimum of features liberates creativity. When there is only one way to do something, you don't spend a lot of time choosing that very way, but you concentrate on implementing a pure idea. There is no temptation to add (often) unnecessary abstractions, simply because with such restrictions it is almost impossible to implement them. In addition, there is a sporting interest - is it really possible to write something functional even in such a language.
 
 Surprisingly, you can actually get very far with Awk most of the time. Many who tried said they were surprised how well the Awk prototype worked. So, there was not even much point in rewriting it into some more traditional programming language.
 
