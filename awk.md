@@ -39,7 +39,7 @@ Surprisingly, you can actually get very far with Awk most of the time. Many who 
 
 
 In principle, I am inclined to share this opinion. I am even ready to go as far as to say that what _can_ be scripted with AWK, _should_ be scripted with AWK (over Python, Ruby, Node.js, etc.). Ordinary programmer tends to choose the most powerful tool for the job, hacker often prefers the least powerful tool for the job.
-      
+
 <!--
 I myself been dedidacted Python lover in past for many years now came to a conclusion that what can be scripted with AWK, should be scripted in AWK (over Python, Ruby, Perl, etc.). I'm not saying that you should write big apps though, but for small scripts AWK is absolutely fine alternative to major scripting languages with lots of benefits. Been universally available (as part of POSIX) and very compliant (language standard is almost unchanged for over 30 years now).
 -->
@@ -47,15 +47,14 @@ I myself been dedidacted Python lover in past for many years now came to a concl
 Personally, I've found AWK to be a surprisingly good replacement for larger than average shell scripts.
 Why?
 
-1. Portability (AWK - [part of the POSIX standard](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html)). Probably, Python in this sense will be [the most expressive opposite](https://xkcd.com/1987/). And there will also be a lot of shells themselves. Either the more functional, but less versatile bash/zsh, or the standard, but less rich in POSIX features, sh, or the cool, but non-standard fish.
-2. Very clean C-like syntax
-3. Powerful associative arrays
-4. Powerful String Functions
-5. Easy interoperability with the shell. While the AWK core is very small, the full power of the standard *nix utilities is at your disposal.
-6. The language is very minimalistic and non-redundant, not changing since probably the year 1985. Therefore, even after reading the [canonical book](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf ), mentioned above, you can be sure that you know the whole language. It is unlikely that anyone would dare to say such a thing even about POSIX sh.
+1. **Portability** (AWK - [part of the POSIX standard](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html)). Probably, Python in this sense will be [the most expressive opposite](https://xkcd.com/1987/). And there will also be a lot of shells themselves. Either the more functional, but less versatile bash/zsh, or the standard, but less rich in POSIX features, sh, or the cool, but non-standard fish.
+2. Very **clean** C-like **syntax**
+3. Powerful **associative arrays**
+4. Powerful **string functions**
+5. Easy **interoperability** with the shell. While the AWK core is very small, the full power of the standard *nix utilities is at your disposal.
+6. The language is very **minimalistic** and non-redundant, not changing since probably the year 1985. Therefore, even after reading the [canonical book](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf ), mentioned above, you can be sure that you know the whole language. It is unlikely that anyone would dare to say such a thing even about POSIX sh.
 
-This [blog post](https://blog.jpalardy.com/posts/why-learn-awk/) by a programmer
-Jonathan Palardy conveys the same idea - in more talented fashion than I do it here.
+So, if you take [this article](https://j3s.sh/thought/write-posix-shell.html) that promotes writing POSIX shell, you'll notice that all of it arguments apply to AWK equal or even better.
 
 I also want to cite a programmer [Vladimir Dinev](https://github.com/vladcc), who is creating some interesting projects with Awk:
 
@@ -70,7 +69,7 @@ I also want to cite a programmer [Vladimir Dinev](https://github.com/vladcc), wh
 
 TODO mention intellij-awk
 
-## Interesting facts of awk: no GC, etc.
+## Interesting facts of Awk: no GC, etc.
 
 TODO cite oilshell
 
@@ -186,3 +185,8 @@ Canonical and very fascinating [book](https://ia903404.us.archive.org/0/items/pd
 > Read The AWK Programming Language, a joy to read, one of the finest docs ever written, I reckon.
 
 For a refresher on the basics of AWK, see [Awk in 20 Minutes](https://ferd.ca/awk-in-20-minutes.html).
+
+---
+
+This [blog post](https://blog.jpalardy.com/posts/why-learn-awk/) by a programmer
+Jonathan Palardy conveys the same idea - in more talented fashion than I do it here.
