@@ -21,7 +21,7 @@ First, buy online or find a PDF of the book you want to turn into a bilingual. _
 
 Next, you'll need to translate the text of the source PDF into the language you know. 
 
-As complex as it sounds, as easy it is. I used the free online service [https://www.onlinedoctranslator.com/en/translationform](https://www.onlinedoctranslator.com/en/translationform). Simply upload the source PDF and receive a translated version (Google Translate is used).
+As complex as it sounds, as easy it is. I used the free online service [https://www.onlinedoctranslator.com/en/translationform](https://www.onlinedoctranslator.com/en/translationform). Simply upload the source PDF and receive a translated version (Google Translate is used). Of course, you can also just use [Google Translate for documents](https://translate.google.com/?op=docs) with the same result.  
 
 For those who object to using Google Translate here. It's true that automatic translations aren't always perfect. But for our task it's not a big deal. We use authentic source text, and it's fine to use less perfect translation. Besides, automatic translations have improved significantly in recent years.
 
