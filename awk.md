@@ -67,6 +67,8 @@ I also want to cite a programmer [Vladimir Dinev](https://github.com/vladcc), wh
 >
 >P.S. Also, bash and awk come with virtually any Unix environment, so that's pretty nice as well.
 
+TODO mention intellij-awk
+
 ## Interesting facts of awk: no GC, etc.
 
 TODO cite oilshell
@@ -159,6 +161,10 @@ I want to tell about a couple of findings I encountered while implementing the p
 https://github.com/xonixx/intellij-awk/blob/main/doc/parser_quirks.md
 
 ## Different AWK implementations
+
+TODO
+
+## AWK as a set of sub-languages
 
 TODO
 
