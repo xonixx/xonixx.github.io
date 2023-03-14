@@ -16,12 +16,6 @@ AWK - fascinating mini-language almost unchanged for decades. It is an interpret
 A bare minimum of features includes strings, numbers, functions, associative arrays, line-by-line I/O.
 Perhaps, we can say that it contains the minimum of features less than which it would be impossible to program on it at all.
 
-Canonical and very fascinating [book](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf) authored by the entire trio of A, W and K creators, which came out back in 1988, but it has not completely lost its relevance.
-
-> Read The AWK Programming Language, a joy to read, one of the finest docs ever written, I reckon.
-
-For a refresher on the basics of AWK, see [Awk in 20 Minutes](https://ferd.ca/awk-in-20-minutes.html).
-
 There is an opinion that Awk is not suitable for writing serious programs. Even Brian Kernighan (K in AWK) is convinced that his language is only good for small one-line programs.
 However, this does not prevent enthusiasts from creating very voluminous programs on awk:
 - [Translate shell](https://github.com/soimort/translate-shell)
@@ -44,7 +38,11 @@ Surprisingly, you can actually get very far with Awk most of the time. Many who 
 > To bytecode; I wanted to use the awk-based compiler as the initial bootstrap stage for a self-hosted compiler. Disturbingly, it worked fine. Disappointingly, it was actually faster than the self-hosted version. But it's so not the right language to write compilers in. Not having actual datastructures was a problem. But it was a surprisingly clean 1.5kloc or so. awk's still my go-to language for tiny, one-shot programming and text processing tasks.
 
 
-In principle, I am inclined to share this opinion and I am even ready to say that where you can get by with Awk, you do not need to involve Python, Ruby or Nodejs. For, as they say, a good programmer uses the most powerful tool for the task, while a hacker uses the least powerful one that leads to the goal.
+In principle, I am inclined to share this opinion. I am even ready to go as far as to say that what _can_ be scripted with AWK, _should_ be scripted with AWK (over Python, Ruby, Node.js, etc.). Ordinary programmer tends to choose the most powerful tool for the job, hacker often prefers the least powerful tool for the job.
+      
+<!--
+I myself been dedidacted Python lover in past for many years now came to a conclusion that what can be scripted with AWK, should be scripted in AWK (over Python, Ruby, Perl, etc.). I'm not saying that you should write big apps though, but for small scripts AWK is absolutely fine alternative to major scripting languages with lots of benefits. Been universally available (as part of POSIX) and very compliant (language standard is almost unchanged for over 30 years now).
+-->
 
 Personally, I've found AWK to be a surprisingly good replacement for larger than average shell scripts.
 Why?
@@ -56,7 +54,8 @@ Why?
 5. Easy interoperability with the shell. While the AWK core is very small, the full power of the standard *nix utilities is at your disposal.
 6. The language is very minimalistic and non-redundant, not changing since probably the year 1985. Therefore, even after reading the [canonical book](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf ), mentioned above, you can be sure that you know the whole language. It is unlikely that anyone would dare to say such a thing even about POSIX sh.
 
-The [blog post](https://blog.jpalardy.com/posts/why-learn-awk/) conveys the same idea - in other words, and much more talented, but the meaning is the same.
+This [blog post](https://blog.jpalardy.com/posts/why-learn-awk/) by a programmer
+Jonathan Palardy conveys the same idea - in more talented fashion than I do it here.
 
 I also want to cite a programmer [Vladimir Dinev](https://github.com/vladcc), who is creating some interesting projects with Awk:
 
@@ -179,3 +178,11 @@ TODO
 - https://github.com/vladcc/shawk/blob/7420a88ce2025f3fe7390efb2b11e29d5b7b6b80/README.md#why-shell--awk
 - https://pmitev.github.io/to-awk-or-not/Python_vs_awk/
 - https://www.oilshell.org/blog/tags.html?tag=awk#awk
+
+### TODO
+
+Canonical and very fascinating [book](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf) authored by the entire trio of A, W and K creators, which came out back in 1988, but it has not completely lost its relevance.
+
+> Read The AWK Programming Language, a joy to read, one of the finest docs ever written, I reckon.
+
+For a refresher on the basics of AWK, see [Awk in 20 Minutes](https://ferd.ca/awk-in-20-minutes.html).
