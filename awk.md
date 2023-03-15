@@ -160,6 +160,44 @@ I want to tell about a couple of findings I encountered while implementing the p
 
 https://github.com/xonixx/intellij-awk/blob/main/doc/parser_quirks.md
 
+### `$` is a unary operator
+
+If you used AWK, most likely you've used `$0`, `$1`, `$2`, etc. Some even used `$NF`.
+
+But did you know, that `$` is an operator, that can apply to an expression?
+
+So it's perfectly valid to write
+
+```awk
+{ second=2; print $second }
+```
+
+or 
+```awk
+{ print $ (1+1) }
+```
+   
+or
+```awk
+{ i=1; print $++i }
+```
+
+With the same result as 
+```awk
+{ print $2 }
+```
+
+_Quiz._ What will be the output of 
+```shell
+echo "2 3 0" | awk '{ print $$$$1 }'
+```
+
+and why? Try to answer without running.
+
+### function calling 
+
+### `/` parsing ambiguity
+
 ## Different AWK implementations
 
 TODO
