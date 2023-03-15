@@ -194,6 +194,20 @@ echo "2 3 0" | awk '{ print $$$$1 }'
 
 and why? Try to answer without running.
 
+Also, it's interesting to note, that `$` is the only operator that is allowed to appear on the left side of assignment, that is you can write
+         
+```awk
+{ $(7-5) = "hello" }
+```
+or
+```awk
+{ $length("xx")="hello" }
+```
+(same as)
+```awk
+{ $2 = "hello" }
+```
+
 ### function calling 
 
 ### `/` parsing ambiguity
