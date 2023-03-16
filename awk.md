@@ -250,7 +250,17 @@ len=1 # OK
 
 Why is this? For flexibility. Remember, AWK's main goal was to be extremely terse yet productive language well suited for one-liners. So:
 - it's allowed to omit `()` for built-in functions, when no arguments passed, like in `echo "hello" | awk '{ print length }'` -- same as `echo "asda" | awk '{ print(length()) }'`
-- same function can be used with different number of arguments, like `sub(/regex/, "replacement", target)` and `sub(/regex/, "replacement")` -- omitted `target` is implied as `$0`  
+- same function can be used with different number of arguments, like `sub(/regex/, "replacement", target)` and `sub(/regex/, "replacement")` -- omitted `target` is implied as `$0`
+
+All these nuances require pretty ad-hoc parsing for built-in functions. This is why they are part of grammar. If we take the `getline` keyword, it's not even a function, but rather a very versatile [syntax construct](https://www.gnu.org/software/gawk/manual/html_node/Getline.html). 
+
+Overall, I noticed that many _old_ programming languages have very ad-hoc syntax, and so parsing. I think, partially, this was, maybe, because parsing theory was not that strong yet. So it was common to write ad-hoc parsers instead of using something like lex + yacc. 
+
+Partially, because they wanted to make the programming language very flexible (C, PL/1, Ada, shell)
+
+Partially, because some languages tried to be as close to human language as possible (SQL, or even COBOL -- almost every language feature in them is a separate syntax construct).
+
+Nowadays programming languages tend to have much more regular syntax, and so grammar. The most prominent example in this regard can be Go. 
 
 
 
