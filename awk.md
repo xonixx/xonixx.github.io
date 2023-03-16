@@ -210,13 +210,13 @@ or
 
 ### function calling `f()` doesn't allow space before `(` ...
 
-... but only for user-defined functions. You can have space for built-in functions.
+... but only for user-defined functions:
 
 ```shell
 awk 'BEGIN { fff () } function fff(){ }' # syntax error
 awk 'BEGIN { fff() }  function fff(){ }' # OK
 ```
-but
+You can have space for built-in functions:
 ```shell
 awk 'BEGIN { print substr ("abc",1,2) }' # OK, outputs ab
 ```
@@ -248,9 +248,9 @@ Compare to python:
 len=1 # OK
 ```
 
-Why is this? For flexibility. Remember, AWK's main goal was to be extremely terse yet production language well suited for one-liners. So:
-- it's allowed to omit `()` for built-in functions, when no arguments passed, like in `echo "hello" | awk '{ print length }'` (same as `echo "asda" | awk '{ print(length()) }'`)
-- same function can be used with different number of arguments, like `sub(/regex/, "replacement", target)` and `sub(/regex/, "replacement")` (`target` is implied as `$0`)  
+Why is this? For flexibility. Remember, AWK's main goal was to be extremely terse yet productive language well suited for one-liners. So:
+- it's allowed to omit `()` for built-in functions, when no arguments passed, like in `echo "hello" | awk '{ print length }'` -- same as `echo "asda" | awk '{ print(length()) }'`
+- same function can be used with different number of arguments, like `sub(/regex/, "replacement", target)` and `sub(/regex/, "replacement")` -- omitted `target` is implied as `$0`  
 
 
 
