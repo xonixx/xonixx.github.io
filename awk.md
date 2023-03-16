@@ -189,10 +189,10 @@ With the same result as
 
 _Quiz._ What will be the output of 
 ```shell
-echo "2 3 0" | awk '{ print $$$$1 }'
+echo "2 3 4 hello" | awk '{ print $$$$1 }'
 ```
 
-and why? Try to answer without running.
+and why? Try to answer without running. Try adding even more `$`. Explain the behavior.
 
 Also, it's interesting to note, that `$` is the only operator that is allowed to appear on the left side of assignment, that is you can write
          
