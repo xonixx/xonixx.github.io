@@ -229,9 +229,29 @@ BEGIN { a = "hello"; b = "world"; c = a b; print c } # helloworld
 
 it means that AWK tries to parse `fff (123)` as concatenation of variable `fff` and string `123`. 
 
-Obviously `fff ()` is just syntax error, the same as `fff (1,2)`.  
+Obviously `fff ()` is just a syntax error, the same as `fff (1,2)`.
+
+As for built-in functions, AWK knows beforehand that it's not a variable name, so it can disambiguate. 
 
 ### built-in functions are parsed as part of syntax
+
+If you take a look at AWK specification at POSIX, at the [Grammar section](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html#tag_20_06_13_16) (yes, AWK grammar is a part of POSIX standard!), you'll notice that AWK functions are part of it. To be precise, they are parsed at _lexer_ step, so they enter _parser_ step as ready to use tokens.
+
+The implication here is that you are disallowed to name your own function of variable with the name of any built-in function. It will be a syntax error!
+
+```awk
+BEGIN { length = 1 } # syntax error
+```
+
+Compare to python:
+```python
+len=1 # OK
+```
+
+Why is this? For flexibility. Remember, AWK's main goal was to be extremely terse yet production language well suited for one-liners. So:
+- it's allowed to omit `()` for built-in functions, when no arguments passed, like in `echo "hello" | awk '{ print length }'` (same as `echo "asda" | awk '{ print(length()) }'`)
+- same function can be used with different number of arguments, like `sub(/regex/, "replacement", target)` and `sub(/regex/, "replacement")` (`target` is implied as `$0`)  
+
 
 
 ### `/` parsing ambiguity
