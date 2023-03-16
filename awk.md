@@ -110,12 +110,12 @@ In practice, it is customary to separate "real" function parameters from "local"
 
 Actually, the use of local variables is a mechanism for automatic release of resources. Small [example](https://github.com/xonixx/gron.awk/blob/main/gron.awk#L81).
 ```awk
-function NUMBER(res) {
-   return (tryParse1("-", res) || 1) &&
-     (tryParse1("0", res) || tryParse1("123456789", res) && (tryParseDigits(res)||1)) &&
-     (tryParse1(".", res) ? tryParseDigits(res) : 1) &&
-     (tryParse1("eE", res) ? (tryParse1("-+",res)||1) && tryParseDigits(res) : 1) &&
-     asm("number") && asm(res[0])
+function NUMBER(    res) {
+  return (tryParse1("-", res) || 1) &&
+    (tryParse1("0", res) || tryParse1("123456789", res) && (tryParseDigits(res)||1)) &&
+    (tryParse1(".", res) ? tryParseDigits(res) : 1) &&
+    (tryParse1("eE", res) ? (tryParse1("-+",res)||1) && tryParseDigits(res) : 1) &&
+    asm("number") && asm(res[0])
 }
 ```
 
