@@ -208,7 +208,31 @@ or
 { $2 = "hello" }
 ```
 
-### function calling 
+### function calling `f()` doesn't allow space before `(` ...
+
+... but only for user-defined functions. You can have space for built-in functions.
+
+```shell
+awk 'BEGIN { fff () } function fff(){ }' # syntax error
+awk 'BEGIN { fff() }  function fff(){ }' # OK
+```
+but
+```shell
+awk 'BEGIN { print substr ("abc",1,2) }' # OK, outputs ab
+```
+
+Why such strange inconsistency? It's because of AWK's decision to use empty operator for strings concatenation
+
+```awk
+BEGIN { a = "hello"; b = "world"; c = a b; print c } # helloworld 
+```
+
+it means that AWK tries to parse `fff (123)` as concatenation of variable `fff` and string `123`. 
+
+Obviously `fff ()` is just syntax error, the same as `fff (1,2)`.  
+
+### built-in functions are parsed as part of syntax
+
 
 ### `/` parsing ambiguity
 
