@@ -16,7 +16,7 @@ AWK - fascinating mini-language almost unchanged for decades. It is an interpret
 A bare minimum of features includes strings, numbers, functions, associative arrays, line-by-line I/O.
 Perhaps, we can say that it contains the minimum of features less than which it would be impossible to program on it at all.
 
-There is an opinion that Awk is not suitable for writing serious programs. Even Brian Kernighan (K in AWK) is convinced that his language is only good for small one-line programs.
+There is an opinion that Awk is not suitable for writing serious programs. Even Brian Kernighan (the K in AWK) is convinced that his language is only good for small one-line programs.
 However, this does not prevent enthusiasts from creating very voluminous programs on awk:
 - [Translate shell](https://github.com/soimort/translate-shell)
 - [Compiler](https://news.ycombinator.com/item?id=13452043)
@@ -102,11 +102,10 @@ BEGIN {
    fill(arr)
    print arr[0] " " arr[1]
 }
-function fill(arr, i) { arr[i++] = "hello"; arr[i++] = "world" }
+function fill(arr,   i) { arr[i++] = "hello"; arr[i++] = "world" }
 ```
 
-Another interesting feature. All variables are global by default. However, if you add a variable to the function parameters (like `i` above) it becomes local. Javascript works in a similar way, although there is also `var`/`let`/`const`.
-In practice, it is customary to separate "real" function parameters from "local" parameters with additional spaces for clarity.
+Another interesting feature. All variables are global by default. However, if you add a variable to the function parameters (like `i` above) it becomes local. Javascript works in a similar way, although there are more suitable `var`/`let`/`const`. In practice, it is customary to separate "real" function parameters from "local" parameters with additional spaces for clarity.
 
 Actually, the use of local variables is a mechanism for automatic release of resources. Small [example](https://github.com/xonixx/gron.awk/blob/main/gron.awk#L81).
 ```awk
@@ -245,7 +244,7 @@ BEGIN { length = 1 } # syntax error
 
 Compare to python:
 ```python
-len=1 # OK
+len = 1 # OK
 ```
 
 Why is this? For flexibility. Remember, AWK's main goal was to be extremely terse yet productive language well suited for one-liners. So:
@@ -254,14 +253,15 @@ Why is this? For flexibility. Remember, AWK's main goal was to be extremely ters
 
 All these nuances require pretty ad-hoc parsing for built-in functions. This is why they are part of grammar. If we take the `getline` keyword, it's not even a function, but rather a very versatile [syntax construct](https://www.gnu.org/software/gawk/manual/html_node/Getline.html). 
 
-Overall, I noticed that many _old_ programming languages have very ad-hoc syntax, and so parsing. I think, partially, this was, maybe, because parsing theory was not that strong yet. So it was common to write ad-hoc parsers instead of using something like lex + yacc. 
+Overall, I noticed that many _old_ programming languages have very ad-hoc syntax, and so parsing.
 
-Partially, because they wanted to make the programming language very flexible (C, PL/1, Ada, shell)
+I think, partially, because they wanted to make the programming language very flexible (PL/1, Ada, C, AWK, shell)
 
 Partially, because some languages tried to be as close to human language as possible (SQL, or even COBOL -- almost every language feature in them is a separate syntax construct).
 
-Nowadays programming languages tend to have much more regular syntax, and so grammar. The most prominent example in this regard can be Go. 
+Maybe, because parsing theory was not that strong yet. So it was common to write ad-hoc parsers instead of using something like lex + yacc.
 
+Nowadays programming languages tend to have much more regular syntax, and so grammar. The most prominent example in this regard can be Go. 
 
 
 ### ERE vs DIV lexing ambiguity
