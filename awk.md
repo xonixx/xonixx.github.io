@@ -1,11 +1,11 @@
 ---
-title: 'AWK TODO'
+title: 'Fascination of AWK (and some interesting facts)'
 description: 'TODO'
 image: TODO
 ---
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
 
-# AWK TODO
+# Fascination of AWK (and some interesting facts)
 
 _March 2023_
 
@@ -40,7 +40,7 @@ Surprisingly, you can actually get very far with Awk most of the time. Many who 
 
 In principle, I am inclined to share this opinion. I am even ready to go as far as to say that what _can_ be scripted with AWK, _should_ be scripted with AWK (over Python, Ruby, Node.js, etc.). Ordinary programmer tends to choose the most powerful tool for the job, hacker often prefers the least powerful tool for the job.
 
-<!--
+<!-- TODO
 I myself been dedidacted Python lover in past for many years now came to a conclusion that what can be scripted with AWK, should be scripted in AWK (over Python, Ruby, Perl, etc.). I'm not saying that you should write big apps though, but for small scripts AWK is absolutely fine alternative to major scripting languages with lots of benefits. Been universally available (as part of POSIX) and very compliant (language standard is almost unchanged for over 30 years now).
 -->
 
@@ -187,13 +187,6 @@ With the same result as
 { print $2 }
 ```
 
-_Quiz._ What will be the output of 
-```shell
-echo "2 3 4 hello" | awk '{ print $$$$1 }'
-```
-
-and why? Try to answer without running. Try adding even more `$`. Explain the behavior.
-
 Also, it's interesting to note, that `$` is the only operator that is allowed to appear on the left side of assignment, that is you can write
          
 ```awk
@@ -207,6 +200,13 @@ or
 ```awk
 { $2 = "hello" }
 ```
+
+**Quiz.** What will be the output of
+```shell
+echo "2 3 4 hello" | awk '{ print $$$$1 }'
+```
+
+and why? Try to answer without running. Try adding even more `$`. Explain the behavior.
 
 ### function calling `f()` doesn't allow space before `(` ...
 
