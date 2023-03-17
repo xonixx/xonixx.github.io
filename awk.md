@@ -264,7 +264,39 @@ Nowadays programming languages tend to have much more regular syntax, and so gra
 
 
 
-### `/` parsing ambiguity
+### ERE vs DIV lexing ambiguity
+                       
+AWK ad-hoc syntax, optimized for succinct code, has some [inherent ambiguities](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html#:~:text=There%20is%20a%20lexical%20ambiguity%20between%20the%20token) in its grammar.
+
+The problem resides in lexing ambiguity of tokens ERE (extended regular expression, `/regex/`) vs DIV (`/`). Naturally, lexer prefers the longer term. This causes a problem for parsing a code like
+
+```awk
+a(1 / 2, 3 / 4)
+```
+
+Because it can parse as 
+```awk
+a(1 (/ 2, 3 /) 4)
+```
+
+instead of correct 
+```awk
+a((1/2), (3/4))
+```
+
+This kind of problems is well-known, and usually the implementation requires the [Lexer hack](https://en.wikipedia.org/wiki/Lexer_hack):
+
+> The solution generally consists of feeding information from the semantic symbol table back into the lexer. That is, rather than functioning as a pure one-way pipeline from the lexer to the parser, there is a backchannel from semantic analysis back to the lexer. This mixing of parsing and semantic analysis is generally regarded as inelegant, which is why it is called a "hack".
+
+In the original Awk (sometimes called the One True Awk), identifying regular expressions is the job of [the parser](https://github.com/onetrueawk/awk/blob/d62c43899fd25fdc4883a32857d0f157aa2b6324/awkgram.y#L289), which explicitly sets the lexer into "regex mode" when it has figured out that it should expect to read a regex:
+```
+reg_expr:
+     '/' {startreg();} REGEXPR '/'     { $$ = $3; }
+   ;
+```
+(`startreg()` is a function defined in [lex.c](https://github.com/onetrueawk/awk/blob/d62c43899fd25fdc4883a32857d0f157aa2b6324/lex.c#L515)) The `reg_expr` rule itself is only ever matched in contexts where a division operator would be invalid.
+
+However, in intellij-awk I managed to disambiguate this on the Lexer level, but this required [creating a lexer with multiple states](https://github.com/xonixx/intellij-awk/blob/main/src/main/java/intellij_awk/Awk.flex) (note the usage of state `DIV_POSSIBLE`).
 
 ## Different AWK implementations
 
