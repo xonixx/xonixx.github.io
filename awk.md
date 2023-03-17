@@ -38,13 +38,10 @@ Surprisingly, you can actually get very far with Awk most of the time. Many who 
 > To bytecode; I wanted to use the awk-based compiler as the initial bootstrap stage for a self-hosted compiler. Disturbingly, it worked fine. Disappointingly, it was actually faster than the self-hosted version. But it's so not the right language to write compilers in. Not having actual datastructures was a problem. But it was a surprisingly clean 1.5kloc or so. awk's still my go-to language for tiny, one-shot programming and text processing tasks.
 
 
-In principle, I am inclined to share this opinion. I am even ready to go as far as to say that what _can_ be scripted with AWK, _should_ be scripted with AWK (over Python, Ruby, Node.js, etc.). Ordinary programmer tends to choose the most powerful tool for the job, hacker often prefers the least powerful tool for the job.
-
-<!-- TODO
-I myself been dedidacted Python lover in past for many years now came to a conclusion that what can be scripted with AWK, should be scripted in AWK (over Python, Ruby, Perl, etc.). I'm not saying that you should write big apps though, but for small scripts AWK is absolutely fine alternative to major scripting languages with lots of benefits. Been universally available (as part of POSIX) and very compliant (language standard is almost unchanged for over 30 years now).
--->
+In principle, I am inclined to share this opinion. I am even ready to go as far as to say that what _can_ be scripted with AWK, _should_ be scripted with AWK (over Python, Ruby, Node.js, etc.). I'm not saying that you should write big apps though, but for small scripts AWK is absolutely fine alternative to major scripting languages with lots of benefits.Ordinary programmer tends to choose the most powerful tool for the job, hacker often prefers the least powerful tool for the job.
 
 Personally, I've found AWK to be a surprisingly good replacement for larger than average shell scripts.
+
 Why?
 
 1. **Portability** (AWK - [part of the POSIX standard](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html)). Probably, Python in this sense will be [the most expressive opposite](https://xkcd.com/1987/). And there will also be a lot of shells themselves. Either the more functional, but less versatile bash/zsh, or the standard, but less rich in POSIX features, sh, or the cool, but non-standard fish.
@@ -52,7 +49,7 @@ Why?
 3. Powerful **associative arrays**
 4. Powerful **string functions**
 5. Easy **interoperability** with the shell. While the AWK core is very small, the full power of the standard *nix utilities is at your disposal.
-6. The language is very **minimalistic** and non-redundant, not changing since probably the year 1985. Therefore, even after reading the [canonical book](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf ), mentioned above, you can be sure that you know the whole language. It is unlikely that anyone would dare to say such a thing even about POSIX sh.
+6. The language is very **minimalistic** and non-redundant, not changing since probably the year 1985. Therefore, even after reading the [canonical book](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf ), you can be sure that you know the whole language. It is unlikely that anyone would dare to say such a thing even about POSIX sh.
 
 So, if you take [this article](https://j3s.sh/thought/write-posix-shell.html) that promotes writing POSIX shell, you'll notice that all of it arguments apply to AWK equal or even better.
 
@@ -67,15 +64,17 @@ I also want to cite a programmer [Vladimir Dinev](https://github.com/vladcc), wh
 >
 >P.S. Also, bash and awk come with virtually any Unix environment, so that's pretty nice as well.
 
-TODO mention intellij-awk
+Now, with [native AWK support](https://github.com/xonixx/intellij-awk) in IntelliJ IDEA it really becomes justified to write bigger AWK scripts without much fear.    
+
+> This plugin adds to IntelliJ IDEA the native support for AWK programming language. Once installed, you'll be able to have syntax highlighted in your *.awk files as well as other usual code editing functionalities like variables/functions renaming, code completion, go to declaration, find usages, auto-formatting and more.
 
 ## Interesting facts of Awk: no GC, etc.
 
 TODO cite oilshell
 
-Surprisingly, the AWK language does not require a GC for its implementation. However, like sh/bash.
+Surprisingly, the AWK language does not require a GC for its implementation. Same as sh/bash.
 
-The secret here is that the language, roughly speaking, simply lacks the ability to do 'new'. Thus, an associative array is declared simply by the fact that the corresponding variable is used 'as an array'.
+The secret here is that the language, roughly speaking, simply lacks the ability to do 'new', that is dynamically allocate objects on heap. For example, an associative array is declared simply by the fact of using the corresponding variable as an array.
 
 ```awk
 arr["a"] = "b"
