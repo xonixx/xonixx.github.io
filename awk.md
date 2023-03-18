@@ -71,9 +71,7 @@ Now, with [native AWK support](https://github.com/xonixx/intellij-awk) in Intell
 
 ## Interesting facts of Awk: no GC, etc.
 
-TODO cite oilshell
-
-Surprisingly, the AWK language does not require a GC for its implementation. Same as sh/bash.
+Surprisingly, the AWK language does not require a GC for its implementation. Same as sh/bash. 
 
 The secret here is that the language, roughly speaking, simply lacks the ability to do 'new', that is dynamically allocate objects on heap. For example, an associative array is declared simply by the fact of using the corresponding variable as an array.
 
@@ -298,14 +296,6 @@ reg_expr:
 
 However, in intellij-awk I managed to disambiguate this on the Lexer level, but this required [creating a lexer with multiple states](https://github.com/xonixx/intellij-awk/blob/main/src/main/java/intellij_awk/Awk.flex) (note the usage of state `DIV_POSSIBLE`).
 
-## Different AWK implementations
-
-TODO
-
-## AWK as a set of sub-languages
-
-TODO
-
 ### Links
 
 - [The state of the AWK](https://lwn.net/Articles/820829/)
@@ -322,3 +312,5 @@ TODO
 Canonical and very fascinating [book](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf) authored by the entire trio of A, W and K creators, which came out back in 1988, but it has not completely lost its relevance.
 
 > Read The AWK Programming Language, a joy to read, one of the finest docs ever written, I reckon.
+
+I learned this remarkable fact from the [oilshell blog](https://www.oilshell.org/blog/tags.html?tag=awk#awk) (by the way, rather interesting technical blog, where author describes his progress in creating the "better bash").
