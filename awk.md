@@ -309,10 +309,11 @@ TODO
 ### Links
 
 - [The state of the AWK](https://lwn.net/Articles/820829/)
+- [Awk in 20 Minutes](https://ferd.ca/awk-in-20-minutes.html) - refresher on the basics of AWK
+- [Why Learn AWK?](https://blog.jpalardy.com/posts/why-learn-awk/)
 - https://github.com/freznicek/awesome-awk
 - https://www.libhunt.com/topic/awk
 - https://github.com/patsie75
-- https://github.com/vladcc/shawk/blob/7420a88ce2025f3fe7390efb2b11e29d5b7b6b80/README.md#why-shell--awk
 - https://pmitev.github.io/to-awk-or-not/Python_vs_awk/
 - https://www.oilshell.org/blog/tags.html?tag=awk#awk
 
@@ -321,10 +322,3 @@ TODO
 Canonical and very fascinating [book](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf) authored by the entire trio of A, W and K creators, which came out back in 1988, but it has not completely lost its relevance.
 
 > Read The AWK Programming Language, a joy to read, one of the finest docs ever written, I reckon.
-
-For a refresher on the basics of AWK, see [Awk in 20 Minutes](https://ferd.ca/awk-in-20-minutes.html).
-
----
-
-This [blog post](https://blog.jpalardy.com/posts/why-learn-awk/) by a programmer
-Jonathan Palardy conveys the same idea - in more talented fashion than I do it here.
