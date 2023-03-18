@@ -20,14 +20,15 @@ There is an opinion that Awk is not suitable for writing serious programs. Even 
 However, this does not prevent enthusiasts from creating very voluminous programs on awk:
 - [Translate shell](https://github.com/soimort/translate-shell)
 - [Compiler](https://news.ycombinator.com/item?id=13452043)
-- TODO CPU emulator
-- TODO makesure
+- [CHIP-8 emulator](https://github.com/patsie75/awk-chip8)
+- [Simple yet powerful command runner](https://github.com/xonixx/makesure) (my creation)
 
 The following experiments are also of interest:
 
 - [Git Implementation](https://github.com/djanderson/aho)
 - [Awklisp](https://github.com/darius/awklisp)
 - [Awkprolog](https://github.com/prolog8/awkprolog)
+- [Gron in Awk](https://github.com/xonixx/gron.awk) (my creation)
 
 And there is a simple explanation for this. A minimum of features liberates creativity. When there is only one way to do something, you don't spend a lot of time choosing that very way, but you concentrate on implementing a pure idea. There is no temptation to add (often) unnecessary abstractions, simply because with such restrictions it is almost impossible to implement them. In addition, there is a sporting interest - is it really possible to write something functional even in such a language.
 
