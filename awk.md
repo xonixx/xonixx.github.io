@@ -13,11 +13,9 @@ _March 2023_
 
 AWK - fascinating mini-language almost unchanged for decades. It is an interpreted language, very minimalistic.
 
-A bare minimum of features includes strings, numbers, functions, associative arrays, line-by-line I/O.
-Perhaps, we can say that it contains the minimum of features less than which it would be impossible to program on it at all.
+A bare minimum of features includes strings, numbers, functions, associative arrays, line-by-line I/O and calling shell. Perhaps, we can say that it contains the minimum of features less than which it would be impossible to program on it at all.
 
-There is an opinion that Awk is not suitable for writing serious programs. Even Brian Kernighan (the K in AWK) is convinced that his language is only good for small one-line programs.
-However, this does not prevent enthusiasts from creating very voluminous programs on awk:
+There is an opinion that Awk is not suitable for writing serious programs. Even Brian Kernighan (the K in AWK) is convinced that his language is only good for small one-line programs. However, this does not prevent enthusiasts from creating rather voluminous programs in AWK:
 - [Translate shell](https://github.com/soimort/translate-shell)
 - [Compiler](https://news.ycombinator.com/item?id=13452043)
 - [CHIP-8 emulator](https://github.com/patsie75/awk-chip8)
@@ -32,7 +30,7 @@ The following experiments are also of interest:
 
 And there is a simple explanation for this. A minimum of features liberates creativity. When there is only one way to do something, you don't spend a lot of time choosing that very way, but you concentrate on implementing a pure idea. There is no temptation to add (often) unnecessary abstractions, simply because with such restrictions it is almost impossible to implement them. In addition, there is a sporting interest - is it really possible to write something functional even in such a language.
 
-Surprisingly, you can actually get very far with Awk most of the time. Many who tried said they were surprised how well the Awk prototype worked. So, there was not even much point in rewriting it into some more traditional programming language.
+Surprisingly, you can actually get very far with AWK most of the time. Many who tried said they were surprised how well the AWK prototype worked. So, there was not even much point in rewriting it into some more traditional programming language.
 
 > [I wrote a compiler in awk!](https://news.ycombinator.com/item?id=13452043)
 >
@@ -54,7 +52,7 @@ Why?
 
 So, if you take [this article](https://j3s.sh/thought/write-posix-shell.html) that promotes writing POSIX shell, you'll notice that all of it arguments apply to AWK equal or even better.
 
-I also want to cite a programmer [Vladimir Dinev](https://github.com/vladcc), who is creating some interesting projects with Awk:
+I also want to cite a programmer [Vladimir Dinev](https://github.com/vladcc), who is creating some interesting projects with AWK:
 
 > ### [Why shell + awk?](https://github.com/vladcc/shawk#why-shell--awk)
 >Mainly because of this serendipitous observation:
@@ -69,7 +67,7 @@ Now, with [native AWK support](https://github.com/xonixx/intellij-awk) in Intell
 
 > This plugin adds to IntelliJ IDEA the native support for AWK programming language. Once installed, you'll be able to have syntax highlighted in your *.awk files as well as other usual code editing functionalities like variables/functions renaming, code completion, go to declaration, find usages, auto-formatting and more.
 
-## Interesting facts of Awk: no GC, etc.
+## Interesting facts of AWK: no GC, etc.
 
 Surprisingly, the AWK language does not require a GC for its implementation. Same as sh/bash. 
 
@@ -82,7 +80,7 @@ arr["a"] = "b"
 To Perl connoisseurs, this feature may be known as [Autovivification](https://en.wikipedia.org/wiki/Autovivification). In general, AWK is quite unequivocally a prototype of Perl. You can even say that Perl is a kind of AWK overgrowth on steroids ... However, we deviated.
 
 Likewise, a variable that is treated as a number (`i++`) will be implicitly declared as a numeric type, and so on.
-This is done, obviously, in order to be able to write the most compact code in one-liners, for which many of us are used to using Awk.
+This is done, obviously, in order to be able to write the most compact code in one-liners, for which many of us are used to using AWK.
 
 It is also forbidden to return an array from a function, only a scalar value is allowed.
 
@@ -286,7 +284,7 @@ This kind of problems is well-known, and usually the implementation requires the
 
 > The solution generally consists of feeding information from the semantic symbol table back into the lexer. That is, rather than functioning as a pure one-way pipeline from the lexer to the parser, there is a backchannel from semantic analysis back to the lexer. This mixing of parsing and semantic analysis is generally regarded as inelegant, which is why it is called a "hack".
 
-In the original Awk (sometimes called the One True Awk), identifying regular expressions is the job of [the parser](https://github.com/onetrueawk/awk/blob/d62c43899fd25fdc4883a32857d0f157aa2b6324/awkgram.y#L289), which explicitly sets the lexer into "regex mode" when it has figured out that it should expect to read a regex:
+In the original AWK (sometimes called the One True Awk), identifying regular expressions is the job of [the parser](https://github.com/onetrueawk/awk/blob/d62c43899fd25fdc4883a32857d0f157aa2b6324/awkgram.y#L289), which explicitly sets the lexer into "regex mode" when it has figured out that it should expect to read a regex:
 ```
 reg_expr:
      '/' {startreg();} REGEXPR '/'     { $$ = $3; }
