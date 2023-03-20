@@ -13,7 +13,7 @@ Awk is a beautiful mini-language almost unchanged for decades.
 
 A bare minimum of features includes strings, numbers, functions, associative arrays, line-by-line I/O and shell invocation. Perhaps, if it had fewer features, it would be impossible to program on it at all.
 
-There is an opinion that Awk is not suitable for writing serious programs. Even Brian Kernighan (the K in Awk) is convinced that his language is only good for small one-liners. However, this does not prevent enthusiasts from creating rather voluminous programs in Awk:
+There is an opinion that Awk is not suitable for writing serious programs. Even Brian Kernighan (the K in AWK) is convinced that his language is only good for small one-liners. However, this does not prevent enthusiasts from creating rather voluminous programs in Awk:
 - [Translate shell](https://github.com/soimort/translate-shell)
 - [CHIP-8 emulator](https://github.com/patsie75/awk-chip8)
 - [Git Graph Generator](https://github.com/deuill/grawkit)
@@ -47,7 +47,7 @@ Why?
 3. Powerful **associative arrays**
 4. Powerful **string functions**
 5. Easy **interoperability** with the shell. While the Awk core is very small, the full power of the standard *nix utilities is at your disposal.
-6. The language is very **minimalistic** and non-redundant, not changing since probably the year 1985. Therefore, even after reading the [canonical book](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_Awk_Programming_Language.pdf ), you can be sure that you know the whole language. It is unlikely that anyone would dare to say such a thing even about POSIX sh.
+6. The language is very **minimalistic** and **non-redundant**, not changing since probably the year 1985. Therefore, after reading the [canonical book on AWK, published back in 1988](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_Awk_Programming_Language.pdf) (by the way, an absolute joy to read, one of the finest docs ever written), you can be sure that you know the whole language. It is unlikely that anyone would dare to say the same even about POSIX sh.
 
 So, if you take [this article](https://j3s.sh/thought/write-posix-shell.html), which promotes writing in POSIX shell, you'll notice that all of its arguments apply equally or even better to Awk.
 
