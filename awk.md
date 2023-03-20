@@ -17,8 +17,9 @@ A bare minimum of features includes strings, numbers, functions, associative arr
 
 There is an opinion that Awk is not suitable for writing serious programs. Even Brian Kernighan (the K in AWK) is convinced that his language is only good for small one-line programs. However, this does not prevent enthusiasts from creating rather voluminous programs in AWK:
 - [Translate shell](https://github.com/soimort/translate-shell)
-- [Compiler](https://news.ycombinator.com/item?id=13452043)
 - [CHIP-8 emulator](https://github.com/patsie75/awk-chip8)
+- [Git Graph Generator](https://github.com/deuill/grawkit)
+- [Bibliography manager](https://github.com/huijunchen9260/bib.awk)
 - [Simple yet powerful command runner](https://github.com/xonixx/makesure) (my creation)
 
 The following experiments are also of interest:
