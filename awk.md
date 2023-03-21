@@ -40,7 +40,7 @@ In principle, I am inclined to share this opinion. I am even ready to go as far 
 
 Personally, I've found that AWK is also a surprisingly good replacement for larger than average shell scripts.
 
-Why?
+## Why?
 
 1. **Portability** (AWK is a [part of the POSIX standard](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html)). Probably, Python in this sense is [the most expressive opposite](https://xkcd.com/1987/). Shells are not a silver bullet either. Often, to be on the safe side you stick to POSIX shell instead of more feature-rich alternatives. However, if you take [this article](https://j3s.sh/thought/write-posix-shell.html), which promotes writing POSIX shell, you'll notice that all of its arguments apply equally or even better to AWK.  
 2. Very **clean** C-like **syntax**
