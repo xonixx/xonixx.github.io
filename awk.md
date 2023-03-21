@@ -1,7 +1,7 @@
 ---
 title: 'Fascination of Awk'
-description: 'TODO'
-image: TODO
+description: 'I describe why Awk is great for prototyping and is often the best alternative to the shell and Python'
+image: makesure.png
 ---
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
 
@@ -11,7 +11,7 @@ _March 2023_
 
 Awk is a delightful mini-language almost unchanged for decades.
 
-A bare minimum of features includes strings, numbers, functions, associative arrays, line-by-line I/O and shell invocation. Perhaps, if it had fewer features, it would be impossible to program on it at all.
+A bare minimum of features includes strings, numbers, functions, associative arrays, line-by-line I/O and shell invocation. Perhaps, if it had fewer features, it would be impossible to program in it at all.
 
 There is an opinion that Awk is not suitable for writing serious programs. Even Brian Kernighan (the K in AWK) is convinced that his language is only good for small one-liners. However, this does not prevent enthusiasts from creating rather voluminous programs in Awk:
 - [Translate shell](https://github.com/soimort/translate-shell)
@@ -62,7 +62,7 @@ I also want to cite a programmer [Vladimir Dinev](https://github.com/vladcc), wh
 >
 >P.S. Also, bash and awk come with virtually any Unix environment, so that's pretty nice as well.
 
-Now, with [native Awk support](https://github.com/xonixx/intellij-awk) in IntelliJ IDEA it really becomes justified to write bigger Awk scripts without much fear.
+Now, with [native Awk support](https://github.com/xonixx/intellij-awk) in IntelliJ IDEA it really becomes justified to write even bigger Awk scripts without much fear.
 
 ### Links
 
