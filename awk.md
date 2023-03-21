@@ -61,7 +61,7 @@ I also want to cite a programmer Vladimir Dinev, who creates some interesting pr
 >
 >P.S. Also, bash and awk come with virtually any Unix environment, so that's pretty nice as well.
 
-Now, with [native AWK support](https://github.com/xonixx/intellij-awk) in IntelliJ IDEA it really becomes justified to write even bigger AWK scripts without much fear.
+Now, with [native AWK support for IntelliJ IDEA](https://github.com/xonixx/intellij-awk) it really becomes justified to write even bigger AWK scripts without much fear.
 
 ### Links
 
