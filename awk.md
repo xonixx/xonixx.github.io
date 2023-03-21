@@ -47,7 +47,7 @@ Why?
 3. Powerful **associative arrays**
 4. Powerful **string functions**
 5. Easy **interoperability** with the shell. While the AWK core is very small, the full power of the standard *nix utilities is at your disposal.
-6. The language is very **minimalistic** and **non-redundant**, not changing since probably the year 1985. Therefore, after reading the [canonical book on AWK, published back in 1988](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf) (by the way, an absolute joy to read, one of the finest docs ever written), you can be sure that you know the whole language. It is unlikely that anyone would dare to say the same even about POSIX sh.
+6. The language is very **minimalistic** and **non-redundant**, not changing since probably the year 1985. Therefore, after reading the [canonical book on AWK, published back in 1988](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf) (by the way, an absolute joy to read, one of the finest docs ever written), you can be sure that you know the whole language. It is unlikely that anyone would dare to say the same even about POSIX shell.
 
 So, if you take [this article](https://j3s.sh/thought/write-posix-shell.html), which promotes writing in POSIX shell, you'll notice that all of its arguments apply equally or even better to AWK.
 
