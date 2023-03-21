@@ -56,10 +56,17 @@ I also want to cite a programmer [Vladimir Dinev](https://github.com/vladcc), wh
 > ### [Why shell + awk?](https://github.com/vladcc/shawk#why-shell--awk)
 >Mainly because of this serendipitous observation:
 >
->The shell takes as input a string, executes one or more commands based on that string, and these commands output more strings as their result. awk is really good at working with strings. It can read them, write them, split them, compare them, match a regex, mostly anything you would want to do with a string. With the added bonus of doing math. The shell can call awk and awk can call the shell. The shell can execute any process, thus awk can execute any process. Therefore awk can provide any input you can provide to the shell and make sense of any result. The shell and awk are best friends. With their help the Unix environment turns into this huge high level API. The equivalent of a function call is now running a process and all data gets an uniform representation - the string. Which is perfectly readable and writable by humans as well as by awk. Any script is now possible, all tedium begone!
+>The shell takes as input a string, executes one or more commands based on that string, and these commands output more strings as their result. awk is really good at working with strings. It can read them, write them, split them, compare them, match a regex, mostly anything you would want to do with a string. With the added bonus of doing math. The shell can call awk and awk can call the shell. The shell can execute any process, thus awk can execute any process. Therefore, awk can provide any input you can provide to the shell and make sense of any result. The shell and awk are best friends. With their help the Unix environment turns into this huge high level API. The equivalent of a function call is now running a process and all data gets a uniform representation - the string. Which is perfectly readable and writable by humans as well as by awk. Any script is now possible, all tedium begone!
 >
 >But wait - there's more. awk gives you the string, which can represent any scalar value. It also gives you the hash table, which can represent any object and data structure. It gives you a runtime stack, so you have recursion. It gives you pass by reference, so you can return more than a single value. So as long as your input and your output are text, any and all processing is possible. And what's made out of text? Source code. You got everything you need to read source, process source, and write source. And what can you do with that? Create a language, of course. And that language could as well be able to call the shell, which can call awk, which can call the shell, which...
 >
 >P.S. Also, bash and awk come with virtually any Unix environment, so that's pretty nice as well.
 
 Now, with [native Awk support](https://github.com/xonixx/intellij-awk) in IntelliJ IDEA it really becomes justified to write bigger Awk scripts without much fear.
+
+### Links
+
+- [Why Learn AWK?](https://blog.jpalardy.com/posts/why-learn-awk/) -- great article by
+  Jonathan Palardy conveying similar ideas
+- [Python vs. awk](https://pmitev.github.io/to-awk-or-not/Python_vs_awk/) -- a remarkable case of replacing a 50 line Python script with 5 lines of Awk  
+- [The AWK Programming Language](https://archive.org/download/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf) -- the book by the AWK creators, a must read!
