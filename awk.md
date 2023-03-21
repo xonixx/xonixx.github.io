@@ -27,7 +27,7 @@ The following experiments are also of interest:
 - [Awkprolog](https://github.com/prolog8/awkprolog)
 - [Gron in Awk](https://github.com/xonixx/gron.awk) (my creation)
 
-And there is a simple explanation for this. A minimum of features liberates creativity. When there is only one way to do something, you don't spend a lot of time choosing that very way, but you concentrate on implementing a pure idea. There is no temptation to add (often) unnecessary abstractions, simply because with such restrictions it is almost impossible to implement them. In addition, there is a sporting interest - Is it really possible to write something functional even in such a language?
+And there is a simple explanation for this. A minimum of features liberates creativity. When there is only one way to do something, you don't spend a lot of time choosing that very way, but you concentrate on implementing a pure idea. There is no temptation to add (often) unnecessary abstractions, simply because with such restrictions it is almost impossible to implement them. In addition, there is a sporting interest -- is it really possible to write something functional even in such a language?
 
 Surprisingly, you can actually get very far with Awk most of the time. Many who tried said they were surprised how well the Awk prototype worked. So, there was not even much point in rewriting it into some more traditional programming language.
 
@@ -51,7 +51,7 @@ Why?
 
 So, if you take [this article](https://j3s.sh/thought/write-posix-shell.html), which promotes writing in POSIX shell, you'll notice that all of its arguments apply equally or even better to Awk.
 
-I also want to cite a programmer [Vladimir Dinev](https://github.com/vladcc), who creates some interesting projects with Awk:
+I also want to cite a programmer Vladimir Dinev, who creates some interesting projects with Awk:
 
 > ### [Why shell + awk?](https://github.com/vladcc/shawk#why-shell--awk)
 >Mainly because of this serendipitous observation:
