@@ -27,7 +27,7 @@ The following experiments are also of interest:
 - [Awkprolog](https://github.com/prolog8/awkprolog)
 - [Gron in Awk](https://github.com/xonixx/gron.awk) (my creation)
 
-There is a simple explanation for this. A minimum of features liberates creativity. When there is only one way to do something, you don't spend a lot of time choosing that very way, but you concentrate on implementing a pure idea. There is no temptation to add (often) unnecessary abstractions, simply because with such restrictions it is almost impossible to implement them. In addition, there is a sporting interest -- is it really possible to write something functional even in such a language?
+There is a simple explanation for this. A minimum of features liberates creativity. When there is only one way to do something, you don't spend a lot of time choosing that very way. You concentrate on implementing a pure idea. There is no temptation to add (often) unnecessary abstractions, simply because with such restrictions it is almost impossible to implement them. In addition, there is a sporting interest -- is it really possible to write something functional even in such a language?
 
 Surprisingly, you can actually get very far with AWK most of the time. Many who tried said they were surprised how well the AWK prototype worked. So, there was not even much point in rewriting it into some more traditional programming language. I don't think this is an exception, but rather a consistent pattern, due to the true genius of the AWK authors.
 
