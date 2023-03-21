@@ -36,7 +36,7 @@ Surprisingly, you can actually get very far with AWK most of the time. Many who 
 > To bytecode; I wanted to use the awk-based compiler as the initial bootstrap stage for a self-hosted compiler. Disturbingly, it worked fine. Disappointingly, it was actually faster than the self-hosted version. But it's so not the right language to write compilers in. Not having actual datastructures was a problem. But it was a surprisingly clean 1.5kloc or so. awk's still my go-to language for tiny, one-shot programming and text processing tasks.
 
 
-In principle, I am inclined to share this opinion. I am even ready to go as far as to say that what _can_ be scripted with AWK, _should_ be scripted with AWK (over Python, Ruby, Node.js, etc.). I'm not saying that you should write large applications, but for medium scripts, AWK is an absolutely good alternative to mainstream scripting languages with many benefits. A good programmer chooses the most powerful tool for the job, the best programmer chooses the least powerful tool to do the job.
+In principle, I am inclined to share this opinion. I am even ready to go as far as to say that what _can_ be scripted with AWK, _should_ be scripted with AWK (over Python, Ruby, Node.js, etc.). I'm not saying that you should write large applications, but for medium scripts, AWK is an absolutely fine alternative to mainstream scripting languages with many benefits. A good programmer chooses the most powerful tool for the job, the best programmer chooses the least powerful tool to do the job.
 
 Personally, I've found that AWK is also a surprisingly good replacement for larger than average shell scripts.
 
