@@ -29,14 +29,14 @@ The following experiments are also of interest:
 
 There is a simple explanation for this. A minimum of features liberates creativity. When there is only one way to do something, you don't spend a lot of time choosing that very way, but you concentrate on implementing a pure idea. There is no temptation to add (often) unnecessary abstractions, simply because with such restrictions it is almost impossible to implement them. In addition, there is a sporting interest -- is it really possible to write something functional even in such a language?
 
-Surprisingly, you can actually get very far with AWK most of the time. Many who tried said they were surprised how well the AWK prototype worked. So, there was not even much point in rewriting it into some more traditional programming language.
+Surprisingly, you can actually get very far with AWK most of the time. Many who tried said they were surprised how well the AWK prototype worked. So, there was not even much point in rewriting it into some more traditional programming language. I don't think this is an exception, but rather a consistent pattern, due to the true genius of the AWK authors.
 
 > [I wrote a compiler in awk!](https://news.ycombinator.com/item?id=13452043)
 >
 > To bytecode; I wanted to use the awk-based compiler as the initial bootstrap stage for a self-hosted compiler. Disturbingly, it worked fine. Disappointingly, it was actually faster than the self-hosted version. But it's so not the right language to write compilers in. Not having actual datastructures was a problem. But it was a surprisingly clean 1.5kloc or so. awk's still my go-to language for tiny, one-shot programming and text processing tasks.
 
 
-In principle, I am inclined to share this opinion. I am even ready to go as far as to say that what _can_ be scripted with AWK, _should_ be scripted with AWK (over Python, Ruby, Node.js, etc.). I'm not saying that you should write big apps though, but for small scripts AWK is absolutely fine alternative to major scripting languages with lots of benefits. A good programmer chooses the most powerful tool for the job, the best programmer chooses the least powerful tool to do the job.
+In principle, I am inclined to share this opinion. I am even ready to go as far as to say that what _can_ be scripted with AWK, _should_ be scripted with AWK (over Python, Ruby, Node.js, etc.). I'm not saying that you should write big apps though, but for average scripts AWK is absolutely fine alternative to major scripting languages with lots of benefits. A good programmer chooses the most powerful tool for the job, the best programmer chooses the least powerful tool to do the job.
 
 Personally, I've found that AWK is also a surprisingly good replacement for larger than average shell scripts.
 
