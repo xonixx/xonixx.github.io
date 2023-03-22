@@ -50,7 +50,7 @@ Personally, I've found that AWK is also a surprisingly good replacement for larg
 6. Easy **interoperability** with the shell. While the AWK core is very small, the full power of the standard *nix utilities is at your disposal.
 7. The language is very **stable**. If you read the [canonical book on AWK, published back in 1988](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf) (a masterpiece!), you can be sure that you know the whole language. It is unlikely that anyone would dare to say the same even about POSIX shell.
 
-I also want to cite a programmer Vladimir Dinev, who creates some interesting projects with AWK:
+I also want to cite a programmer Vladimir Dinev, who also creates some interesting projects with AWK:
 
 > ### [Why shell + awk?](https://github.com/vladcc/shawk#why-shell--awk)
 >Mainly because of this serendipitous observation:
