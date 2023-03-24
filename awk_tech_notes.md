@@ -1,9 +1,10 @@
 ---
-title: 'TODO'
+title: 'AWK technical notes'
 description: 'TODO'
 image: TODO
 ---
-## Interesting facts of AWK: no GC, etc.
+
+# AWK technical notes
 
 Surprisingly, the AWK language does not require a GC for its implementation. Same as sh/bash.
 
