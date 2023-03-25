@@ -29,6 +29,26 @@ BEGIN {
 function fill(arr,   i) { arr[i++] = "hello"; arr[i++] = "world" }
 ```
 
+The thing is, in a lack of GC all heap allocations must be deterministic. That is, array, declared locally in a function must be destroyed at the moment when function returns. That's why it's disallowed to escape the declaration scope of a function (via return).
+
+## Local variables
+
+All variables are global by default. However, if you add a variable to the function parameters (like `i` above) it becomes local. Javascript works in a similar way, although there are more suitable `var`/`let`/`const` keywords. In practice, it is customary to separate "real" function parameters from "local" parameters with additional spaces for clarity.
+
+So it appears, the use of local variables is a mechanism for automatic release of resources. Small [example](https://github.com/xonixx/gron.awk/blob/v0.2.0/gron.awk#L81):
+```awk
+function NUMBER(    res) {
+  return (tryParse1("-", res) || 1) &&
+    (tryParse1("0", res) || tryParse1("123456789", res) && (tryParseDigits(res)||1)) &&
+    (tryParse1(".", res) ? tryParseDigits(res) : 1) &&
+    (tryParse1("eE", res) ? (tryParse1("-+",res)||1) && tryParseDigits(res) : 1) &&
+    asm("number") && asm(res[0])
+}
+```
+
+The `NUMBER` function parses the number. `res` is a temporary array that will be automatically deallocated when the function exits.
+
+
 
 [//]: # (This is because the language, roughly speaking, simply lacks the ability to do 'new', that is dynamically allocate objects &#40;on heap&#41;. )
 
@@ -44,22 +64,6 @@ To Perl connoisseurs, this feature may be known as [Autovivification](https://en
 
 Likewise, a variable that is treated as a number (`i++`) will be implicitly declared as a numeric type, and so on.
 This is done, obviously, in order to be able to write the most compact code in one-liners, for which many of us are used to using AWK.
-
-Another interesting feature. All variables are global by default. However, if you add a variable to the function parameters (like `i` above) it becomes local. Javascript works in a similar way, although there are more suitable `var`/`let`/`const`. In practice, it is customary to separate "real" function parameters from "local" parameters with additional spaces for clarity.
-
-Actually, the use of local variables is a mechanism for automatic release of resources. Small [example](https://github.com/xonixx/gron.awk/blob/main/gron.awk#L81).
-```awk
-function NUMBER(    res) {
-  return (tryParse1("-", res) || 1) &&
-    (tryParse1("0", res) || tryParse1("123456789", res) && (tryParseDigits(res)||1)) &&
-    (tryParse1(".", res) ? tryParseDigits(res) : 1) &&
-    (tryParse1("eE", res) ? (tryParse1("-+",res)||1) && tryParseDigits(res) : 1) &&
-    asm("number") && asm(res[0])
-}
-```
-
-The `NUMBER` function parses the number. `res` is a temporary array that will be removed automatically when the function exits.
-
 
 More of the interesting.
 
