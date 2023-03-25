@@ -7,7 +7,7 @@ image: TODO
 # AWK technical notes
 
 ## Lack of GC (not needed)
-AWK was designed to not require a GC (garbage collector) for its implementation. By the way, same as sh/bash.
+AWK was designed to not require a GC (garbage collector) for its implementation. By the way, just like sh/bash.
 I learned this remarkable fact from the [oilshell blog](https://www.oilshell.org/blog/tags.html?tag=awk#awk).
 
 The most substantial consequence is that it's forbidden to return an array from a function, only a scalar value is allowed.
