@@ -35,7 +35,12 @@ The thing is, in a lack of GC all heap allocations must be deterministic. That i
 
 All variables are global by default. However, if you add a variable to the function parameters (like `i` above) it becomes local. Javascript works in a similar way, although there are more suitable `var`/`let`/`const` keywords. In practice, it is customary to separate "real" function parameters from "local" parameters with additional spaces for clarity.
 
-So it appears, the use of local variables is a mechanism for automatic release of resources. Small [example](https://github.com/xonixx/gron.awk/blob/v0.2.0/gron.awk#L81):
+Although Brian Kernighan (the K in AWK) regrets this design, in practice it works just fine.
+
+> The notation for function locals is appalling (all my fault too, which makes it worse).
+        
+
+So it appears, the use of local variables is also a mechanism for automatic release of resources. Small [example](https://github.com/xonixx/gron.awk/blob/v0.2.0/gron.awk#L81):
 ```awk
 function NUMBER(    res) {
   return (tryParse1("-", res) || 1) &&
@@ -54,15 +59,16 @@ The `NUMBER` function parses the number. `res` is a temporary array that will be
 
 ## Autovivification
 
-For example, an associative array is declared simply by the fact of using the corresponding variable as an array.
+An associative array is declared simply by the fact of using the corresponding variable `arr` as an array.
 
 ```awk
 arr["a"] = "b"
 ```
 
+Likewise, a variable that is treated as a number (`i++`) will be implicitly declared as a numeric type, and so on.
+
 To Perl connoisseurs, this feature may be known as [Autovivification](https://en.wikipedia.org/wiki/Autovivification). In general, AWK is quite unequivocally a prototype of Perl. You can even say that Perl is a kind of AWK overgrowth on steroids ... However, we deviated.
 
-Likewise, a variable that is treated as a number (`i++`) will be implicitly declared as a numeric type, and so on.
 This is done, obviously, in order to be able to write the most compact code in one-liners, for which many of us are used to using AWK.
 
 More of the interesting.
