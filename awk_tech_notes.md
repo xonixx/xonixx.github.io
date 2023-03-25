@@ -6,9 +6,19 @@ image: TODO
 
 # AWK technical notes
 
-Surprisingly, the AWK language does not require a GC for its implementation. Same as sh/bash.
+## Lack of GC (not needed)
+Surprisingly, the AWK language does not need a GC (garbage collector) for its implementation. By the way, same as sh/bash.
+I learned this remarkable fact from the [oilshell blog](https://www.oilshell.org/blog/tags.html?tag=awk#awk).
 
-The secret here is that the language, roughly speaking, simply lacks the ability to do 'new', that is dynamically allocate objects on heap. For example, an associative array is declared simply by the fact of using the corresponding variable as an array.
+I'm pretty sure, it was designed on purpose to not require a GC! Probably, the most substantial consequence is that you are disallowed to return an array from a function.   
+
+This is because AWK semantics implies deterministic memory allocation.  
+
+
+
+[//]: # (This is because the language, roughly speaking, simply lacks the ability to do 'new', that is dynamically allocate objects &#40;on heap&#41;. )
+
+For example, an associative array is declared simply by the fact of using the corresponding variable as an array.
 
 ```awk
 arr["a"] = "b"
