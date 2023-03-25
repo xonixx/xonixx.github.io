@@ -31,6 +31,8 @@ function fill(arr,   i) { arr[i++] = "hello"; arr[i++] = "world" }
 
 The thing is, in a lack of GC all heap allocations must be deterministic. That is, array, declared locally in a function must be destroyed at the moment when function returns. That's why it's disallowed to escape the declaration scope of a function (via return).
 
+The absense of GC allows to keep the implementation very simple, thus fast and portable. I really enjoyed the talk by Roberto Ierusalimschy, author of Lua, where he describes the com the nightmares debugging bugs in GC. https://youtu.be/EUvgoxBm7uc?t=1920
+
 ## Local variables
 
 All variables are global by default. However, if you add a variable to the function parameters (like `i` above) it becomes local. Javascript works in a similar way, although there are more suitable `var`/`let`/`const` keywords. In practice, it is customary to separate "real" function parameters from "local" parameters with additional spaces for clarity.
