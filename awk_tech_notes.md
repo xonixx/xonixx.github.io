@@ -7,16 +7,32 @@ image: TODO
 # AWK technical notes
 
 ## Lack of GC (not needed)
-Surprisingly, the AWK language does not need a GC (garbage collector) for its implementation. By the way, same as sh/bash.
+AWK was designed to not require a GC (garbage collector) for its implementation. By the way, same as sh/bash.
 I learned this remarkable fact from the [oilshell blog](https://www.oilshell.org/blog/tags.html?tag=awk#awk).
 
-I'm pretty sure, it was designed on purpose to not require a GC! Probably, the most substantial consequence is that you are disallowed to return an array from a function.   
+The most substantial consequence is that it's forbidden to return an array from a function, only a scalar value is allowed.
 
-This is because AWK semantics implies deterministic memory allocation.  
+```awk
+function f() {
+   a[1] = 2
+   return a # error
+}
 
+```
+But, it is allowed to pass an array to a function and fill it there
+
+```awk
+BEGIN {
+   fill(arr)
+   print arr[0] " " arr[1]
+}
+function fill(arr,   i) { arr[i++] = "hello"; arr[i++] = "world" }
+```
 
 
 [//]: # (This is because the language, roughly speaking, simply lacks the ability to do 'new', that is dynamically allocate objects &#40;on heap&#41;. )
+
+## Autovivification
 
 For example, an associative array is declared simply by the fact of using the corresponding variable as an array.
 
@@ -28,25 +44,6 @@ To Perl connoisseurs, this feature may be known as [Autovivification](https://en
 
 Likewise, a variable that is treated as a number (`i++`) will be implicitly declared as a numeric type, and so on.
 This is done, obviously, in order to be able to write the most compact code in one-liners, for which many of us are used to using AWK.
-
-It is also forbidden to return an array from a function, only a scalar value is allowed.
-
-```awk
-function f() {
-   a[1] = 2
-   return a # error
-}
-
-```
-But, you can pass an array to a function and fill it there
-
-```awk
-BEGIN {
-   fill(arr)
-   print arr[0] " " arr[1]
-}
-function fill(arr,   i) { arr[i++] = "hello"; arr[i++] = "world" }
-```
 
 Another interesting feature. All variables are global by default. However, if you add a variable to the function parameters (like `i` above) it becomes local. Javascript works in a similar way, although there are more suitable `var`/`let`/`const`. In practice, it is customary to separate "real" function parameters from "local" parameters with additional spaces for clarity.
 
