@@ -6,6 +6,8 @@ image: parameterized_goals1.png
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
 
 # AWK technical notes
+   
+In the previous article [Fascination of AWK](awk.md) we discussed why AWK is great for prototyping and is often the best alternative to the shell and Python. In this article I want to show you some interesting technical facts I learned about AWK. 
 
 ## Lack of GC
 AWK was designed to not require a GC (garbage collector) for its implementation. By the way, just like sh/bash.
@@ -56,10 +58,6 @@ function NUMBER(    res) {
 
 The `NUMBER` function parses the number. `res` is a temporary array that will be automatically deallocated when the function exits.
 
-
-
-[//]: # (This is because the language, roughly speaking, simply lacks the ability to do 'new', that is dynamically allocate objects &#40;on heap&#41;. )
-
 ## Autovivification
 
 An associative array is declared simply by the fact of using the corresponding variable `arr` as an array.
@@ -104,13 +102,9 @@ $ gawk 'function sum(n) { return n == 0 ? 0 : n + sum(n-1) }; BEGIN { print sum(
 
 By the way, GAWK [supports](https://blog.0branch.com/posts/2016-05-13-awk-tco.html) tail optimization.
 
----
-
-## About AWK syntax/grammar.
+## About AWK syntax/grammar
 
 I want to tell about a couple of findings I encountered while implementing the parser for AWK for [intellij-awk](https://github.com/xonixx/intellij-awk) project.
-
-https://github.com/xonixx/intellij-awk/blob/main/doc/parser_quirks.md
 
 ### `$` is a unary operator
 
@@ -250,3 +244,7 @@ reg_expr:
 (`startreg()` is a function defined in [lex.c](https://github.com/onetrueawk/awk/blob/d62c43899fd25fdc4883a32857d0f157aa2b6324/lex.c#L515)) The `reg_expr` rule itself is only ever matched in contexts where a division operator would be invalid.
 
 However, in intellij-awk I managed to disambiguate this on the Lexer level, but this required [creating a lexer with multiple states](https://github.com/xonixx/intellij-awk/blob/main/src/main/java/intellij_awk/Awk.flex) (note the usage of state `DIV_POSSIBLE`).
+
+---
+
+You can also check some Gawk-related nuances I found in [parser_quirks.md](https://github.com/xonixx/intellij-awk/blob/main/doc/parser_quirks.md). 
