@@ -68,7 +68,7 @@ arr["a"] = "b"
 
 Likewise, a variable that is treated as a number (`i++`) will be implicitly declared as a numeric type, and so on.
 
-To Perl connoisseurs, this feature may be known as [Autovivification](https://en.wikipedia.org/wiki/Autovivification). In general, AWK is quite unequivocally a prototype of Perl. You can even say that Perl is a kind of AWK overgrowth on steroids ... However, we deviated.
+To Perl connoisseurs, this feature may be known as [Autovivification](https://en.wikipedia.org/wiki/Autovivification). In general, AWK is quite unequivocally a prototype of Perl. You can even say that Perl is a kind of AWK overgrowth on steroids... However, we deviated.
 
 This is done, obviously, in order to be able to write the most compact code in one-liners, for which many of us are used to using AWK.
         
