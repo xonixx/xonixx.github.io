@@ -178,7 +178,7 @@ Partially, because some languages tried to be as close to human language as poss
 
 Maybe, because parsing theory was not that strong yet. So it was common to write ad-hoc parsers instead of using something like lex + yacc.
 
-Nowadays programming languages tend to have much more regular syntax, and so grammar. The most prominent example in this regard can be Go.
+Nowadays, programming languages tend to have [much more regular syntax](https://softwareengineering.stackexchange.com/questions/316217/why-does-the-type-go-after-the-variable-name-in-modern-programming-languages), and therefore grammar. The most prominent example in this regard can be Go.
 
 
 ### ERE vs DIV lexing ambiguity
