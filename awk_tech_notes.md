@@ -9,9 +9,9 @@ image: parameterized_goals1.png
 
 ## Lack of GC
 AWK was designed to not require a GC (garbage collector) for its implementation. By the way, just like sh/bash.
-I learned this remarkable fact from the [oilshell blog](https://www.oilshell.org/blog/tags.html?tag=awk#awk).
+I learned this remarkable fact from the [oilshell blog](https://www.oilshell.org/blog/tags.html?tag=awk#awk), rather interesting technical blog, where author describes his progress in creating the "better bash".
 
-The most substantial consequence is that it's forbidden to return an array from a function, only a scalar value is allowed.
+The most substantial consequence is that it's forbidden to return an array from a function, you can return only a scalar value.
 
 ```awk
 function f() {
@@ -20,7 +20,7 @@ function f() {
 }
 
 ```
-However, it is allowed to pass an array to a function and fill it there
+However, you can pass an array to a function and fill it there
 
 ```awk
 BEGIN {
@@ -201,7 +201,7 @@ len = 1 # OK
 ```
 
 Why is this? For flexibility. Remember, AWK's main goal was to be extremely terse yet productive language well suited for one-liners. So:
-- it's allowed to omit `()` for built-in functions, when no arguments passed, like in `echo "hello" | awk '{ print length }'` -- same as `echo "asda" | awk '{ print(length()) }'`
+- it's allowed to omit `()` for some built-in functions, when no arguments passed, like in `echo "hello" | awk '{ print length }'` -- same as `echo "asda" | awk '{ print(length()) }'`
 - same function can be used with different number of arguments, like `sub(/regex/, "replacement", target)` and `sub(/regex/, "replacement")` -- omitted `target` is implied as `$0`
 
 All these nuances require pretty ad-hoc parsing for built-in functions. This is why they are part of grammar. If we take the `getline` keyword, it's not even a function, but rather a very versatile [syntax construct](https://www.gnu.org/software/gawk/manual/html_node/Getline.html).
@@ -250,22 +250,3 @@ reg_expr:
 (`startreg()` is a function defined in [lex.c](https://github.com/onetrueawk/awk/blob/d62c43899fd25fdc4883a32857d0f157aa2b6324/lex.c#L515)) The `reg_expr` rule itself is only ever matched in contexts where a division operator would be invalid.
 
 However, in intellij-awk I managed to disambiguate this on the Lexer level, but this required [creating a lexer with multiple states](https://github.com/xonixx/intellij-awk/blob/main/src/main/java/intellij_awk/Awk.flex) (note the usage of state `DIV_POSSIBLE`).
-
-### Links
-
-- [The state of the AWK](https://lwn.net/Articles/820829/)
-- [Awk in 20 Minutes](https://ferd.ca/awk-in-20-minutes.html) - refresher on the basics of AWK
-- [Why Learn AWK?](https://blog.jpalardy.com/posts/why-learn-awk/)
-- https://github.com/freznicek/awesome-awk
-- https://www.libhunt.com/topic/awk
-- https://github.com/patsie75
-- https://pmitev.github.io/to-awk-or-not/Python_vs_awk/
-- https://www.oilshell.org/blog/tags.html?tag=awk#awk
-
-### TODO
-
-Canonical and very fascinating [book](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf) authored by the entire trio of A, W and K creators, which came out back in 1988, but it has not completely lost its relevance.
-
-> Read The AWK Programming Language, a joy to read, one of the finest docs ever written, I reckon.
-
-I learned this remarkable fact from the [oilshell blog](https://www.oilshell.org/blog/tags.html?tag=awk#awk) (by the way, rather interesting technical blog, where author describes his progress in creating the "better bash").
