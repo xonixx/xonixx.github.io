@@ -32,7 +32,7 @@ function fill(arr,   i) { arr[i++] = "hello"; arr[i++] = "world" }
 
 The thing is, in a lack of GC all heap allocations must be deterministic. That is, array, declared locally in a function must be destroyed at the moment when function returns. That's why it's disallowed to escape the declaration scope of a function (via return).
 
-The absense of GC allows to keep the language implementation very simple, thus fast and portable.
+The absense of GC allows to keep the language implementation very simple, thus fast and portable. Also, with predictable memory consumption. To me, this qualifies AWK as perfect embeddable language, although, for some reason this niche is firmly occupied by (GC-equipped) Lua. 
 
 ## Local variables
 
