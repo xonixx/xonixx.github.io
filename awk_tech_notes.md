@@ -170,17 +170,6 @@ Why is this? For flexibility. Remember, AWK's main goal was to be extremely ters
 
 All these nuances require pretty ad-hoc parsing for built-in functions. This is why they are part of grammar. If we take the `getline` keyword, it's not even a function, but rather a very versatile [syntax construct](https://www.gnu.org/software/gawk/manual/html_node/Getline.html).
 
-Overall, I noticed that many _old_ programming languages have very ad-hoc syntax, and so parsing.
-
-I think, partially, because they wanted to make the programming language very flexible (PL/1, Ada, C, AWK, shell)
-
-Partially, because some languages tried to be as close to human language as possible (SQL, or even COBOL -- almost every language feature in them is a separate syntax construct).
-
-Maybe, because parsing theory was not that strong yet. So it was common to write ad-hoc parsers instead of using something like lex + yacc.
-
-Nowadays, programming languages tend to have [much more regular syntax](https://softwareengineering.stackexchange.com/questions/316217/why-does-the-type-go-after-the-variable-name-in-modern-programming-languages). The most prominent example in this regard can be Go.
-
-
 ### ERE vs DIV lexing ambiguity
 
 AWK ad-hoc syntax, optimized for succinct code, has some [inherent ambiguities](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html#:~:text=There%20is%20a%20lexical%20ambiguity%20between%20the%20token) in its grammar.
@@ -217,4 +206,16 @@ However, in intellij-awk I managed to disambiguate this on the Lexer level, but 
 
 ---
 
-You can also check some Gawk-related nuances I found in [parser_quirks.md](https://github.com/xonixx/intellij-awk/blob/main/doc/parser_quirks.md). 
+You can check some other (Gawk-related) nuances I found in [parser_quirks.md](https://github.com/xonixx/intellij-awk/blob/main/doc/parser_quirks.md). 
+
+---
+
+Overall, I noticed that many _old_ programming languages have very ad-hoc syntax, and so parsing.
+
+I think, partially, because they wanted to make the programming language very flexible (PL/1, Ada, C, AWK, shell).
+
+Partially, because some languages tried to be as close to human language as possible (SQL, or even COBOL -- almost every language feature in them is a separate syntax construct).
+
+Or maybe because parsing theory wasn't that strong back then. So it was common to write ad-hoc parsers instead of using something like lex + yacc.
+
+Nowadays, programming languages tend to have [much more regular syntax](https://softwareengineering.stackexchange.com/questions/316217/why-does-the-type-go-after-the-variable-name-in-modern-programming-languages). The most prominent example in this regard can be Go.
