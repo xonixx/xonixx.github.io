@@ -72,38 +72,6 @@ To Perl connoisseurs, this feature may be known as [Autovivification](https://en
 
 This is done, obviously, in order to be able to write the most compact code in one-liners, for which many of us are used to using AWK.
         
-## Gawk supports unlimited recursion
-
-More of the interesting.
-
-```
-$ node -e 'function sum(n) { return n == 0 ? 0 : n + sum(n-1) }; console.info(sum(100000))'
-[eval]:1
-function sum(n) { return n == 0 ? 0 : n + sum(n-1) }; console.info(sum(100000))
-                  ^
-
-RangeError: Maximum call stack size exceeded
-    at sum ([eval]:1:19)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
-```
-
-The same Gawk will chew a million and not choke:
-
-```
-$ gawk 'function sum(n) { return n == 0 ? 0 : n + sum(n-1) }; BEGIN { print sum(1000000) }'
-500000500000
-```
-
-By the way, GAWK [supports](https://blog.0branch.com/posts/2016-05-13-awk-tco.html) tail optimization.
-
 ## About AWK syntax/grammar
 
 I want to tell about a couple of findings I encountered while implementing the parser for AWK for [intellij-awk](https://github.com/xonixx/intellij-awk) project.
