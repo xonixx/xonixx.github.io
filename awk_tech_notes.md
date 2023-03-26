@@ -38,7 +38,7 @@ The absense of GC allows to keep the language implementation very simple, thus f
 
 ## Local variables
 
-All variables are global by default. However, if you add a variable to the function parameters (like `i` above) it becomes local. Javascript works in a similar way, although there are more suitable `var`/`let`/`const` keywords. In practice, it is customary to separate "real" function parameters from "local" parameters with additional spaces for clarity.
+All variables are global by default. However, if you add a variable to the function parameters (like `i` above) it becomes local. JavaScript works in a similar way, although there are more suitable `var`/`let`/`const` keywords. In practice, it is customary to separate "real" function parameters from "local" parameters with additional spaces for clarity.
 
 Although Brian Kernighan (the K in AWK) regrets this design, in practice it works just fine.
 
@@ -212,7 +212,7 @@ You can check some other (Gawk-related) nuances I found in [parser_quirks.md](ht
 
 Overall, I noticed that many _old_ programming languages have very ad-hoc syntax, and so parsing.
 
-I think, partially, because they wanted to make the programming language very flexible (PL/1, Ada, C, AWK, shell).
+I think, partially, because they wanted to make the programming language very flexible (PL/1, Ada, C++, AWK, Perl, shell).
 
 Partially, because some languages tried to be as close to human language as possible (SQL, or even COBOL -- almost every language feature in them is a separate syntax construct).
 
