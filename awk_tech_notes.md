@@ -7,7 +7,7 @@ image: parameterized_goals1.png
 
 # AWK technical notes
 
-## Lack of GC (not needed)
+## Lack of GC
 AWK was designed to not require a GC (garbage collector) for its implementation. By the way, just like sh/bash.
 I learned this remarkable fact from the [oilshell blog](https://www.oilshell.org/blog/tags.html?tag=awk#awk).
 
@@ -20,7 +20,7 @@ function f() {
 }
 
 ```
-But, it is allowed to pass an array to a function and fill it there
+However, it is allowed to pass an array to a function and fill it there
 
 ```awk
 BEGIN {
