@@ -1,8 +1,9 @@
 ---
 title: 'AWK technical notes'
-description: 'TODO'
-image: TODO
+description: "You'll learn why AWK doesn't have a GC and understand some peculiarities in its syntax" 
+image: parameterized_goals1.png
 ---
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
 
 # AWK technical notes
 
@@ -31,7 +32,7 @@ function fill(arr,   i) { arr[i++] = "hello"; arr[i++] = "world" }
 
 The thing is, in a lack of GC all heap allocations must be deterministic. That is, array, declared locally in a function must be destroyed at the moment when function returns. That's why it's disallowed to escape the declaration scope of a function (via return).
 
-The absense of GC allows to keep the implementation very simple, thus fast and portable. I really enjoyed the talk by Roberto Ierusalimschy, author of Lua, where he describes the com the nightmares debugging bugs in GC. https://youtu.be/EUvgoxBm7uc?t=1920
+The absense of GC allows to keep the language implementation very simple, thus fast and portable.
 
 ## Local variables
 
