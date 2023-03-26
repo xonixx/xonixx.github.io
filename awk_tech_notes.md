@@ -9,7 +9,7 @@ image: parameterized_goals1.png
 
 ## Lack of GC
 AWK was designed to not require a GC (garbage collector) for its implementation. By the way, just like sh/bash.
-I learned this remarkable fact from the [oilshell blog](https://www.oilshell.org/blog/tags.html?tag=awk#awk), rather interesting technical blog, where author describes his progress in creating the "better bash".
+(I learned this remarkable fact from the [oilshell blog](https://www.oilshell.org/blog/tags.html?tag=awk#awk) -- rather interesting technical blog, where author describes his progress in creating the "better bash").
 
 The most substantial consequence is that it's forbidden to return an array from a function, you can return only a scalar value.
 
