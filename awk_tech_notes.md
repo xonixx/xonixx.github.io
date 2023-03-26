@@ -185,7 +185,7 @@ Nowadays programming languages tend to have much more regular syntax, and so gra
 
 AWK ad-hoc syntax, optimized for succinct code, has some [inherent ambiguities](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html#:~:text=There%20is%20a%20lexical%20ambiguity%20between%20the%20token) in its grammar.
 
-The problem resides in lexing ambiguity of tokens ERE (extended regular expression, `/regex/`) vs DIV (`/`). Naturally, lexer prefers the longer term. This causes a problem for parsing a code like
+The problem resides in lexing ambiguity of tokens ERE (extended regular expression, `/regex/`) vs DIV (`/`). Naturally, lexer prefers the longest matching term. This causes a problem for parsing a code like
 
 ```awk
 a(1 / 2, 3 / 4)
@@ -213,7 +213,7 @@ reg_expr:
 ```
 (`startreg()` is a function defined in [lex.c](https://github.com/onetrueawk/awk/blob/d62c43899fd25fdc4883a32857d0f157aa2b6324/lex.c#L515)) The `reg_expr` rule itself is only ever matched in contexts where a division operator would be invalid.
 
-However, in intellij-awk I managed to disambiguate this on the Lexer level, but this required [creating a lexer with multiple states](https://github.com/xonixx/intellij-awk/blob/main/src/main/java/intellij_awk/Awk.flex) (note the usage of state `DIV_POSSIBLE`).
+However, in intellij-awk I managed to disambiguate this on the Lexer level, but this required [creating a (somewhat sophisticated) lexer with multiple states](https://github.com/xonixx/intellij-awk/blob/main/src/main/java/intellij_awk/Awk.flex) (note the usage of state `DIV_POSSIBLE`).
 
 ---
 
