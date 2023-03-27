@@ -1,4 +1,5 @@
 ---
+layout: post
 title: 'Code Coverage for GoAWK'
 description: 'How I contributed to the GoAWK project by implementing the code coverage functionality'
 image: goawk_cover.png
