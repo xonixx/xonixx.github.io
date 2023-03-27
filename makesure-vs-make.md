@@ -1,3 +1,8 @@
+---
+layout: post
+title: 'makesure vs make'
+description: 'Pros and cons of Makesure over Make'
+---
 
 # makesure vs make
 

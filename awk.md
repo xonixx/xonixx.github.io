@@ -1,11 +1,11 @@
 ---
-title: 'Fascination of AWK'
+layout: post
+title: 'Fascination with AWK'
 description: 'I describe why AWK is great for prototyping and is often the best alternative to the shell and Python'
 image: makesure.png
 ---
-[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
 
-# Fascination of AWK
+# Fascination with AWK
 
 _March 2023_
 

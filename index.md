@@ -8,7 +8,7 @@
 
 ## Blog
 
-- [Fascination of AWK](awk.md) (March 2023)
+- [Fascination with AWK](awk.md) (March 2023)
 - [Adding parameterized goals to makesure](parameterized_goals.md) (March 2023)
 - [makesure vs make](makesure-vs-make.md) (March 2023)
 - [makesure - make with a human face](makesure.md) (February 2023)
