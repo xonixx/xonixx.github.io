@@ -3,11 +3,10 @@ title: 'AWK technical notes'
 description: "You'll learn why AWK doesn't have a GC and understand some peculiarities in its syntax" 
 image: parameterized_goals1.png
 ---
-[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
 
 # AWK technical notes
    
-In the previous article [Fascination of AWK](awk.md) we discussed why AWK is great for prototyping and is often the best alternative to the shell and Python. In this article I want to show you some interesting technical facts I learned about AWK. 
+In the previous article [Fascination with AWK](awk.md) we discussed why AWK is great for prototyping and is often the best alternative to the shell and Python. In this article I want to show you some interesting technical facts I learned about AWK. 
 
 ## Lack of GC
 AWK was designed to not require a GC (garbage collector) for its implementation. By the way, just like sh/bash.
