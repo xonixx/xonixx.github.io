@@ -1,9 +1,9 @@
 ---
+layout: post
 title: 'makesure - make with a human face'
 description: 'I describe the ideas behind the makesure tool and the development process for one of its aspects.'
 image: makesure.png
 ---
-[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
 
 # makesure - make with a human face
 

@@ -1,9 +1,9 @@
 ---
+layout: post
 title: 'Create bilingual books yourself'
 description: 'I describe a simple method to create bilingual books for personal use'
 image: bilingual_books2.png
 ---
-[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
 
 # Create bilingual books yourself
 
