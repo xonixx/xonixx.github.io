@@ -1,24 +1,19 @@
 ---
-title: 'TODO'
-description: 'TODO'
-image: TODO
+layout: post
+title: 'AWK technical notes'
+description: "You'll learn why AWK doesn't have a GC and understand some peculiarities in its syntax" 
+image: parameterized_goals1.png
 ---
-## Interesting facts of AWK: no GC, etc.
 
-Surprisingly, the AWK language does not require a GC for its implementation. Same as sh/bash.
+# AWK technical notes
+   
+In the previous article [Fascination with AWK](awk.md) we discussed why AWK is great for prototyping and is often the best alternative to the shell and Python. In this article I want to show you some interesting technical facts I learned about AWK. 
 
-The secret here is that the language, roughly speaking, simply lacks the ability to do 'new', that is dynamically allocate objects on heap. For example, an associative array is declared simply by the fact of using the corresponding variable as an array.
+## Lack of GC
+AWK was designed to not require a GC (garbage collector) for its implementation. By the way, just like sh/bash.
+(I learned this remarkable fact from the [oilshell blog](https://www.oilshell.org/blog/tags.html?tag=awk#awk) -- rather interesting technical blog, where author describes his progress in creating the "better bash").
 
-```awk
-arr["a"] = "b"
-```
-
-To Perl connoisseurs, this feature may be known as [Autovivification](https://en.wikipedia.org/wiki/Autovivification). In general, AWK is quite unequivocally a prototype of Perl. You can even say that Perl is a kind of AWK overgrowth on steroids ... However, we deviated.
-
-Likewise, a variable that is treated as a number (`i++`) will be implicitly declared as a numeric type, and so on.
-This is done, obviously, in order to be able to write the most compact code in one-liners, for which many of us are used to using AWK.
-
-It is also forbidden to return an array from a function, only a scalar value is allowed.
+The most substantial consequence is that it's forbidden to return an array from a function, you can return only a scalar value.
 
 ```awk
 function f() {
@@ -27,7 +22,7 @@ function f() {
 }
 
 ```
-But, you can pass an array to a function and fill it there
+However, you can pass an array to a function and fill it there
 
 ```awk
 BEGIN {
@@ -37,9 +32,20 @@ BEGIN {
 function fill(arr,   i) { arr[i++] = "hello"; arr[i++] = "world" }
 ```
 
-Another interesting feature. All variables are global by default. However, if you add a variable to the function parameters (like `i` above) it becomes local. Javascript works in a similar way, although there are more suitable `var`/`let`/`const`. In practice, it is customary to separate "real" function parameters from "local" parameters with additional spaces for clarity.
+The thing is, in a lack of GC all heap allocations must be deterministic. That is, array, declared locally in a function must be destroyed at the moment when function returns. That's why it's disallowed to escape the declaration scope of a function (via return).
 
-Actually, the use of local variables is a mechanism for automatic release of resources. Small [example](https://github.com/xonixx/gron.awk/blob/main/gron.awk#L81).
+The absense of GC allows to keep the language implementation very simple, thus fast and portable. Also, with predictable memory consumption. To me, this qualifies AWK as perfect embeddable language, although, for some reason this niche is firmly occupied by (GC-equipped) Lua. 
+
+## Local variables
+
+All variables are global by default. However, if you add a variable to the function parameters (like `i` above) it becomes local. JavaScript works in a similar way, although there are more suitable `var`/`let`/`const` keywords. In practice, it is customary to separate "real" function parameters from "local" parameters with additional spaces for clarity.
+
+Although Brian Kernighan (the K in AWK) regrets this design, in practice it works just fine.
+
+> The notation for function locals is appalling (all my fault too, which makes it worse).
+        
+
+So it appears, the use of local variables is also a mechanism for automatic release of resources. Small [example](https://github.com/xonixx/gron.awk/blob/v0.2.0/gron.awk#L81):
 ```awk
 function NUMBER(    res) {
   return (tryParse1("-", res) || 1) &&
@@ -50,46 +56,25 @@ function NUMBER(    res) {
 }
 ```
 
-The `NUMBER` function parses the number. `res` is a temporary array that will be removed automatically when the function exits.
+The `NUMBER` function parses the number. `res` is a temporary array that will be automatically deallocated when the function exits.
 
+## Autovivification
 
-More of the interesting.
+An associative array is declared simply by the fact of using the corresponding variable `arr` as an array.
 
-```
-$ node -e 'function sum(n) { return n == 0 ? 0 : n + sum(n-1) }; console.info(sum(100000))'
-[eval]:1
-function sum(n) { return n == 0 ? 0 : n + sum(n-1) }; console.info(sum(100000))
-                  ^
-
-RangeError: Maximum call stack size exceeded
-    at sum ([eval]:1:19)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
-    at sum ([eval]:1:43)
+```awk
+arr["a"] = "b"
 ```
 
-The same Gawk will chew a million and not choke:
+Likewise, a variable that is treated as a number (`i++`) will be implicitly declared as a numeric type, and so on.
 
-```
-$ gawk 'function sum(n) { return n == 0 ? 0 : n + sum(n-1) }; BEGIN { print sum(1000000) }'
-500000500000
-```
+To Perl connoisseurs, this feature may be known as [Autovivification](https://en.wikipedia.org/wiki/Autovivification). In general, AWK is quite unequivocally a prototype of Perl. You can even say that Perl is a kind of AWK overgrowth on steroids... However, we deviated.
 
-By the way, GAWK [supports](https://blog.0branch.com/posts/2016-05-13-awk-tco.html) tail optimization.
-
----
-
-## About AWK syntax/grammar.
+This is done, obviously, in order to be able to write the most compact code in one-liners, for which many of us are used to using AWK.
+        
+## About AWK syntax/grammar
 
 I want to tell about a couple of findings I encountered while implementing the parser for AWK for [intellij-awk](https://github.com/xonixx/intellij-awk) project.
-
-https://github.com/xonixx/intellij-awk/blob/main/doc/parser_quirks.md
 
 ### `$` is a unary operator
 
@@ -180,27 +165,16 @@ len = 1 # OK
 ```
 
 Why is this? For flexibility. Remember, AWK's main goal was to be extremely terse yet productive language well suited for one-liners. So:
-- it's allowed to omit `()` for built-in functions, when no arguments passed, like in `echo "hello" | awk '{ print length }'` -- same as `echo "asda" | awk '{ print(length()) }'`
+- it's allowed to omit `()` for built-in functions, when no arguments passed, like in `echo "hello" | awk '{ print length }'` -- same as `echo "hello" | awk '{ print(length()) }'`
 - same function can be used with different number of arguments, like `sub(/regex/, "replacement", target)` and `sub(/regex/, "replacement")` -- omitted `target` is implied as `$0`
 
 All these nuances require pretty ad-hoc parsing for built-in functions. This is why they are part of grammar. If we take the `getline` keyword, it's not even a function, but rather a very versatile [syntax construct](https://www.gnu.org/software/gawk/manual/html_node/Getline.html).
-
-Overall, I noticed that many _old_ programming languages have very ad-hoc syntax, and so parsing.
-
-I think, partially, because they wanted to make the programming language very flexible (PL/1, Ada, C, AWK, shell)
-
-Partially, because some languages tried to be as close to human language as possible (SQL, or even COBOL -- almost every language feature in them is a separate syntax construct).
-
-Maybe, because parsing theory was not that strong yet. So it was common to write ad-hoc parsers instead of using something like lex + yacc.
-
-Nowadays programming languages tend to have much more regular syntax, and so grammar. The most prominent example in this regard can be Go.
-
 
 ### ERE vs DIV lexing ambiguity
 
 AWK ad-hoc syntax, optimized for succinct code, has some [inherent ambiguities](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html#:~:text=There%20is%20a%20lexical%20ambiguity%20between%20the%20token) in its grammar.
 
-The problem resides in lexing ambiguity of tokens ERE (extended regular expression, `/regex/`) vs DIV (`/`). Naturally, lexer prefers the longer term. This causes a problem for parsing a code like
+The problem resides in lexing ambiguity of tokens ERE (extended regular expression, `/regex/`) vs DIV (`/`). Naturally, lexer prefers the longest matching term. This causes a problem for parsing a code like
 
 ```awk
 a(1 / 2, 3 / 4)
@@ -228,23 +202,20 @@ reg_expr:
 ```
 (`startreg()` is a function defined in [lex.c](https://github.com/onetrueawk/awk/blob/d62c43899fd25fdc4883a32857d0f157aa2b6324/lex.c#L515)) The `reg_expr` rule itself is only ever matched in contexts where a division operator would be invalid.
 
-However, in intellij-awk I managed to disambiguate this on the Lexer level, but this required [creating a lexer with multiple states](https://github.com/xonixx/intellij-awk/blob/main/src/main/java/intellij_awk/Awk.flex) (note the usage of state `DIV_POSSIBLE`).
+However, in intellij-awk I managed to disambiguate this on the Lexer level, but this required [creating a (somewhat sophisticated) lexer with multiple states](https://github.com/xonixx/intellij-awk/blob/main/src/main/java/intellij_awk/Awk.flex) (note the usage of state `DIV_POSSIBLE`).
 
-### Links
+---
 
-- [The state of the AWK](https://lwn.net/Articles/820829/)
-- [Awk in 20 Minutes](https://ferd.ca/awk-in-20-minutes.html) - refresher on the basics of AWK
-- [Why Learn AWK?](https://blog.jpalardy.com/posts/why-learn-awk/)
-- https://github.com/freznicek/awesome-awk
-- https://www.libhunt.com/topic/awk
-- https://github.com/patsie75
-- https://pmitev.github.io/to-awk-or-not/Python_vs_awk/
-- https://www.oilshell.org/blog/tags.html?tag=awk#awk
+You can check some other (Gawk-related) nuances I found in [parser_quirks.md](https://github.com/xonixx/intellij-awk/blob/main/doc/parser_quirks.md). 
 
-### TODO
+---
 
-Canonical and very fascinating [book](https://ia903404.us.archive.org/0/items/pdfy-MgN0H1joIoDVoIC7/The_AWK_Programming_Language.pdf) authored by the entire trio of A, W and K creators, which came out back in 1988, but it has not completely lost its relevance.
+Overall, I noticed that many _old_ programming languages have very ad-hoc syntax, and so parsing.
 
-> Read The AWK Programming Language, a joy to read, one of the finest docs ever written, I reckon.
+I think, partially, because they wanted to make the programming language very flexible (PL/1, Ada, C++, AWK, Perl, shell).
 
-I learned this remarkable fact from the [oilshell blog](https://www.oilshell.org/blog/tags.html?tag=awk#awk) (by the way, rather interesting technical blog, where author describes his progress in creating the "better bash").
+Partially, because some languages tried to be as close to human language as possible (SQL, or even COBOL -- almost every language feature in them is a separate syntax construct).
+
+Or maybe because parsing theory wasn't that strong back then. So it was common to write ad-hoc parsers instead of using something like lex + yacc.
+
+Nowadays, programming languages tend to have [much more regular syntax](https://softwareengineering.stackexchange.com/questions/316217/why-does-the-type-go-after-the-variable-name-in-modern-programming-languages). The most prominent example in this regard can be Go.
