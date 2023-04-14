@@ -20,14 +20,14 @@ Needless to say, this slowness renders tests much less useful and helpful for th
 
 ## Source of slowness
 
-We at CML Team value integration/functional tests (over unit-tests). So we tend to write tests with less mocks, tests that spans all layers of the (Java) application (controllers, services, repositories) -- down to (and including) the DB. The tests run on the real database (MySQL), not on often recommended H2. 
+We at CML Team value integration/functional tests. So we tend to write tests with less mocks, tests that spans all layers of the (Java) application (controllers, services, repositories) -- down to (and including) the DB. The tests run on the real database (MySQL), not on often recommended H2. 
 
 Overall, the idea is, the closer your tests follow _real_ (human) use-cases and real application setup, the higher chances to catch _real_ bugs.
 
-Of course, we write unit-tests when applicable. But otherwise, we prefer end-to-end tests to tests for specific controller, service or component. 
+Of course, we write unit-tests when applicable. But otherwise, we prefer end-to-end tests to tests for a specific controller, service or component. 
 
 
-## The rewrite approach
+## The rewrite strategy
 
 ## Why the new approach is better?
 
