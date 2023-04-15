@@ -71,7 +71,7 @@ It appears that this test takes whopping 8+ seconds to execute:
 
 ![](optimize_tests1.png)
 
-And if we take some thread dumps during the execution, we'll see, that major part of this time is spent in DB Rider plugin applying the initial state to the DB (`init_data.json`):
+And if we take some thread dumps during the execution, we'll see, that major part of this time is spent in the Database Rider plugin applying the initial state to the DB (`init_data.json`):
 
 ![](optimize_tests2.png)
 
@@ -165,9 +165,9 @@ So it should be only 35 SQL inserts.
 
 I have some guesses why this can take so long:
 
-- obviously, to turn `init_data.json` into a set of SQL inserts the Database Rider must determine the correct order, determined by entity relations (like foreign keys). So I guess, as a part of this routine it needs to first fetch the whole database metadata and apply some topological sorting. 
-- The `init_data.json` is shared among multiple tests so, probably, it has more data than required for this particular test.
+- Obviously, to turn `init_data.json` into a set of SQL inserts the Database Rider must determine the correct insertion order, according to entity relations (like foreign keys). So I guess, as a part of this routine it needs to first fetch the whole database metadata and then apply some topological sorting to the source dataset. 
 - I'm not quite sure, how efficiently does the Database Rider do the inserts. Whether it in an auto-commit mode? Whether it does each insert in a separate transaction or not? 
+- As `init_data.json` is shared among multiple tests, it, probably,  contains more data than needed for this particular test.
 
 
 ## The rewrite strategy
