@@ -219,7 +219,19 @@ And runs in 1 second:
 
 ![](optimize_tests3.png)
 
+- TODO more on differences with previous setup
+- TODO details of dbTestHelper
+- TODO details of testDataFactory
 
 ## Why the new approach is better?
 
+- TODO db rider provokes `init_data.json` fixture reuse
+  - less effective due to excessive data not needed for a particular test
+  - tests now rely on same (or intersecting) data, making it harder to change this data for a particular test
+- TODO tests are self-contained, not scattered over multiple files
+- TODO easier to debug and profile, only create test data we need
+- TODO more opportunities to refactor / less copy-paste
+
 ## Results
+
+40 tests (out of around 490) : 4m 30 sec --> 20 sec
