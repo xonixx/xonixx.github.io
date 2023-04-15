@@ -20,9 +20,9 @@ Needless to say, this slowness renders tests much less useful and helpful for th
 
 ## Source of slowness
 
-At CML Team we value integration/functional tests. So we tend to write tests with less mocks, tests that spans all layers of the (Java) application (controllers, services, repositories) -- down to (and including) the DB. The tests run on the real database (MySQL), not on often recommended H2. 
+At CML Team we value integration/functional tests. So we tend to write tests with less mocks, tests that span all layers of the (Java) application (controllers, services, repositories) -- down to (and including) the DB. The tests run on the real database (MySQL), not on often recommended H2. 
 
-Overall, the idea is, the closer your tests follow _real_ (human) use-cases and real application setup, the higher chances to catch _real_ bugs.
+Overall, the idea is, the closer your tests follow _real_ (human) use-cases and _real_ application setup, the higher are the chances to catch _real_ bugs.
 
 Of course, we write unit-tests when applicable. But otherwise, we prefer end-to-end tests to tests for a specific controller, service or component.
 
@@ -171,6 +171,54 @@ I have some guesses why this can take so long:
 
 
 ## The rewrite strategy
+
+Given the concerns above, the rewrite strategy was obvious. Get rid of Database Rider annotations and code DB initialization and DB check steps in plain code.
+
+The same test looks like
+
+```java
+@ExtendWith(SpringExtension.class)
+@AutoConfigureMockMvc
+@SpringBootTest
+class PersonHistoryServiceITest {
+  @Test
+  void writeCreatingPersonToHistory() throws Exception {
+    // GIVEN
+    DbTestHelper.Transaction transaction = dbTestHelper.startTransactionOnCleanDb();
+    User user = testDataFactory.newAdmin();
+    transaction.commit();
+
+    String fullName = "John Doe";
+
+    // WHEN
+    MvcResult result =
+        mockMvc
+            .perform(
+                post("/attendee/create")
+                    .with(user(user))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(
+                        asJsonString(
+                            PersonCreateRequestDto.builder()
+                                .fullName(fullName)
+                                .country("US")
+                                .conferenceIds(List.of())
+                                .industries(List.of())
+                                .companyPositions(List.of())
+                                .build())))
+            .andExpect(status().isOk())
+            .andReturn();
+
+    // THEN
+    checkPersonHistoryCreated(ITestHelper.extractId(result), user, ADD, "Person", null, fullName);
+  }
+}
+```
+
+And runs in 1 second:
+
+![](optimize_tests3.png)
+
 
 ## Why the new approach is better?
 
