@@ -75,6 +75,100 @@ And if we take some thread dumps during the execution, we'll see, that major par
 
 ![](optimize_tests2.png)
 
+Here is an excerpt from `init_data.json`:
+
+```json5
+{
+  "person": [
+    {
+      "id": 1,
+      "country": "IE",
+      "phone": "+111111111",
+      "email": "john@test",
+      "whatsapp": "1111111",
+      "telegram": "@JohnS",
+      "instagram": "@john_s",
+      "facebook": "https://facebook.com/JohnS",
+      "created_date": "1669125329768",
+      "modified_date": "1669125329768",
+      "first_name": "John",
+      "last_name": "Smith",
+      "outsourcing_history": "Found on clutch",
+      "added_by": "IMPORTED_FROM_SPREADSHEET",
+      "deleted": 0
+    },
+    // ... 
+  ],
+  "avatar": [
+    {
+      "id": 1,
+      "person_id": 1,
+      "photo_url": "https://web-summit/photos/1",
+      "main": 1,
+      "deleted": 0
+    },
+    {
+      "id": 2,
+      "person_id": 3,
+      "photo_url": "https://web-summit/photos/2",
+      "main": 1,
+      "deleted": 0
+    },
+    // ...
+  ],
+  "company": [
+    {
+      "id": 1,
+      "company_funding": 100,
+      "company_valuation": 25,
+      "employees_amount": 60,
+      "linkedin": "http://new_linked_in/good",
+      "name": "Good company",
+      "website": "www.good-company.com"
+    },
+    // ...
+  ],
+  "person_company": [
+    {
+      "company_id": 1,
+      "person_id": 1
+    },
+    {
+      "company_id": 1,
+      "person_id": 2
+    },
+    // ...
+  ],
+  "conference": [
+    {
+      "id": 1,
+      "start_date": "2022-05-06",
+      "end_date": "2022-05-09",
+      "link": "www.some.conference",
+      "location": "San Francisco",
+      "conference_name": "First conference",
+      "type": "ONLINE"
+    },
+  ]
+  // ...
+}
+```
+
+Overall, the dataset there is not big:
+
+```
+$ cat 'src/test/resources/db_rider_data/controller/person/init_data.json' | jq '[.[] | length] | add'
+35
+```
+
+So it should be only 35 SQL inserts.
+
+I have some guesses why this can take so long:
+
+- obviously, to turn `init_data.json` into a set of SQL inserts the Database Rider must determine the correct order, determined by entity relations (like foreign keys). So I guess, as a part of this routine it needs to first fetch the whole database metadata and apply some topological sorting. 
+- The `init_data.json` is shared among multiple tests so, probably, it has more data than required for this particular test.
+- I'm not quite sure, how efficiently does the Database Rider do the inserts. Whether it in an auto-commit mode? Whether it does each insert in a separate transaction or not? 
+
 
 ## The rewrite strategy
 
