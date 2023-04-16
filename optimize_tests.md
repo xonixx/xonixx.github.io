@@ -272,7 +272,7 @@ public class DbTestHelper {
 }
 ```
 
-The main purpose of `testDataFactory` is to generate the testing data records in the DB. So by default it should generate the same entity for any test, but should also have a common way of customizing each entity instance before creation. This is achieved by `EntityCustomizer`:
+The main purpose of `testDataFactory` is to generate the testing data records in the DB. So by default it should generate the same entity data for any test, but should also have a common way of customizing each entity instance before creation (using `EntityCustomizer`):
 
 ```java
 @Component
@@ -384,12 +384,140 @@ We also use a small trick here of not using all the specific repositories for ea
 
 ## Why the new approach is better?
 
-- TODO db rider provokes `init_data.json` fixture reuse
-  - less effective due to excessive data not needed for a particular test
-  - tests now rely on same (or intersecting) data, making it harder to change this data for a particular test
-- TODO tests are self-contained, not scattered over multiple files
-- TODO easier to debug and profile, only create test data we need
-- TODO more opportunities to refactor / less copy-paste
+Firstly, Database Rider provokes `init_data.json` fixture reuse. This makes it less efficient due to excessive data not needed for a particular test. Besides, tests now tend to rely on the same (or intersecting) data, making it harder to change this data for a particular test.
+
+Secondly, tests are now self-contained, not scattered over multiple files, like with DB Rider. This makes the test logic more comprehensible.
+
+Thirdly, it's easier to debug and profile this way. Also, you only create the minimum test data you need for a test.
+
+Lastly, you have more opportunities to refactor, less copy-paste. 
+
+***
+
+To illustrate the last point let's take a look at a set of (repetitive) tests we had before the refactoring:
+
+```java
+
+  @Test
+  @WithUserDetails(value = "user1@mail.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+  @CleanDataBaseBeforeAndAfter("db_rider_data/controller/person/init_data.json")
+  @ExpectedDataSet(
+      value = "db_rider_data/history/person/edit/data_after_editing_first_name.json",
+      ignoreCols = {"id", "person_id", "modified_at"})
+  void writeEditingFirstNameToHistory() throws Exception {
+    PersonUpdateRequestDto updateRequestDto =
+        PersonUpdateRequestDto.builder()
+            .personId(1L)
+            .phone("+111111111")
+            .email("john@test")
+            .whatsapp("222222")
+            .telegram("@JohnS")
+            .instagram("@john_s")
+            .facebook("https://facebook.com/JohnS")
+            .firstName("Peter")
+            .build();
+
+    mockMvc
+        .perform(
+            put(domainConfig.getAppBaseUrl() + "/attendee/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(updateRequestDto)))
+        .andExpect(status().is2xxSuccessful());
+  }
+
+  @Test
+  @WithUserDetails(value = "user1@mail.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+  @CleanDataBaseBeforeAndAfter("db_rider_data/controller/person/init_data.json")
+  @ExpectedDataSet(
+      value = "db_rider_data/history/person/edit/data_after_editing_last_name.json",
+      ignoreCols = {"id", "person_id", "modified_at"})
+  void writeEditingLastNameToHistory() throws Exception {
+    PersonUpdateRequestDto updateRequestDto =
+        PersonUpdateRequestDto.builder()
+            .personId(1L)
+            .phone("+111111111")
+            .email("john@test")
+            .whatsapp("222222")
+            .telegram("@JohnS")
+            .instagram("@john_s")
+            .facebook("https://facebook.com/JohnS")
+            .lastName("Doe")
+            .build();
+
+    mockMvc
+        .perform(
+            put(domainConfig.getAppBaseUrl() + "/attendee/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(updateRequestDto)))
+        .andExpect(status().is2xxSuccessful());
+  }
+
+  @Test
+  @WithUserDetails(value = "user1@mail.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+  @CleanDataBaseBeforeAndAfter("db_rider_data/controller/person/init_data.json")
+  @ExpectedDataSet(
+      value = "db_rider_data/history/person/edit/data_after_editing_country.json",
+      ignoreCols = {"id", "person_id", "modified_at"})
+  void writeEditingCountryToHistory() throws Exception {
+    PersonUpdateRequestDto updateRequestDto =
+        PersonUpdateRequestDto.builder()
+            .personId(1L)
+            .phone("+111111111")
+            .email("john@test")
+            .whatsapp("222222")
+            .telegram("@JohnS")
+            .instagram("@john_s")
+            .facebook("https://facebook.com/JohnS")
+            .country("UA")
+            .build();
+
+    mockMvc
+        .perform(
+            put(domainConfig.getAppBaseUrl() + "/attendee/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(updateRequestDto)))
+        .andExpect(status().is2xxSuccessful());
+  }
+
+  // ... even more tests like this
+```
+   
+And here is the after:
+```java
+  @Test
+  void writeEditingFirstNameToHistory() throws Exception {
+    writeEditingOfSingleFieldToHistory(
+        new EditingOfSingleField(
+            "Name",
+            "NewName",
+            Person::getFirstName,
+            PersonUpdateRequestDto.PersonUpdateRequestDtoBuilder::firstName));
+  }
+
+  @Test
+  void writeEditingLastNameToHistory() throws Exception {
+    writeEditingOfSingleFieldToHistory(
+        new EditingOfSingleField(
+            "Surname",
+            "NewName",
+            Person::getLastName,
+            PersonUpdateRequestDto.PersonUpdateRequestDtoBuilder::lastName));
+  }
+
+  @Test
+  void writeEditingCountryToHistory() throws Exception {
+    writeEditingOfSingleFieldToHistory(
+        new EditingOfSingleField(
+            "Country",
+            "UA",
+            Person::getCountryCode,
+            PersonUpdateRequestDto.PersonUpdateRequestDtoBuilder::country));
+  }
+  
+  // ... more like this
+```
+
+Impressive, huh?
 
 ## Results
 
