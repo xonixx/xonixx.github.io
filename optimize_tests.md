@@ -1,13 +1,13 @@
 ---
 layout: post
-title: 'TODO'
+title: 'Rewriting of Spring Boot integration tests for 10x speedup'
 description: "The re-write of Spring Boot integration tests resulted in 10x execution speedup"
-image: TODO
+image: optimize_tests1.png
 ---
 
-# TODO
+# Rewriting of Spring Boot integration tests for 10x speedup
 
-_March 2023_
+_April 2023_
 
 ## Problem description
 
