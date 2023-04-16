@@ -223,7 +223,55 @@ And runs in 1 second:
 
 So now instead of having implicit logic, hidden in annotations we have it in code, in `// GIVEN` and `// THEN` sections. Similarly, the annotations `@WithUserDetails` is now explicit line of code `.with(user(user))`.
 
-- TODO details of dbTestHelper
+The `dbTestHelper` encapsulates the functionality of cleaning the DB and starting/committing the transactions, common for many tests:
+
+```java
+@Component
+@RequiredArgsConstructor
+public class DbTestHelper {
+    private final EntityManager entityManager;
+    private final PlatformTransactionManager platformTransactionManager;
+
+    public interface Transaction {
+        void commit();
+    }
+
+    Transaction startTransaction() {
+        TransactionStatus transactionStatus =
+                platformTransactionManager.getTransaction(TransactionDefinition.withDefaults());
+        return () -> platformTransactionManager.commit(transactionStatus);
+    }
+
+    public Transaction startTransactionOnCleanDb() {
+        Transaction transaction = startTransaction();
+        cleanupDb();
+        return transaction;
+    }
+
+    void cleanupDb() {
+        try (Session session = entityManager.unwrap(Session.class)) {
+            session.doWork(
+                    connection -> {
+                        Statement statement = connection.createStatement();
+                        for (String table : tables) {
+                            statement.addBatch("delete from personin4_integration." + table);
+                        }
+
+                        statement.executeBatch();
+                    });
+        }
+    }
+
+    private static final String[] tables =
+            new String[]{
+                    "person_industry",
+                    "person_company_position",
+                    "person_company"
+                    // ... all other tables 
+            };
+}
+```
+
 - TODO details of testDataFactory
 
 ## Why the new approach is better?
