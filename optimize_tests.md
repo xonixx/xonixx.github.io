@@ -272,7 +272,7 @@ public class DbTestHelper {
 }
 ```
 
-The main purpose of `testDataFactory` is to generate the testing data records in the DB. So by default it should generate the same entity for any test, but should also have a common way of customizing each instance before the generation. This is achieved by `EntityCustomizer`:
+The main purpose of `testDataFactory` is to generate the testing data records in the DB. So by default it should generate the same entity for any test, but should also have a common way of customizing each entity instance before creation. This is achieved by `EntityCustomizer`:
 
 ```java
 @Component
@@ -363,7 +363,7 @@ public class TestDataFactory {
 }
 ```
 
-Using this design you can pre-polulate testing data set in any way you like in the most concise way:
+Using this design you can pre-populate testing data set in any way you like in the most concise way:
 
 ```java
     // GIVEN
@@ -378,6 +378,8 @@ Using this design you can pre-polulate testing data set in any way you like in t
     testDataFactory.newPersonCompanyPosition(personCompany, position2);
     transaction.commit();
 ```
+
+We also use a small trick here of not using all the specific repositories for each entity type (like `UserRepository`, `PersonRepository`, etc.), but persisting through the more low-level `entityManager`. 
 
 
 ## Why the new approach is better?
