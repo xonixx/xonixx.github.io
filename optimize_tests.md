@@ -379,7 +379,7 @@ Using this design you can pre-populate testing data set in any way you like in t
     transaction.commit();
 ```
 
-We also use a small trick here of not using all the specific repositories for each entity type (like `UserRepository`, `PersonRepository`, etc.), but persisting through the more low-level `entityManager`. 
+`TestDataFactory` also uses a small trick of not using all the specific repositories for each entity type (like `UserRepository`, `PersonRepository`, etc.), but persisting through the more low-level `entityManager`. 
 
 
 ## Why the new approach is better?
@@ -521,4 +521,10 @@ Impressive, huh?
 
 ## Results
 
-40 tests (out of around 490) : 4m 30 sec --> 20 sec
+So far only 40 integration tests (out of around 490) are refactored this way. 
+
+The execution time of them dropped from **4m 30 sec** to just **20 sec**. This is stunning **13x** speedup!
+
+And believe it or not, we also were able to delete over 3K+ lines during this change (mostly due to dropping the fixture files): 
+
+![](optimize_tests4.png)
