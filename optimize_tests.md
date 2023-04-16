@@ -272,7 +272,113 @@ public class DbTestHelper {
 }
 ```
 
-- TODO details of testDataFactory
+The main purpose of `testDataFactory` is to generate the testing data records in the DB. So by default it should generate the same entity for any test, but should also have a common way of customizing each instance before the generation. This is achieved by `EntityCustomizer`:
+
+```java
+@Component
+@RequiredArgsConstructor
+public class TestDataFactory {
+    private final EntityManager entityManager;
+    private static final EntityCustomizer nop = o -> {};
+
+    public interface EntityCustomizer<Entity> {
+        void customize(Entity entity);
+    }
+
+    private <Entity> Entity customizeAndPersist(
+            EntityCustomizer<Entity> entityCustomizer, Entity entity) {
+        entityCustomizer.customize(entity);
+        entityManager.persist(entity);
+        return entity;
+    }
+
+    public User newAdmin() {
+        return newUser(user -> user.setRole(ROLE_ADMIN));
+    }
+
+    public User newUser() {
+        return newUser(user -> user.setRole(ROLE_USER));
+    }
+
+    public User newUser(EntityCustomizer<User> userCustomizer) {
+        return customizeAndPersist(
+                userCustomizer,
+                new User(
+                        null,
+                        true,
+                        "example2@mail.com",
+                        "username_2",
+                        null,
+                        true,
+                        true,
+                        true,
+                        true,
+                        "qwerty",
+                        "John",
+                        "Smith",
+                        ROLE_USER,
+                        null,
+                        false,
+                        newAccount(),
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        List.of(),
+                        false));
+    }
+
+    public Person newPerson() {
+        return newPerson(nop);
+    }
+
+    public Person newPerson(EntityCustomizer<Person> personCustomizer) {
+        return customizeAndPersist(
+                personCustomizer,
+                Person.builder()
+                        .firstName("John")
+                        .lastName("Doe")
+                        .email("email@example.com")
+                        .phone("+123456789")
+                        .outsourcingHistory("Found on clutch")
+                        .personIndustries(Set.of())
+                        .personCompanies(Set.of())
+                        .personConferences(Set.of())
+                        .cardPeople(List.of())
+                        .campaigns(List.of())
+                        .audios(new ArrayList<>())
+                        .avatars(new HashSet<>())
+                        .countryCode("US")
+                        .country(new Country("US", "USA"))
+                        .comments(List.of())
+                        .photos(List.of())
+                        .addedBy(AddedBy.IMPORTED_FROM_SPREADSHEET)
+                        .createdDate(System.currentTimeMillis())
+                        .modifiedDate(System.currentTimeMillis())
+                        .build());
+    }
+    // ... other methods
+}
+```
+
+Using this design you can pre-polulate testing data set in any way you like in the most concise way:
+
+```java
+    // GIVEN
+    DbTestHelper.Transaction transaction = dbTestHelper.startTransactionOnCleanDb();
+    User user = testDataFactory.newAdmin();
+    Person person = testDataFactory.newPerson();
+    Company company = testDataFactory.newCompany();
+    Position position = testDataFactory.newPosition();
+    Position position2 = testDataFactory.newPosition(position1 -> position1.setTitle("CEO"));
+    PersonCompany personCompany = testDataFactory.newPersonCompany(person, company);
+    testDataFactory.newPersonCompanyPosition(personCompany, position);
+    testDataFactory.newPersonCompanyPosition(personCompany, position2);
+    transaction.commit();
+```
+
 
 ## Why the new approach is better?
 
