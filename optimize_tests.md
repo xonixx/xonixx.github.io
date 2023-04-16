@@ -54,7 +54,12 @@ class PersonHistoryServiceITest {
                 .perform(
                         MockMvcRequestBuilders.post("/attendee/create")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(asJsonString(getPersonCreateRequestDtoNewPersonNewCompany())))
+                                .content(
+                                        asJsonString(
+                                                PersonCreateRequestDto.builder()
+                                                        .fullName(fullName)
+                                                        .country("US")
+                                                        .build())))
                 .andExpect(status().is2xxSuccessful());
     }
 }
@@ -174,7 +179,7 @@ I have some guesses why this can take so long:
 
 Given the concerns above, the rewrite strategy was obvious. Get rid of Database Rider annotations and code DB initialization and DB check steps in plain code.
 
-The same test looks like
+The same test looks now:
 
 ```java
 @ExtendWith(SpringExtension.class)
@@ -202,9 +207,6 @@ class PersonHistoryServiceITest {
                             PersonCreateRequestDto.builder()
                                 .fullName(fullName)
                                 .country("US")
-                                .conferenceIds(List.of())
-                                .industries(List.of())
-                                .companyPositions(List.of())
                                 .build())))
             .andExpect(status().isOk())
             .andReturn();
@@ -219,7 +221,8 @@ And runs in 1 second:
 
 ![](optimize_tests3.png)
 
-- TODO more on differences with previous setup
+So now instead of having implicit logic, hidden in annotations we have it in code, in `// GIVEN` and `// THEN` sections. Similarly, the annotations `@WithUserDetails` is now explicit line of code `.with(user(user))`.
+
 - TODO details of dbTestHelper
 - TODO details of testDataFactory
 
