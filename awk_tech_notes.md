@@ -6,6 +6,8 @@ image: parameterized_goals1.png
 ---
 
 # AWK technical notes
+
+_March 2023_
    
 In the previous article [Fascination with AWK](awk.md) we discussed why AWK is great for prototyping and is often the best alternative to the shell and Python. In this article I want to show you some interesting technical facts I learned about AWK. 
 
