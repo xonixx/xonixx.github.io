@@ -528,3 +528,5 @@ The execution time of them dropped from **4m 30 sec** to just **20 sec**. This i
 And believe it or not, we also were able to delete over 3K+ lines during this change (mostly due to dropping the fixture files): 
 
 ![](optimize_tests4.png)
+
+In the near future we plan to rewrite the rest of the tests and use this approach for new tests.
