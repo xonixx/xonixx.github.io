@@ -1,11 +1,11 @@
 ---
 layout: post
-title: 'Rewriting of Spring Boot integration tests for 10x speedup'
+title: 'Rewriting Spring Boot integration tests for 10x speedup'
 description: "The re-write of Spring Boot integration tests resulted in 10x execution speedup"
 image: optimize_tests1.png
 ---
 
-# Rewriting of Spring Boot integration tests for 10x speedup
+# Rewriting Spring Boot integration tests for 10x speedup
 
 _April 2023_
 
@@ -20,7 +20,7 @@ Needless to say, this slowness renders tests much less useful and helpful for th
 
 ## Source of slowness
 
-At CML Team we value integration/functional tests. So we tend to write tests with less mocks, tests that span all layers of the (Java) application (controllers, services, repositories) -- down to (and including) the DB. The tests run on the real database (MySQL), not on often recommended H2. 
+At CML Team we value integration/functional tests. So we tend to write tests with less mocks, tests that span all layers of the (Java) application (controllers, services, repositories) -- down to (and including) the DB. The tests run on a real database (MySQL), not on often recommended H2. 
 
 Overall, the idea is, the closer your tests follow _real_ (human) use-cases and _real_ application setup, the higher are the chances to catch _real_ bugs.
 
@@ -76,7 +76,7 @@ It appears that this test takes whopping 8+ seconds to execute:
 
 ![](optimize_tests1.png)
 
-And if we take some thread dumps during the execution, we'll see, that major part of this time is spent in the Database Rider plugin applying the initial state to the DB (`init_data.json`):
+And if we take some thread dumps during the execution, we can see, that major part of this time is spent in the Database Rider plugin applying the initial state to the DB (`init_data.json`):
 
 ![](optimize_tests2.png)
 
@@ -170,14 +170,14 @@ So it should be only 35 SQL inserts.
 
 I have some guesses why this can take so long:
 
-- Obviously, to turn `init_data.json` into a set of SQL inserts the Database Rider must determine the correct insertion order, according to entity relations (like foreign keys). So I guess, as a part of this routine it needs to first fetch the whole database metadata and then apply some topological sorting to the source dataset. 
-- I'm not quite sure, how efficiently does the Database Rider do the inserts. Whether it in an auto-commit mode? Whether it does each insert in a separate transaction or not? 
+- Obviously, to turn `init_data.json` into a set of SQL inserts the Database Rider must determine the correct insertion order, according to entity relations (like foreign keys). So I guess, as part of this routine it needs to first fetch the whole database metadata, and then apply some topological sorting to the source dataset. 
+- I'm not quite sure, how efficiently does the Database Rider do the inserts. Whether it is in an auto-commit mode? Whether it does each insert in a separate transaction? 
 - As `init_data.json` is shared among multiple tests, it, probably,  contains more data than needed for this particular test.
 
 
 ## The rewrite strategy
 
-Given the concerns above, the rewrite strategy was obvious. Get rid of Database Rider annotations and code DB initialization and DB check steps in plain code.
+Given the concerns above, the rewrite strategy was obvious. Get rid of Database Rider annotations and code the DB initialization and DB check steps in plain code.
 
 The same test looks now:
 
@@ -217,11 +217,11 @@ class PersonHistoryServiceITest {
 }
 ```
 
-And runs in 1 second:
+And runs in under one second:
 
 ![](optimize_tests3.png)
 
-So now instead of having implicit logic, hidden in annotations we have it in code, in `// GIVEN` and `// THEN` sections. Similarly, the annotations `@WithUserDetails` is now explicit line of code `.with(user(user))`.
+So now instead of having implicit logic, hidden in annotations we have it in code, in the `// GIVEN` and `// THEN` sections. Similarly, the annotation `@WithUserDetails` is now an explicit line of code `.with(user(user))`.
 
 The `dbTestHelper` encapsulates the functionality of cleaning the DB and starting/committing the transactions, common for many tests:
 
@@ -272,7 +272,7 @@ public class DbTestHelper {
 }
 ```
 
-The main purpose of `testDataFactory` is to generate the testing data records in the DB. So by default it should generate the same entity data for any test, but should also have a common way of customizing each entity instance before creation (using `EntityCustomizer`):
+The main purpose of `testDataFactory` is to generate the testing data records in the DB. So by default it should generate the same entity data for any test, but should also provide a common way of customizing each entity instance before creation (using `EntityCustomizer`):
 
 ```java
 @Component
@@ -363,7 +363,7 @@ public class TestDataFactory {
 }
 ```
 
-Using this design you can pre-populate testing data set in any way you like in the most concise way:
+Using this design you can pre-populate the testing data set in any way you like in the most concise way:
 
 ```java
     // GIVEN
@@ -379,7 +379,7 @@ Using this design you can pre-populate testing data set in any way you like in t
     transaction.commit();
 ```
 
-`TestDataFactory` also uses a small trick of not using all the specific repositories for each entity type (like `UserRepository`, `PersonRepository`, etc.), but persisting through the more low-level `entityManager`. 
+`TestDataFactory` also uses a small trick of not using all the specific repositories for each entity type (like `UserRepository`, `PersonRepository`, etc.), but persisting through a lower level `entityManager`. 
 
 
 ## Why the new approach is better?
@@ -394,7 +394,7 @@ Lastly, you have more opportunities to refactor, less copy-paste.
 
 ***
 
-To illustrate the last point let's take a look at a set of (repetitive) tests we had before the refactoring:
+To illustrate the last point, let's take a look at the set of (repetitive) tests we had before the refactoring:
 
 ```java
 
