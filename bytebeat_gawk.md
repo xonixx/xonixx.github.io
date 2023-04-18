@@ -40,6 +40,7 @@ However, nowadays, you have plenty of ways to achieve the similar result. For ex
 ./prog | aplay
 ```
 
+***
 - TODO output binary from awk/gawk
 
 Let's take a look at a simple bytebeat below:
@@ -58,6 +59,22 @@ $ cc -w a1.c -o a1
 $ ./a1 | aplay -f u8
 Playing raw data 'stdin' : Unsigned 8 bit, Rate 8000 Hz, Mono
 ```
+
+The conversion to GAWK is pretty straightforward:
+```awk
+# file: a1.awk
+BEGIN { for(;;t++)
+  printf"%c",t*and(or(rshift(t,12),rshift(t,8)),63,rshift(t,4))
+}
+```
+
+However, running it, you can immediately notice, that the sound it produces is not the same as of the C source:
+```
+$ gawk -f a1.awk | aplay -f u8
+Playing raw data 'stdin' : Unsigned 8 bit, Rate 8000 Hz, Mono
+```
+
+What's the problem?
 
 - TODO gawk bitwise functions + the problem with them
 - TODO https://lists.gnu.org/archive/html/bug-gawk/2023-03/msg00005.html
