@@ -11,9 +11,13 @@ _April 2023_
 
 Not long ago I came across this link http://kmkeen.com/awk-music/. The blog post describes a simple awk script that is able to generate harmonious audio sounds. 
 
-I immediately recalled the [bytebeat](http://countercomplex.blogspot.com/2011/10/algorithmic-symphonies-from-one-line-of.html) - a technique of generating interesting sound effects and even the whole melodies in couple lines of C code.
+I immediately recalled the [bytebeat](http://countercomplex.blogspot.com/2011/10/algorithmic-symphonies-from-one-line-of.html) -- a technique of generating interesting sound effects and even the whole melodies in couple lines of C code.
 
-I thought -- would it be possible (just for fun, of course) to convert some of bytebeats from C to GAWK? Why AWK? Because [I'm fan of it](awk.md). Why particularly GNU AWK? Because only GNU AWK variant has built-in [bitwise functions](https://www.gnu.org/software/gawk/manual/html_node/Bitwise-Functions.html).    
+I thought -- would it be possible (just for fun, of course) to convert some of bytebeats from C to GAWK? 
+
+Why AWK? Because [I'm a huge fan of it](awk.md). Why particularly GNU AWK? Because only GNU AWK variant has built-in [bitwise functions](https://www.gnu.org/software/gawk/manual/html_node/Bitwise-Functions.html).
+
+Below I would like to share with you the result of my effort (link to YouTube, please turn down the volume a bit before you click, just in case):
 
 [![Bytebeat with Gawk](https://img.youtube.com/vi/qOenoyBO7XY/0.jpg)](https://www.youtube.com/watch?v=qOenoyBO7XY)
 
