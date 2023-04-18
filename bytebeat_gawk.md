@@ -110,6 +110,21 @@ $ ls -l tmp.*.out
 
 Here is it! The C output is 10000 as expected, but GAWK generates a longer file. 
 
+Long story short, it appears that GAWK by default operates on unicode characters, not bytes. But it has [`-b` option](https://www.gnu.org/software/gawk/manual/html_node/Options.html#index-_002db-option) that allows to work with strings as with single-byte characters.
+
+```
+$ gawk -b -f tmp.awk > tmp.awk.out
+$ ls -l tmp.*.out
+-rw-rw-r-- 1 xonix xonix 10000 Apr 18 21:33 tmp.awk.out
+-rw-rw-r-- 1 xonix xonix 10000 Apr 18 20:07 tmp.c.out
+```
+
+Excellent! Now the sound plays as intended:
+
+```
+$ gawk -b -f a1.awk | aplay -f u8
+Playing raw data 'stdin' : Unsigned 8 bit, Rate 8000 Hz, Mono
+```
 
 - TODO gawk bitwise functions + the problem with them
 - TODO https://lists.gnu.org/archive/html/bug-gawk/2023-03/msg00005.html
