@@ -41,6 +41,24 @@ However, nowadays, you have plenty of ways to achieve the similar result. For ex
 ```
 
 - TODO output binary from awk/gawk
+
+Let's take a look at a simple bytebeat below:
+
+```c
+// file: a1.c
+main(t) {
+for(t=0;;t++)putchar(
+    t*((t>>12|t>>8)&63&t>>4)
+);}
+```
+
+Now, to run it you need:
+```
+$ cc -w a1.c -o a1
+$ ./a1 | aplay -f u8
+Playing raw data 'stdin' : Unsigned 8 bit, Rate 8000 Hz, Mono
+```
+
 - TODO gawk bitwise functions + the problem with them
 - TODO https://lists.gnu.org/archive/html/bug-gawk/2023-03/msg00005.html
 - TODO bitwise handling in other languages
