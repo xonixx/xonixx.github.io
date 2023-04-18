@@ -43,17 +43,17 @@ However, nowadays, you have plenty of ways to achieve the similar result. For ex
 ***
 - TODO output binary from awk/gawk
 
-Let's take a look at a simple bytebeat below:
+Let's take a look at a simple bytebeat:
 
 ```c
 // file: a1.c
 main(t) {
 for(t=0;;t++)putchar(
-    t*((t>>12|t>>8)&63&t>>4)
+    t*((t>>12|t>>8)&63&t>>4) // <-- formula that defines the melody
 );}
 ```
 
-Now, to run it you need:
+Now, to make it play you need:
 ```
 $ cc -w a1.c -o a1
 $ ./a1 | aplay -f u8
@@ -75,11 +75,49 @@ Playing raw data 'stdin' : Unsigned 8 bit, Rate 8000 Hz, Mono
 ```
 
 What's the problem?
+                        
+Obviously, the GAWK variant was generating different stream of bytes, then the C.
+
+Not understanding what's going on, I decided to start from the simplest formula possible: `t`. I also decided to generate a fixed number of bytes (`10000`) by both programs and try to compare the outputs.
+
+```c
+// file tmp.c
+main(t) {
+for(t=0;t<10000;t++)putchar(
+    t
+);}
+```
+```awk
+# file: tmp.awk
+BEGIN { for(;t<10000;t++)
+  printf"%c",t
+}
+```
+ 
+Generating outputs:
+```
+$ cc -w tmp.c -o tmp
+$ ./tmp > tmp.c.out
+$ gawk -f tmp.awk > tmp.awk.out
+```
+
+The first obvious thing - let's check the length of both files:
+```
+$ ls -l tmp.*.out
+-rw-rw-r-- 1 xonix xonix 27824 Apr 18 20:07 tmp.awk.out
+-rw-rw-r-- 1 xonix xonix 10000 Apr 18 20:07 tmp.c.out
+```
+
+Here is it! The C output is 10000 as expected, but GAWK generates a longer file. 
+
 
 - TODO gawk bitwise functions + the problem with them
 - TODO https://lists.gnu.org/archive/html/bug-gawk/2023-03/msg00005.html
 - TODO bitwise handling in other languages
 - TODO technique to debug the generated binary output
+  - hexdump
+  - endiannes
+  - tcc
 - TODO c operators priorities
 - TODO https://en.wikipedia.org/wiki/Two%27s_complement
 - TODO measure generation speed
