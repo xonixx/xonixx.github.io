@@ -17,12 +17,13 @@ I thought -- would it be possible (just for fun, of course) to convert some of b
 
 Why AWK? Because [I'm a huge fan of it](awk.md). Why particularly GNU AWK? Because only GNU AWK variant has built-in [bitwise functions](https://www.gnu.org/software/gawk/manual/html_node/Bitwise-Functions.html).
 
-Below I would like to share with you the result of my effort (link to YouTube, please turn down the volume a bit before you click, just in case):
+Here is the result of my effort (link to YouTube, please turn down the volume a bit before you click, just in case):
 
 [![Bytebeat with Gawk](https://img.youtube.com/vi/qOenoyBO7XY/0.jpg)](https://www.youtube.com/watch?v=qOenoyBO7XY)
 
-- TODO learnings:
-- TODO playback on linux
+Below I would like to share some of the learnings I have gained along the way.
+
+***            
 
 The idea of bytebeat is pretty simple. It exploits the old Unix principle that [everything is a file](https://en.wikipedia.org/wiki/Everything_is_a_file). So generating music this way is as easy as running:
 
@@ -107,7 +108,9 @@ $ ls -l tmp.*.out
 -rw-rw-r-- 1 xonix xonix 10000 Apr 18 20:07 tmp.c.out
 ```
 
-Here is it! The C output is 10000 bytes long as expected, but GAWK generates a longer file. 
+Here is it! The C output is 10000 bytes long as expected, but GAWK generates a longer file.
+
+TODO putchar https://en.cppreference.com/w/c/io/putchar
 
 Long story short, it appears that GAWK by default operates on unicode characters, not bytes. But it has [`-b` option](https://www.gnu.org/software/gawk/manual/html_node/Options.html#index-_002db-option) that allows to work with strings as with single-byte characters.
 
