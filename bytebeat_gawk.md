@@ -124,6 +124,24 @@ Excellent! Now the sound plays as intended:
 $ gawk -b -f a1.awk | aplay -f u8
 Playing raw data 'stdin' : Unsigned 8 bit, Rate 8000 Hz, Mono
 ```
+     
+***
+
+Using the same conversion technique I was able to convert a couple more bytebeats from C to GAWK. If you are on Linux, you can try each of them straight in the command line:   
+
+```
+gawk -b 'BEGIN { for(;;t++)printf"%c",t*and(or(rshift(t,12),rshift(t,8)),63,rshift(t,4)) }' | aplay -f u8
+
+gawk -b 'BEGIN { for(;;t++)printf"%c",( and(t,t%255)-(and(t*3,rshift(t,13),rshift(t,6))) ) }' | aplay -f u8
+
+gawk -b 'BEGIN { for(;;t++)printf"%c",or(and(t*5,rshift(t,7)),and(t*3,rshift(t*4,10))) }' | aplay -f u8
+
+gawk -b 'BEGIN { for(;;t++)printf"%c",(or(t,or(rshift(t,9),rshift(t,7)))*and(t,or(rshift(t,11),rshift(t,9))))}' | aplay -f u8
+```
+
+During the conversion it was crucial to understand the [operators precedence in C](http://www.eecs.northwestern.edu/~wkliao/op-prec.htm). 
+
+***
 
 - TODO gawk bitwise functions + the problem with them
   - https://lists.gnu.org/archive/html/bug-gawk/2023-03/msg00005.html
@@ -132,7 +150,6 @@ Playing raw data 'stdin' : Unsigned 8 bit, Rate 8000 Hz, Mono
   - hexdump
   - endiannes
   - tcc
-- TODO c operators priorities
 - TODO https://en.wikipedia.org/wiki/Two%27s_complement
 - TODO measure generation speed
 - TODO conclusion : try converting bytebeat to your favorite language 
