@@ -23,6 +23,23 @@ Below I would like to share with you the result of my effort (link to YouTube, p
 
 - TODO learnings:
 - TODO playback on linux
+
+The idea of bytebeat is pretty simple. It exploits the old Unix principle that [everything is a file](https://en.wikipedia.org/wiki/Everything_is_a_file). So generating music this way is as easy as running:
+
+```
+./prog > /dev/dsp
+```
+
+Where `./prog` is a (compiled C, for example) program, that outputs stream of bytes, and `/dev/dsp` is a "virtual file" representing the audio input device.
+
+Unfortunately, modern Linuxes don't expose audio devices in form of a file. 
+
+However, nowadays, you have plenty of ways to achieve the similar result. For example, in Linux you have `aplay` command -- "command-line sound player for ALSA soundcard driver". So, the same command looks like
+
+```
+./prog | aplay
+```
+
 - TODO output binary from awk/gawk
 - TODO gawk bitwise functions + the problem with them
 - TODO https://lists.gnu.org/archive/html/bug-gawk/2023-03/msg00005.html
