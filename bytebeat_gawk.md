@@ -41,7 +41,6 @@ However, nowadays, you have plenty of ways to achieve the similar result. For ex
 ```
 
 ***
-- TODO output binary from awk/gawk
 
 Let's take a look at a simple bytebeat:
 
@@ -108,7 +107,7 @@ $ ls -l tmp.*.out
 -rw-rw-r-- 1 xonix xonix 10000 Apr 18 20:07 tmp.c.out
 ```
 
-Here is it! The C output is 10000 as expected, but GAWK generates a longer file. 
+Here is it! The C output is 10000 bytes long as expected, but GAWK generates a longer file. 
 
 Long story short, it appears that GAWK by default operates on unicode characters, not bytes. But it has [`-b` option](https://www.gnu.org/software/gawk/manual/html_node/Options.html#index-_002db-option) that allows to work with strings as with single-byte characters.
 
@@ -127,8 +126,8 @@ Playing raw data 'stdin' : Unsigned 8 bit, Rate 8000 Hz, Mono
 ```
 
 - TODO gawk bitwise functions + the problem with them
-- TODO https://lists.gnu.org/archive/html/bug-gawk/2023-03/msg00005.html
-- TODO bitwise handling in other languages
+  - https://lists.gnu.org/archive/html/bug-gawk/2023-03/msg00005.html
+  - TODO bitwise handling in other languages
 - TODO technique to debug the generated binary output
   - hexdump
   - endiannes
