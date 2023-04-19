@@ -110,11 +110,30 @@ $ ls -l tmp.*.out
 
 Here is it! The C output is 10000 bytes long as expected, but GAWK generates a longer file.
 
-TODO putchar https://en.cppreference.com/w/c/io/putchar
+Let's look at [putchar](https://en.cppreference.com/w/c/io/putchar) C standard function. According to the documentation, it writes a character (represented by `int`) to stdout by converting it to `unsigned char` just before being written. If we take a closer look at [C standard types](https://learn.microsoft.com/en-us/cpp/cpp/data-type-ranges?view=msvc-170) we find that `int` is (signed) 4 bytes long, and `unsigned char` is unsigned 1 byte long.
+
+So, eventually, what `putchar` does is it takes the `int` argument and only uses the lowest byte of it. The rest of the argument value is just discarded.
+
+Let's make a small experiment.
+
+C:
+```
+$ echo 'main(){putchar(9786);}' | tcc -w -run -
+:
+```
+(here I use [tcc](https://bellard.org/tcc/) by genius Fabrice Bellard for convenience).
+  
+GAWK:
+```
+$ gawk 'BEGIN { printf"%c",9786 }'
+☺
+```
 
 Long story short, it appears that GAWK by default operates on unicode characters, not bytes. But it has [`-b` option](https://www.gnu.org/software/gawk/manual/html_node/Options.html#index-_002db-option) that allows to work with strings as with single-byte characters.
 
 ```
+$ gawk -b 'BEGIN { printf"%c\n",9786 }'
+:
 $ gawk -b -f tmp.awk > tmp.awk.out
 $ ls -l tmp.*.out
 -rw-rw-r-- 1 xonix xonix 10000 Apr 18 21:33 tmp.awk.out
@@ -145,6 +164,8 @@ gawk -b 'BEGIN { for(;;t++)printf"%c",(or(t,or(rshift(t,9),rshift(t,7)))*and(t,o
 During the conversion it was crucial to understand the [operators precedence in C](http://www.eecs.northwestern.edu/~wkliao/op-prec.htm). 
 
 ***
+
+Finally, I wanted to try something more complex. I chose this [bytebeat by ryg](https://www.youtube.com/watch?v=tCRPUv8V22o&t=176s) that resembles a melody.   
 
 - TODO gawk bitwise functions + the problem with them
   - https://lists.gnu.org/archive/html/bug-gawk/2023-03/msg00005.html
