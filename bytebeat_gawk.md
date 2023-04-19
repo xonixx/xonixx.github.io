@@ -167,7 +167,47 @@ During the conversion it was crucial to understand the [operators precedence in 
 
 Finally, I wanted to try something more complex. I chose [this bytebeat by ryg](https://www.youtube.com/watch?v=tCRPUv8V22o&t=176s) that resembles a melody.
 
-This is where GAWK started to fail miserably. The reason for this was that C allows binary operations on negative numbers. After all, it's a binary representation of a number that matters, so you are allowed to do it, provided that you understand what you are doing. However, GAWK [chose to explicitly disallow](https://www.gnu.org/software/gawk/manual/html_node/Bitwise-Functions.html#index-sidebar-22). It appears, the bytebeat above uses heavily binary operation on negatives :-(  
+This is where GAWK started to fail miserably. The reason for this was that C allows binary operations on negative numbers. After all, it's a binary representation of a number that matters, so you are allowed to do it, provided that you understand what you are doing. However, GAWK [chose to explicitly disallow](https://www.gnu.org/software/gawk/manual/html_node/Bitwise-Functions.html#index-sidebar-22). It appears, the bytebeat above uses heavily binary operation on negatives ☹.
+
+Let me show you the problem.
+
+C:
+```
+$ echo
+'main(){printf("%d\n",5^2);printf("%d\n",-5^2);printf("%d\n",5^-2);printf("%d\n",-5^-2);}'
+| tcc -w -run -
+7
+-7
+-5
+5
+```
+
+JavaScript (node + browsers):
+```
+$ node -e
+'console.log(5^2);console.log(-5^2);console.log(5^-2);console.log(-5^-2);'
+7
+-7
+-5
+5
+```
+
+Python:
+```
+$ python3 -c 'print(5^2);print(-5^2);print(5^-2);print(-5^-2)'
+7
+-7
+-5
+5
+```
+
+Gawk:
+```
+$ gawk 'BEGIN { print xor(5,2);print xor(-5,2);print xor(5,-2);print xor(-5,-2); }'
+7
+gawk: cmd. line:1: fatal: xor: argument 2 negative value -5 is not allowed
+```
+
 
 - TODO gawk bitwise functions + the problem with them
   - https://lists.gnu.org/archive/html/bug-gawk/2023-03/msg00005.html
