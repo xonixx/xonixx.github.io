@@ -208,6 +208,14 @@ $ gawk 'BEGIN { print xor(5,2);print xor(-5,2);print xor(5,-2);print xor(-5,-2);
 gawk: cmd. line:1: fatal: xor: argument 2 negative value -5 is not allowed
 ```
 
+***
+
+I wondered -- is it possible to emulate in GAWK the bitwise logic on negative numbers according to C and other languages?
+
+I knew that GAWK internally works with numbers using double-precision floating points (`double` in C). If we take a look at a [binary representation of doubles](https://en.wikipedia.org/wiki/Double-precision_floating-point_format#IEEE_754_double-precision_binary_floating-point_format:_binary64) we'll find that they use 53 bits of precision which is far more than 32 bits needed to represent `int`. So it should be absolutely possible to emulate binary operations on (signed) `int`-s on top of `double` representation.
+
+First step here is to understand how signed (or, particularly, negative) integers are represented in binary form.   
+
 
 - TODO gawk bitwise functions + the problem with them
   - https://lists.gnu.org/archive/html/bug-gawk/2023-03/msg00005.html
