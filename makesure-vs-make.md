@@ -6,7 +6,7 @@ description: 'Pros and cons of Makesure over Make'
 
 # makesure vs make
 
-1. Makesure is a _task runner_, make is a _build tool_.
+1. [Makesure](https://github.com/xonixx/makesure) is a _task runner_, make is a _build tool_.
 2. Makesure has built-in targets listing via `-l` flag.
 3. With makesure you don't need to escape `$` as `$$` in recipes.
 4. With makesure you don't need to use tab-indentation in recipes.
