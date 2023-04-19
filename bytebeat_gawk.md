@@ -165,7 +165,9 @@ During the conversion it was crucial to understand the [operators precedence in 
 
 ***
 
-Finally, I wanted to try something more complex. I chose this [bytebeat by ryg](https://www.youtube.com/watch?v=tCRPUv8V22o&t=176s) that resembles a melody.   
+Finally, I wanted to try something more complex. I chose [this bytebeat by ryg](https://www.youtube.com/watch?v=tCRPUv8V22o&t=176s) that resembles a melody.
+
+This is where GAWK started to fail miserably. The reason for this was that C allows binary operations on negative numbers. After all, it's a binary representation of a number that matters, so you are allowed to do it, provided that you understand what you are doing. However, GAWK [chose to explicitly disallow](https://www.gnu.org/software/gawk/manual/html_node/Bitwise-Functions.html#index-sidebar-22). It appears, the bytebeat above uses heavily binary operation on negatives :-(  
 
 - TODO gawk bitwise functions + the problem with them
   - https://lists.gnu.org/archive/html/bug-gawk/2023-03/msg00005.html
