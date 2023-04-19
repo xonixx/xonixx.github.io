@@ -60,7 +60,7 @@ $ ./a1 | aplay -f u8
 Playing raw data 'stdin' : Unsigned 8 bit, Rate 8000 Hz, Mono
 ```
 
-The conversion to GAWK is pretty straightforward:
+The conversion to GAWK (using the [bitwise functions](https://www.gnu.org/software/gawk/manual/html_node/Bitwise-Functions.html)) is pretty straightforward:
 ```awk
 # file: a1.awk
 BEGIN { for(;;t++)
@@ -76,7 +76,7 @@ Playing raw data 'stdin' : Unsigned 8 bit, Rate 8000 Hz, Mono
 
 What's the problem?
                         
-Obviously, the GAWK variant was generating different stream of bytes, then the C.
+Obviously, the GAWK variant generates different stream of bytes than the C.
 
 Not understanding what's going on, I decided to start from the simplest formula possible: `t`. I also decided to generate a fixed number of bytes (`10000`) by both programs and try to compare the outputs.
 
@@ -101,7 +101,7 @@ $ ./tmp > tmp.c.out
 $ gawk -f tmp.awk > tmp.awk.out
 ```
 
-The first obvious thing - let's check the length of both files:
+The first obvious thing -- let's check the length of both files:
 ```
 $ ls -l tmp.*.out
 -rw-rw-r-- 1 xonix xonix 27824 Apr 18 20:07 tmp.awk.out
