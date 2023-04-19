@@ -132,7 +132,7 @@ $ gawk 'BEGIN { printf"%c",9786 }'
 Long story short, it appears that GAWK by default operates on unicode characters, not bytes. But it has [`-b` option](https://www.gnu.org/software/gawk/manual/html_node/Options.html#index-_002db-option) that allows to work with strings as with single-byte characters.
 
 ```
-$ gawk -b 'BEGIN { printf"%c\n",9786 }'
+$ gawk -b 'BEGIN { printf"%c\n",9786 }'       # now the output matches C!
 :
 $ gawk -b -f tmp.awk > tmp.awk.out
 $ ls -l tmp.*.out
@@ -161,7 +161,7 @@ gawk -b 'BEGIN { for(;;t++)printf"%c",or(and(t*5,rshift(t,7)),and(t*3,rshift(t*4
 gawk -b 'BEGIN { for(;;t++)printf"%c",or(t,or(rshift(t,9),rshift(t,7)))*and(t,or(rshift(t,11),rshift(t,9)))}' | aplay -f u8
 ```
 
-During the conversion it was crucial to understand the [operators precedence in C](http://www.eecs.northwestern.edu/~wkliao/op-prec.htm). 
+During the conversion it was crucial to understand the [operators precedence in C](http://www.eecs.northwestern.edu/~wkliao/op-prec.htm). Without paying close attention to this you risk to put `()` in wrong order, not equivalent to the logic of the C source.
 
 ***
 
