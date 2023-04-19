@@ -165,7 +165,15 @@ During the conversion it was crucial to understand the [operators precedence in 
 
 ***
 
-Finally, I wanted to try something more complex. I chose [this bytebeat by ryg](https://www.youtube.com/watch?v=tCRPUv8V22o&t=176s) that resembles a melody.
+Finally, I wanted to try something more complex. I chose [this bytebeat by ryg](https://www.youtube.com/watch?v=tCRPUv8V22o&t=176s) that resembles a melody:
+
+```c
+main(t) {
+for(;;t++)putchar(
+((t*("36364689"[t>>13&7]&15))/12&128)
++(((((t>>12)^(t>>12)-2)%11*t)/4|t>>13)&127)
+);}
+```
 
 This is where GAWK started to fail miserably. The reason for this was that C allows binary operations on negative numbers. After all, it's a binary representation of a number that matters, so you are allowed to do it, provided that you understand what you are doing. However, GAWK [chose to explicitly disallow](https://www.gnu.org/software/gawk/manual/html_node/Bitwise-Functions.html#index-sidebar-22). It appears, the bytebeat above uses heavily binary operation on negatives ☹.
 
@@ -214,8 +222,13 @@ I wondered -- is it possible to emulate in GAWK the bitwise logic on negative nu
 
 I knew that GAWK internally works with numbers using double-precision floating points (`double` in C). If we take a look at a [binary representation of doubles](https://en.wikipedia.org/wiki/Double-precision_floating-point_format#IEEE_754_double-precision_binary_floating-point_format:_binary64) we'll find that they use 53 bits of precision which is far more than 32 bits needed to represent `int`. So it should be absolutely possible to emulate binary operations on (signed) `int`-s on top of `double` representation.
 
-First step here is to understand how signed (or, particularly, negative) integers are represented in binary form.   
+First step here is to understand how signed (or, particularly, negative) integers are represented in binary form. It turns out, the [Two's complement](https://en.wikipedia.org/wiki/Two%27s_complement) mechanism is the key here. 
 
+This gives a clue to a possible solution. We need to convert a GAWK number (`decimal`) into some other (positive) `decimal` representation that will "play role" of (signed) `int`, eligible for GAWK binary functions. We will also need the reverse conversion to convert "`int`-like" `decimal` back to "ordinary" `decimal`.
+
+This is exactly [how I coded it](https://github.com/xonixx/bytebeat-gawk/blob/main/bitint.awk) (functions `toint` and `fromint`) according to the Two's complement algorithm mentioned above. 
+
+TODO: gawk should use the same approach as JS
 
 - TODO gawk bitwise functions + the problem with them
   - https://lists.gnu.org/archive/html/bug-gawk/2023-03/msg00005.html
