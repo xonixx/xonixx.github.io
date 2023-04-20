@@ -268,7 +268,7 @@ $ gawk -f a3final.awk -b | pv >/dev/null
 5.94MiB 0:00:21 [ 293KiB/s] 
 ```
 
-So according to this C is roughly **210** times faster than GAWK ¯\_(ツ)_/¯
+So according to this C is roughly **210** times faster than GAWK `¯\_(ツ)_/¯`
 
 Let's check what speed is enough for playback:
 
