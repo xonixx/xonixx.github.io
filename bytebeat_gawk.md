@@ -9,7 +9,7 @@ image: https://img.youtube.com/vi/qOenoyBO7XY/0.jpg
 
 _April 2023_
 
-Not long ago I came across this link http://kmkeen.com/awk-music/. The blog post describes a simple awk script that is able to generate harmonious audio sounds. 
+Not long ago I came across this [blog post](http://kmkeen.com/awk-music/). It describes a simple awk script that is able to generate harmonious audio sounds. 
 
 I immediately recalled the [bytebeat](http://countercomplex.blogspot.com/2011/10/algorithmic-symphonies-from-one-line-of.html) -- a technique of generating interesting sound effects and even the whole melodies in couple lines of C code.
 
