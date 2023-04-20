@@ -259,4 +259,11 @@ The other learning was that I needed to add `-C` flag to `hexdump`, [otherwise](
 ***
 
 - TODO measure generation speed
-- TODO conclusion : try converting bytebeat to your favorite language 
+
+## Conclusion
+
+Overall this was rather interesting experiment. 
+
+I learned some interesting details on binary arithmetic and how it's done under the hood of the computer.
+
+I can really recommend this exercise to other programmers. Try converting some bytebeats from C to your favorite programming language. Probably, you'll like it as much as I did! 
