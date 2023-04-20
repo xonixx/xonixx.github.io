@@ -220,11 +220,11 @@ gawk: cmd. line:1: fatal: xor: argument 2 negative value -5 is not allowed
 
 I wondered -- is it possible to emulate in GAWK the bitwise logic on negative numbers according to C and other languages?
 
-I knew that GAWK internally works with numbers using double-precision floating points (`double` in C). If we take a look at a [binary representation of doubles](https://en.wikipedia.org/wiki/Double-precision_floating-point_format#IEEE_754_double-precision_binary_floating-point_format:_binary64) we'll find that they use 53 bits of precision which is far more than 32 bits needed to represent `int`. So it should be absolutely possible to emulate binary operations on (signed) `int`-s on top of `double` representation.
+I knew that GAWK internally works with numbers using (64 bits) double-precision floating points (`double` in C). If we take a look at a [binary representation of doubles](https://en.wikipedia.org/wiki/Double-precision_floating-point_format#IEEE_754_double-precision_binary_floating-point_format:_binary64) we'll find that they use 53 bits of precision which is far more than 32 bits needed to represent `int`. So it should be absolutely possible to emulate binary operations on (signed) `int`-s on top of `double` representation.
 
 First step here is to understand how signed (or, particularly, negative) integers are represented in binary form. It turns out, the [Two's complement](https://en.wikipedia.org/wiki/Two%27s_complement) mechanism is the key here. 
 
-This gives a clue to a possible solution. We need to convert a GAWK number (`decimal`) into some other (positive) `decimal` representation that will "play role" of (signed) `int`, eligible for GAWK binary functions. We will also need the reverse conversion to convert "`int`-like" `decimal`-s back to "ordinary" `decimal`-s.
+This gives a clue to a possible solution. We need to convert a GAWK number (`decimal`) into some other (positive) `decimal` representation that will "play a role" of (signed) `int`, eligible for GAWK binary functions. We will also need the reverse conversion to convert "`int`-like" `decimal`-s back to "ordinary" `decimal`-s.
 
 This is exactly [how I coded it](https://github.com/xonixx/bytebeat-gawk/blob/main/bitint.awk) (functions `toint` and `fromint`) according to the Two's complement algorithm mentioned above. Luckily GAWK provides the `compl()` function, needed for bitwise complement, making the solution possible.
 
@@ -237,9 +237,9 @@ bits signed integers. After the bitwise operation is performed, the result is co
 
 I also want to mention some other techniques I've used for debugging the converted result in attempt to make it produce the same output (and therefore the sound) as the source.
 
-I used the same technique of generating the fixed count of bytes and comparing the outputs from the source and converted bytebeats. To localize the problem I debugged the output on smaller parts of the formula, making it converge piece-by-piece. That is, instead of trying to fight the whole formula `((t*("36364689"[t>>13&7]&15))/12&128)+(((((t>>12)^(t>>12)-2)%11*t)/4|t>>13)&127)` I took just `t>>13&7` and make it convert correctly, then `"36364689"[t>>13&7]`, and so on.
+I used the same technique of generating the fixed count of bytes and comparing the outputs from the source and the converted bytebeats. To localize the problem I debugged the output on smaller parts of the formula, making it converge piece-by-piece. That is, instead of trying to fight the whole formula `((t*("36364689"[t>>13&7]&15))/12&128)+(((((t>>12)^(t>>12)-2)%11*t)/4|t>>13)&127)` I took just `t>>13&7` and made it convert correctly, then `"36364689"[t>>13&7]`, and so on.
 
-It's not easy to compare binary outputs directly, so I used `hexdump` to turn binary into human-readable text, and afterward I've used file comparison in my IDE to spot the difference:
+It's not easy to compare binary outputs directly, so I used the `hexdump` utility to turn binary into human-readable text. Afterward I've used file comparison in my IDE to spot the difference:
 
 ![](bytebeat_gawk1.png)
 
