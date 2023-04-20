@@ -1,11 +1,11 @@
 ---
 layout: post
-title: 'Bytebeating with Gawk'
+title: 'Bytebeating with GAWK'
 description: "I describe my learnings in converting bytebeats from C to GAWK"
 image: https://img.youtube.com/vi/qOenoyBO7XY/0.jpg
 ---
 
-# Bytebeating with Gawk
+# Bytebeating with GAWK
 
 _April 2023_
 
