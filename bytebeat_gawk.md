@@ -224,7 +224,7 @@ I knew that GAWK internally works with numbers using (64 bits) double-precision 
 
 First step here is to understand how signed (or, particularly, negative) integers are represented in binary form. It turns out, the [Two's complement](https://en.wikipedia.org/wiki/Two%27s_complement) mechanism is the key here. 
 
-This gives a clue to a possible solution. We need to convert a GAWK number (`decimal`) into some other (positive) `decimal` representation that will "play a role" of (signed) `int`, eligible for GAWK binary functions. We will also need the reverse conversion to convert "`int`-like" `decimal`-s back to "ordinary" `decimal`-s.
+This gives a clue to a possible solution. We need to convert a GAWK number (`double`) into some other (positive) `double` representation that will "play a role" of (signed) `int`, eligible for GAWK binary functions. We will also need the reverse conversion to convert "`int`-like" `double`-s back to "ordinary" `double`-s.
 
 This is exactly [how I coded it](https://github.com/xonixx/bytebeat-gawk/blob/main/bitint.awk) (functions `toint` and `fromint`) according to the Two's complement algorithm mentioned above. Luckily GAWK provides the `compl()` function, needed for bitwise complement, making the solution possible.
 
