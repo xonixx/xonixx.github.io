@@ -258,12 +258,32 @@ The other learning was that I needed to add `-C` flag to `hexdump`, [otherwise](
        
 ***
 
-- TODO measure generation speed
+Also, it was interesting to measure the generation speed of C vs GAWK. For this purpose I've used the `pv` utility: 
+
+```
+$ ./a3 | pv > /dev/null
+ 874MiB 0:00:14 [61.6MiB/s]
+ 
+$ gawk -f a3final.awk -b | pv >/dev/null
+5.94MiB 0:00:21 [ 293KiB/s] 
+```
+
+So according to this C is roughly **210** times faster than GAWK ¯\_(ツ)_/¯
+
+Let's check what speed is enough for playback:
+
+```
+$ ./a3 | pv | aplay -f u8 -r 44100
+Playing raw data 'stdin' : Unsigned 8 bit, Rate 44100 Hz, Mono
+ 784KiB 0:00:16 [46.5KiB/s]                  
+```
+
+So GAWK still has **6x** margin. 
 
 ## Conclusion
 
-Overall this was rather interesting experiment. 
+All in all, it was a pretty amusing adventure. 
 
 I learned some interesting details on binary arithmetic and how it's done under the hood of the computer.
 
-I can really recommend this exercise to other programmers. Try converting some bytebeats from C to your favorite programming language. Probably, you'll like it as much as I did! 
+I can't but recommend this exercise to other programmers. Try converting some bytebeats from C to your favorite programming language. Probably, you'll like it as much as I did! 
