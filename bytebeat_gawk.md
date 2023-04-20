@@ -226,9 +226,14 @@ First step here is to understand how signed (or, particularly, negative) integer
 
 This gives a clue to a possible solution. We need to convert a GAWK number (`decimal`) into some other (positive) `decimal` representation that will "play role" of (signed) `int`, eligible for GAWK binary functions. We will also need the reverse conversion to convert "`int`-like" `decimal`-s back to "ordinary" `decimal`-s.
 
-This is exactly [how I coded it](https://github.com/xonixx/bytebeat-gawk/blob/main/bitint.awk) (functions `toint` and `fromint`) according to the Two's complement algorithm mentioned above. 
+This is exactly [how I coded it](https://github.com/xonixx/bytebeat-gawk/blob/main/bitint.awk) (functions `toint` and `fromint`) according to the Two's complement algorithm mentioned above. Luckily GAWK provides the `compl()` function, needed for bitwise complement, making the solution possible.
 
-TODO: gawk should use the same approach as JS
+Overall, I would prefer if GAWK used the approach taken by JavaScript.
+
+> JavaScript stores numbers as 64 bits floating point numbers, but all bitwise operations are performed on 32 bits binary numbers. Before a bitwise operation is performed, JavaScript converts numbers to 32
+bits signed integers. After the bitwise operation is performed, the result is converted back to 64 bits JavaScript numbers.
+
+***
 
 - TODO gawk bitwise functions + the problem with them
   - https://lists.gnu.org/archive/html/bug-gawk/2023-03/msg00005.html
