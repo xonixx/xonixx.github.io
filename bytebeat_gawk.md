@@ -228,20 +228,35 @@ This gives a clue to a possible solution. We need to convert a GAWK number (`dec
 
 This is exactly [how I coded it](https://github.com/xonixx/bytebeat-gawk/blob/main/bitint.awk) (functions `toint` and `fromint`) according to the Two's complement algorithm mentioned above. Luckily GAWK provides the `compl()` function, needed for bitwise complement, making the solution possible.
 
-Overall, I would prefer if GAWK used the approach taken by JavaScript.
+Overall, I would prefer if GAWK used the approach taken by JavaScript:
 
 > JavaScript stores numbers as 64 bits floating point numbers, but all bitwise operations are performed on 32 bits binary numbers. Before a bitwise operation is performed, JavaScript converts numbers to 32
 bits signed integers. After the bitwise operation is performed, the result is converted back to 64 bits JavaScript numbers.
 
 ***
 
-- TODO gawk bitwise functions + the problem with them
-  - https://lists.gnu.org/archive/html/bug-gawk/2023-03/msg00005.html
-  - TODO bitwise handling in other languages
-- TODO technique to debug the generated binary output
-  - hexdump
-  - endiannes
-  - tcc
-- TODO https://en.wikipedia.org/wiki/Two%27s_complement
+I also want to mention some other techniques I've used for debugging the converted result in attempt to make it produce the same output (and therefore the sound) as the source.
+
+I used the same technique of generating the fixed count of bytes and comparing the outputs from the source and converted bytebeats. To localize the problem I debugged the output on smaller parts of the formula, making it converge piece-by-piece. That is, instead of trying to fight the whole formula `((t*("36364689"[t>>13&7]&15))/12&128)+(((((t>>12)^(t>>12)-2)%11*t)/4|t>>13)&127)` I took just `t>>13&7` and make it convert correctly, then `"36364689"[t>>13&7]`, and so on.
+
+It's not easy to compare binary outputs directly, so I used `hexdump` to turn binary into human-readable text, and afterward I've used file comparison in my IDE to spot the difference:
+
+![](bytebeat_gawk1.png)
+
+For this purpose I've used the small script to generate the files:
+
+```shell
+set -e
+
+X=a3
+
+tcc -w -run $X.c > c.out||true ; hexdump -C c.out   > c.out.txt
+gawk -f $X.awk -b > awk.out    ; hexdump -C awk.out > awk.out.txt
+```
+
+The other learning was that I needed to add `-C` flag to `hexdump`, [otherwise](https://unix.stackexchange.com/a/55772/52083) due to endiannes inconsistency it was swapping the bytes in the text output.   
+       
+***
+
 - TODO measure generation speed
 - TODO conclusion : try converting bytebeat to your favorite language 
