@@ -9,6 +9,7 @@
 ## Blog
 
 - [Bytebeating with GAWK](bytebeat_gawk.md) (April 2023)
+- [Rewriting Spring Boot integration tests for 10x speedup](https://www.cmlteam.com/blog/rewriting-spring-boot-integration-tests-for-10x-speedup) (April 2023)
 - [AWK technical notes](awk_tech_notes.md) (March 2023)
 - [Fascination with AWK](awk.md) (March 2023)
 - [Adding parameterized goals to makesure](parameterized_goals.md) (March 2023)
