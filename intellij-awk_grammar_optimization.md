@@ -13,6 +13,10 @@ _TODO 2023_
 
 [IntelliJ-AWK](https://github.com/xonixx/intellij-awk) is a language support plugin for AWK that I develop for the IntelliJ IDEA.
 
+I will describe how I tweaked the parsing grammar to solve one specific issue and coincidentally this sped up the parsing and allowed to remove some "code hacks".  
+
+The article may be of interest to people developing a language support plugin for IntelliJ IDEA, or people interested in practical language parsing algorithms.
+
 ***
 
 The story started with this [issue](https://github.com/xonixx/intellij-awk/issues/133). The autocomplete was not working in the presence of not-closed `if`:
@@ -48,3 +52,10 @@ Let's see the actual example. Compare how the incomplete code is parsed (just li
 
 And how the complete code is parsed (AST tree is present):
 ![](intellij-awk_grammar_optimization2.png)
+
+### Using `pin` and `recoverWhile`
+
+In practice, it's desirable to implement a parsing algorithm that is capable of building (at least partial) AST even in presence of parsing errors. In other words, parser should be able to "recover" from the error and keep building syntax tree from subsequent tokens.
+
+The parsing solution provided by IDEA, called Grammar-Kit, has means for this. It has two attributes that you can add to grammar rules to hint the parser on how to recover from parsing errors: `pin` and `recoverWhile`, described in docs ([1](https://github.com/JetBrains/Grammar-Kit/blob/master/TUTORIAL.md), [2](https://github.com/JetBrains/Grammar-Kit/blob/master/HOWTO.md#22-using-recoverwhile-attribute)).
+
