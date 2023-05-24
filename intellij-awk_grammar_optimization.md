@@ -55,7 +55,17 @@ And how the complete code is parsed (AST tree is present):
 
 ### Using `pin` and `recoverWhile`
 
-In practice, it's desirable to implement a parsing algorithm that is capable of building (at least partial) AST even in presence of parsing errors. In other words, parser should be able to "recover" from the error and keep building syntax tree from subsequent tokens.
+In practice, it's desirable for the IDE use-case to implement a parsing algorithm that is capable of building (at least partial) AST even in presence of parsing errors. In other words, parser should be able to "recover" from the error and keep building syntax tree from subsequent tokens.
 
 The parsing solution provided by IDEA, called Grammar-Kit, has means for this. It has two attributes that you can add to grammar rules to hint the parser on how to recover from parsing errors: `pin` and `recoverWhile`, described in docs ([1](https://github.com/JetBrains/Grammar-Kit/blob/master/TUTORIAL.md), [2](https://github.com/JetBrains/Grammar-Kit/blob/master/HOWTO.md#22-using-recoverwhile-attribute)).
+
+The key for our case is the `pin` one. You add it to a parsing rule by specifying the token index in a rule, after reaching which the parser will consider the rule match as successful, even if the rest of the tokens required for the rule is absent. It's okay if this was completely incomprehensible. Let's see on the same example.
+
+Now I just added the `{ pin=1 }` to the `statement_if` rule. Note, how now, even in presence of parsing error the AST tree is built.
+
+![](intellij-awk_grammar_optimization3.png)
+
+The error now is represented by the error AST leaf node at the end of "partially parsed" AST element (in this case, `AwkStatement`).
+
+
 
