@@ -67,5 +67,10 @@ Now I just added the `{ pin=1 }` to the `statement_if` rule. Note, how now, even
 
 The error now is represented by the error AST leaf node at the end of "partially parsed" AST element (in this case, `AwkStatement`).
 
+To someone who knows Prolog the behavior of `pin` will remind cuts (`!`).
+Because it makes the parser to commit to the chosen parse choice once the specified token is reached, by canceling the backtracking for the  rule with pin. 
+
+Also, to me the idea of pins has very clear logical sense. Once someone typed `if` (with space after it) it's already clear this will be `statement_if`. User simply has no option to type something other than `(condition) actions`, since in all cases this will be a syntax error. So it's logical for parser to assume `statement_if` AST element after seeing only the `if` token.  
+
 
 
