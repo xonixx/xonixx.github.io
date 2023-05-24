@@ -42,4 +42,11 @@ It appears, that only lexing step is enough if you only need to highlight the so
 
 However, for any more advanced functionality, like aforementioned autocomplete, you need the AST. 
 
-But here is the problem. Usually, Parser can only build complete and correct AST tree for a complete and correct source code. However, when we are entering the program in IDE most of the time our source is incomplete. Thus, it's simply _invalid_ for the Parser.     
+But here is the problem. Usually, Parser can only build a complete and correct AST tree for complete and correct source code. However, when we are typing the program in IDE most of the time our source is incomplete. Thus, it's simply _invalid_ for the Parser.
+
+Let's see the actual example. Compare how the incomplete code is parsed (just linear list of tokens with the error at the end):
+
+![](intellij-awk_grammar_optimization1.png)
+
+And how the complete code is parsed (AST tree is present):
+![](intellij-awk_grammar_optimization2.png)
