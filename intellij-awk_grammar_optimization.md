@@ -70,7 +70,57 @@ The error now is represented by the error AST leaf node at the end of "partially
 To someone who knows Prolog the behavior of `pin` will remind cuts (`!`).
 Because it makes the parser to commit to the chosen parse choice once the specified token is reached, by canceling the backtracking for the  rule with pin. 
 
-Also, to me the idea of pins has very clear logical sense. Once someone typed `if` (with space after it) it's already clear this will be `statement_if`. User simply has no option to type something other than `(condition) actions`, since in all cases this will be a syntax error. So it's logical for parser to assume `statement_if` AST element after seeing only the `if` token.  
+Also, to me the idea of pins has very clear logical sense. Once someone typed `if` (with space after it) it's already clear this will be `statement_if`. User simply has no option to type something other than `(condition) actions`, since in all cases this will be a syntax error. So it's logical for parser to assume `statement_if` AST element after seeing only the `if` token.
+
+### The tricky AWK grammar
+
+If it were as simple as adding `pin` attributes to a grammar, I wouldn't be writing this article.
+
+In my [AWK technical notes](awk_tech_notes.md) I've already mentioned, that due to a somewhat ad-hoc AWK syntax the language has a [parsing grammar](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html#tag_20_06_13_16) with some peculiarities, including even ambiguities.
+
+The other such peculiarity can be observed in this piece of grammar:
+
+```bnf
+action           : '{' newline_opt                             '}'
+                 | '{' newline_opt terminated_statement_list   '}'
+                 | '{' newline_opt unterminated_statement_list '}'
+                 ;
+
+...
+
+terminated_statement_list : terminated_statement
+                 | terminated_statement_list terminated_statement
+                 ;
+
+unterminated_statement_list : unterminated_statement
+                 | terminated_statement_list unterminated_statement
+                 ;
+
+terminated_statement : action newline_opt
+                 | If '(' expr ')' newline_opt terminated_statement
+                 | If '(' expr ')' newline_opt terminated_statement
+                       Else newline_opt terminated_statement
+                 | While '(' expr ')' newline_opt terminated_statement
+                 | For '(' simple_statement_opt ';'
+                 ...
+                 ;
+
+unterminated_statement : terminatable_statement
+                 | If '(' expr ')' newline_opt unterminated_statement
+                 | If '(' expr ')' newline_opt terminated_statement
+                      Else newline_opt unterminated_statement
+                 | While '(' expr ')' newline_opt unterminated_statement
+                 | For '(' simple_statement_opt ';'
+                 ...
+                 ;
+```
+
+You can notice, there is some duplication here
+
+
+### Result
+
+Speed-up
 
 
 
