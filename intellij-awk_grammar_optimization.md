@@ -135,7 +135,7 @@ and unterminated statement list:
 { print 1; print 2 }
 ```
 
-In fact the only thing that matters is the `terminator` (newline or `';'`) before `'}'`, so this is also terminated statement list: 
+In fact the only thing that tells the first from the second is the presence of `terminator` (newline or `';'`) before `'}'`, so this is also terminated statement list: 
 
 ```awk
 { print 1; print 2 
@@ -149,9 +149,17 @@ and this:
 
 Crazy, but this tiny detail needs this substantial duplication in the parser grammar.
 
+Probably, the parsing performance also hurts. Because it needs to try parsing `terminated_statement_list` first till the end (that is, till the closing `'}'`), and if the `terminator` is not there - backtrack and retry via the `unterminated_statement_list` parsing.
+
+But what does this mean for our problem? Remember, we want to add `pin` attribute to `if` statement parsing to facilitate AST creation for unfinished `if`. 
+
+Now, here is the problem.
+
 ### Result
 
 Speed-up
+
+### Plans
 
 
 
