@@ -78,15 +78,18 @@ If it were as simple as adding `pin` attributes to a grammar, I wouldn't be writ
 
 In my [AWK technical notes](awk_tech_notes.md) I've already mentioned, that due to a somewhat ad-hoc AWK syntax the language has a [parsing grammar](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html#tag_20_06_13_16) with some peculiarities, including even ambiguities.
 
-The other such peculiarity can be observed in this piece of grammar:
+The other such peculiarity can be observed in this excerpt from the grammar:
 
-```bnf
+```
 action           : '{' newline_opt                             '}'
                  | '{' newline_opt terminated_statement_list   '}'
                  | '{' newline_opt unterminated_statement_list '}'
                  ;
 
-...
+terminator       : terminator NEWLINE
+                 |            ';'
+                 |            NEWLINE
+                 ;
 
 terminated_statement_list : terminated_statement
                  | terminated_statement_list terminated_statement
@@ -115,8 +118,36 @@ unterminated_statement : terminatable_statement
                  ;
 ```
 
-You can notice, there is some duplication here
+As you can see, there is some duplication here. Notably, you can see that `if` statement parsing happens in two rules: `terminated_statement` and `unterminated_statement`.
 
+This duplication is needed because AWK (being terse language suited for one-liners) need to parse both terminated statement list (`\n` is statement terminator, as well as `';'`)
+
+```awk
+{
+  print 1
+  print 2
+}
+```
+
+and unterminated statement list:
+
+```awk
+{ print 1; print 2 }
+```
+
+In fact the only thing that matters is the `terminator` (newline or `';'`) before `'}'`, so this is also terminated statement list: 
+
+```awk
+{ print 1; print 2 
+}
+```
+
+and this:
+```awk
+{ print 1; print 2; }
+```
+
+Crazy, but this tiny detail needs this substantial duplication in the parser grammar.
 
 ### Result
 
