@@ -162,6 +162,23 @@ The reason for this is that `pin` makes the parsing always commit to `terminated
 Just in case, here is the correct parsing (that resolves to `unterminated_statement_if`):
 
 ![](intellij-awk_grammar_optimization5.png)
+  
+***
+
+If you read my article carefully, at this point you might have a question. How come in the beginning I was adding `pin` for the same `if` case, and it was working?
+
+I should apologize for some inconsistency in my story. In the first part I was adding `pin` for already [rewritten parser grammar](https://github.com/xonixx/intellij-awk/pull/185/files), where I was able to get rid of the aforementioned duplication `¯\_(ツ)_/¯`
+
+***
+
+Though, once again. You may still ask. How come you got rid of grammar duplication with terminated and unterminated statements? Was it not necessary? You just explained how exactly it was necessary.
+
+Absolutely valid question!
+
+The negative implication of such rewrite is that now the grammar is more permissive than it should be. This means it parses as valid some invalid programs!
+
+![](intellij-awk_grammar_optimization6.png)
+
 
 ### Result
 
