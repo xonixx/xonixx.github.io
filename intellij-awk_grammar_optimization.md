@@ -155,6 +155,9 @@ But what does this mean for our problem? Remember, we want to add `pin` attribut
 
 Now, here is the problem.
 
+![](intellij-awk_grammar_optimization4.png)
+![](intellij-awk_grammar_optimization5.png)
+
 ### Result
 
 Speed-up
