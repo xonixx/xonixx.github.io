@@ -153,13 +153,13 @@ Also, the performance of such parsing is questionable. Because it needs to try p
 
 But what does this have to do with our problem? Remember, we want to add `pin` attribute to `if` statement parsing to facilitate AST creation for unfinished `if`. 
 
-Now, here is the problem. If we naively try to add `pin` to both `terminated_statement_if` and `unterminated_statement_if` we get broken parsing!
+Now, here is the problem. If we naively add `pin` to both `terminated_statement_if` and `unterminated_statement_if` we get broken parsing!
 
 ![](intellij-awk_grammar_optimization4.png)
 
-The reason for this, is that `pin` makes the parsing always commit to `terminated_statement_if` (as the first in the order of parsing), even if it's incomplete! Because this is the semantics of `pin`: it considers a rule match to be successful even for a partial match that reached "pinned" token. 
+The reason for this is that `pin` makes the parsing always commit to `terminated_statement_if` (as the first in the order of parsing), even if it's incomplete! Because this is the semantics of `pin`: it considers a rule match to be successful even for a partial match that reached "pinned" token. 
 
-Here is the correct parsing (that resolves to `unterminated_statement_if`):
+Just in case, here is the correct parsing (that resolves to `unterminated_statement_if`):
 
 ![](intellij-awk_grammar_optimization5.png)
 
