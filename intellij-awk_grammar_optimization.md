@@ -5,7 +5,7 @@ description: 'TODO'
 image: TODO
 ---
 
-# How I accidentally optimized the parsing in IntelliJ-AWK
+# The story of one parser grammar refactoring in IntelliJ-AWK
 
 _TODO 2023_
 
@@ -13,7 +13,7 @@ _TODO 2023_
 
 [IntelliJ-AWK](https://github.com/xonixx/intellij-awk) is a language support plugin for AWK that I develop for the IntelliJ IDEA.
 
-I will describe how I tweaked the parsing grammar to solve one particular problem, and coincidentally this made parsing faster and allowed to remove some "code hacks".  
+I will describe how I tweaked the parsing grammar to solve one particular problem, and this also made it more resilient and allowed to remove some "code hacks".  
 
 The article may be of interest to people developing a language support plugin for IntelliJ IDEA, or people interested in practical language parsing algorithms.
 
@@ -179,10 +179,26 @@ The negative implication of such rewrite is that now the grammar is more permiss
 
 ![](intellij-awk_grammar_optimization6.png)
 
+Is it an issue? Yes, but minor. Since TODO
 
 ### Result
 
-Speed-up
+Was it worth it? Absolutely!
+
+Now, autocompletion works even in the presence of incomplete `if` (`for`, `while`, etc.) statement.
+
+![](intellij-awk_grammar_optimization7.png)
+
+Besides, with this approach I was able to remove couple nasty hacks I had, like [this one](https://github.com/xonixx/intellij-awk/pull/185/files#diff-9b25939eeaf8c1ba3c581c90db25db98eefb216987bc7c7d67b3f981c22b604fR154).
+
+Sadly, I can't confirm that the rewrite produced any noticeable parsing speed-up. Here is the measurements:
+
+|                          | Before | After  |
+|--------------------------|--------|--------|
+| **Tests count**          | 1053   | 1069   |
+| **Tests execution time** | 48 sec | 47 sec |
+                     
+Although, it looks like slight speedup, but also can just be a fluctuation.
 
 ### Plans
 
