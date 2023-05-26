@@ -147,11 +147,11 @@ the same as this:
 { print 1; print 2; }
 ```
 
-Crazy, but this tiny detail needs this substantial duplication in the parser grammar.
+Crazy, but this tiny detail needs this substantial duplication in the parser's grammar.
+                          
+Also, the performance of such parsing is questionable. Because it needs to try parsing `terminated_statement_list` first till the end (that is, till the closing `'}'`), and if the `terminator` is not there - backtrack and retry via the `unterminated_statement_list` parsing.
 
-Probably, the parsing performance also hurts. Because it needs to try parsing `terminated_statement_list` first till the end (that is, till the closing `'}'`), and if the `terminator` is not there - backtrack and retry via the `unterminated_statement_list` parsing.
-
-But what does this mean for our problem? Remember, we want to add `pin` attribute to `if` statement parsing to facilitate AST creation for unfinished `if`. 
+But what does this have to do with our problem? Remember, we want to add `pin` attribute to `if` statement parsing to facilitate AST creation for unfinished `if`. 
 
 Now, here is the problem. If we naively try to add `pin` to both `terminated_statement_if` and `unterminated_statement_if` we get broken parsing!
 
