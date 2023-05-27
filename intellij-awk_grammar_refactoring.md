@@ -205,7 +205,7 @@ Sadly, I can't confirm that the rewrite produced any noticeable parsing speed-up
                      
 Although, it looks like slight speedup, but also can be just a fluctuation.
 
-The described change was delivered as a part of [0.4.0 release](https://plugins.jetbrains.com/plugin/17037-awk-support/versions/stable/334155) of the plugin.
+The described change was delivered as part of [version 0.4.0](https://plugins.jetbrains.com/plugin/17037-awk-support/versions/stable/334155) of the plugin.
 
 ### Future plans
 
