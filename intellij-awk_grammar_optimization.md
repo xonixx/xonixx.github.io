@@ -1,13 +1,13 @@
 ---
 layout: post
-title: 'TODO'
-description: 'TODO'
-image: TODO
+title: 'A story about one refactoring of the parser grammar in IntelliJ-AWK'
+description: 'I describe how I tweaked the parsing grammar to solve one particular problem, and this also made it more resilient and allowed to remove some "code hacks"'
+image: intellij-awk_grammar_optimization3.png
 ---
 
-# The story of one parser grammar refactoring in IntelliJ-AWK
+# A story about one refactoring of the parser grammar in IntelliJ-AWK
 
-_TODO 2023_
+_May 2023_
 
 ### TL;DR
 
@@ -51,6 +51,7 @@ Let's see the actual example. Compare how the incomplete code is parsed (just li
 ![](intellij-awk_grammar_optimization1.png)
 
 And how the complete code is parsed (AST tree is present):
+
 ![](intellij-awk_grammar_optimization2.png)
 
 ### Grammar hints for recovery
