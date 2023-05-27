@@ -40,7 +40,7 @@ Likewise, Parser is usually auto-generated from a [parsing grammar](https://gith
 
 However, it's also common to see manually written lexers and parsers.
 
-It appears, that only lexing step is enough if you only need to highlight the source code. You don't need to build the full-fledged AST, you only need to know the actual tokens and color them in different colors by token type.
+It appears, that only lexing step is enough if all you need is to highlight the source code. You don't need to build the full-fledged AST, you only need to know the actual tokens and color them in different colors by token type.
 
 However, for any more advanced functionality, like aforementioned autocomplete, you need the AST. 
 
@@ -55,7 +55,7 @@ And how the complete code is parsed (AST tree is present):
 
 ### Grammar hints for recovery
 
-In practice, it's desirable for the IDE use-case to implement a parsing algorithm that is capable of building (at least partial) AST even in presence of parsing errors. In other words, parser should be able to "recover" from the error and keep building syntax tree from subsequent tokens.
+In practice, it's desirable for the IDE use-case to implement a parsing algorithm that is capable of building (at least partial) AST even in the presence of parsing errors. In other words, parser should be able to "recover" from the error and keep building syntax tree from subsequent tokens.
 
 The parsing solution provided by IDEA, called [Grammar-Kit](https://github.com/JetBrains/Grammar-Kit), has means for this. It has two attributes that you can add to grammar rules to hint the parser on how to recover from parsing errors: `pin` and `recoverWhile`, described in docs ([1](https://github.com/JetBrains/Grammar-Kit/blob/master/TUTORIAL.md), [2](https://github.com/JetBrains/Grammar-Kit/blob/master/HOWTO.md#22-using-recoverwhile-attribute)).
 
@@ -151,7 +151,7 @@ Crazy, but this tiny detail needs this substantial duplication in the parser's g
                           
 Also, the performance of such parsing is questionable. Because it needs to try parsing `terminated_statement_list` first till the end (that is, till the closing `'}'`), and if the `terminator` is not there - backtrack and retry via the `unterminated_statement_list` parsing.
 
-But what does this have to do with our problem? Remember, we want to add `pin` attribute to `if` statement parsing to facilitate AST creation for unfinished `if`. 
+But what does this have to do with our problem? Remember, we want to add the `pin` attribute to the parsing of the `if` statement to facilitate an AST creation for the unfinished `if`. 
 
 Now, here is the problem. If we naively add `pin` to both `terminated_statement_if` and `unterminated_statement_if` we get broken parsing!
 
@@ -179,7 +179,7 @@ The negative implication of such rewrite is that now the grammar is more permiss
 
 ![](intellij-awk_grammar_optimization6.png)
 
-Is it an issue? Yes, but minor. Since TODO
+Is it an issue? Yes, but minor. Since the probability of writing this code is low and the problem will be immediately caught on the first run.
 
 ### Result
 
@@ -198,7 +198,7 @@ Sadly, I can't confirm that the rewrite produced any noticeable parsing speed-up
 | **Tests count**          | 1053   | 1069   |
 | **Tests execution time** | 48 sec | 47 sec |
                      
-Although, it looks like slight speedup, but also can just be a fluctuation.
+Although, it looks like slight speedup, but also can be just a fluctuation.
 
 ### Plans
 
