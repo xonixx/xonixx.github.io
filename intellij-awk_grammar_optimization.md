@@ -72,6 +72,10 @@ Because it makes the parser to commit to the chosen parse choice once the specif
 
 Also, to me the idea of pins has very clear logical sense. Once someone typed `if` (with space after it) it's already clear this will be `statement_if`. User simply has no option to type something other than `(condition) actions`, since in all other inputs will be a syntax error. So it's logical for the parser to assume `statement_if` AST element after seeing only the `if` token.
 
+Also, I want to add one recommendation. Usually you want to set `pin` to the smallest value possible (that is `1`). Remember, we use `pin` to help the parser to build the AST tree for more cases. So, for example, if you set `{ pin=2 }` in our example with `statement_if`, it will only help to build an AST for `{ if ( }` but not for `{ if }`:
+
+![](intellij-awk_grammar_optimization8.png)
+
 ### The tricky AWK grammar
 
 If it were as simple as adding `pin` attributes to a grammar, I wouldn't be writing this article.
@@ -202,5 +206,6 @@ Although, it looks like slight speedup, but also can be just a fluctuation.
 
 ### Plans
 
+Add even more parsing hints to grammar to cover even more cases for error recovery.
 
-
+Also, I have a feeling that it should be possible to re-introduce the lost restrictiveness of the grammar while preserving the achieved parsing resilience. 
