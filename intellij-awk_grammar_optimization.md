@@ -171,11 +171,11 @@ Just in case, here is the correct parsing (that resolves to `unterminated_statem
 
 If you read my article carefully, at this point you might have a question. How come in the beginning I was adding `pin` for the same `if` case, and it was working?
 
-I should apologize for some inconsistency in my story. In the first part I was adding `pin` for already [rewritten parser grammar](https://github.com/xonixx/intellij-awk/pull/185/files), where I was able to get rid of the aforementioned duplication `¯\_(ツ)_/¯`
+I should apologize for some inconsistency in my story. The project IntelliJ-AWK was started by using the exact AWK grammar as provided by specification. In the first part of the article I was adding `pin` for already [rewritten parser grammar](https://github.com/xonixx/intellij-awk/pull/185/files), where I was able to get rid of the aforementioned duplication `¯\_(ツ)_/¯`
 
 ***
 
-Though, once again. You may still ask. How come you got rid of grammar duplication with terminated and unterminated statements? Was it not necessary? You just explained how exactly it was necessary.
+Though, once again, you may still ask. How come you got rid of grammar duplication with terminated and unterminated statements? Was it not necessary? You just have explained how exactly it was necessary.
 
 Absolutely valid question!
 
@@ -204,8 +204,10 @@ Sadly, I can't confirm that the rewrite produced any noticeable parsing speed-up
                      
 Although, it looks like slight speedup, but also can be just a fluctuation.
 
-### Plans
+### Future plans
 
 Add even more parsing hints to grammar to cover even more cases for error recovery.
 
-Also, I have a feeling that it should be possible to re-introduce the lost restrictiveness of the grammar while preserving the achieved parsing resilience. 
+Also, I have a feeling that it should be possible to re-introduce the lost restrictiveness of the grammar while preserving the achieved parsing resilience.
+
+Also, it appears, that standardized AWK grammar, when converted to IDEA's Grammar-Kit, [doesn't properly handle](https://github.com/xonixx/intellij-awk/issues/104) operators priority. This needs to be addressed.
