@@ -209,7 +209,7 @@ The described change was delivered as a part of [0.4.0 release](https://plugins.
 
 ### Future plans
 
-Add even more parsing hints to grammar to cover even more cases for error recovery.
+Add even more grammar parsing hints to cover even [more cases](https://github.com/xonixx/intellij-awk/issues/186) for error recovery.
 
 Also, I have a feeling that it should be possible to re-introduce the lost restrictiveness of the grammar while preserving the achieved parsing resilience.
 
