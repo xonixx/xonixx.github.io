@@ -203,7 +203,7 @@ Sadly, I can't confirm that the rewrite produced any noticeable parsing speed-up
 | **Tests count**          | 1053   | 1069   |
 | **Tests execution time** | 48 sec | 47 sec |
                      
-Although, it looks like slight speedup, but also can be just a fluctuation.
+Although, it looks like a slight speedup, but also can be just a fluctuation.
 
 The described change was delivered as part of [version 0.4.0](https://plugins.jetbrains.com/plugin/17037-awk-support/versions/stable/334155) of the plugin.
 
