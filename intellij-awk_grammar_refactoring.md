@@ -5,7 +5,7 @@ description: 'I describe how I tweaked the parsing grammar to solve one particul
 image: intellij-awk_grammar_refactoring3.png
 ---
 
-# A story about one refactoring of the parser grammar in IntelliJ-AWK
+## A story about one refactoring of the parser grammar in IntelliJ-AWK
 
 _May 2023_
 
@@ -172,7 +172,7 @@ Just in case, here is the correct parsing (that resolves to `unterminated_statem
 
 If you read my article carefully, at this point you might have a question. How come in the beginning I was adding `pin` for the same `if` case, and it was working?
 
-I should apologize for some inconsistency in my story. The project IntelliJ-AWK was started by using the exact AWK grammar as provided by specification. In the first part of the article I was adding `pin` for already [rewritten parser grammar](https://github.com/xonixx/intellij-awk/pull/185/files), where I was able to get rid of the aforementioned duplication `¯\_(ツ)_/¯`
+I should apologize for some inconsistency in my story. The project IntelliJ-AWK was started by using the exact AWK grammar as provided by specification. In the first part of the article I was adding `pin` for the already [rewritten parser grammar](https://github.com/xonixx/intellij-awk/pull/185/files), where I was able to get rid of the aforementioned duplication `¯\_(ツ)_/¯`
 
 ***
 
