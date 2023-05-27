@@ -2,7 +2,7 @@
 layout: post
 title: 'A story about one refactoring of the parser grammar in IntelliJ-AWK'
 description: 'I describe how I tweaked the parsing grammar to solve one particular problem, and this also made it more resilient and allowed to remove some "code hacks"'
-image: intellij-awk_grammar_optimization3.png
+image: intellij-awk_grammar_refactoring3.png
 ---
 
 # A story about one refactoring of the parser grammar in IntelliJ-AWK
@@ -19,7 +19,7 @@ The article may be of interest to people developing a language support plugin fo
 
 ***
 
-The story started with this [issue](https://github.com/xonixx/intellij-awk/issues/133). The autocomplete was not working in the presence of not-closed `if`:
+The story started with [this issue](https://github.com/xonixx/intellij-awk/issues/133). The autocomplete was not working in the presence of not-closed `if`:
 
 ![](https://user-images.githubusercontent.com/11706893/195204634-38068080-2748-4e8e-8679-9bc418242fc3.png)
                            
@@ -48,11 +48,11 @@ But here is the problem. Usually, Parser can only build a complete and correct A
 
 Let's see the actual example. Compare how the incomplete code is parsed (just linear list of tokens with the error at the end):
 
-![](intellij-awk_grammar_optimization1.png)
+![](intellij-awk_grammar_refactoring1.png)
 
 And how the complete code is parsed (AST tree is present):
 
-![](intellij-awk_grammar_optimization2.png)
+![](intellij-awk_grammar_refactoring2.png)
 
 ### Grammar hints for recovery
 
@@ -64,7 +64,7 @@ The key for our case is the `pin` one. You add it to a parsing rule by specifyin
 
 Now I just added the `{ pin=1 }` to the `statement_if` rule. Notice how now, even if there is a parse error, the AST tree is built.
 
-![](intellij-awk_grammar_optimization3.png)
+![](intellij-awk_grammar_refactoring3.png)
 
 The error now is represented by the error AST leaf node at the end of "partially parsed" AST element (in this case, `AwkStatement`).
 
@@ -75,7 +75,7 @@ Also, to me the idea of pins has very clear logical sense. Once someone typed `i
 
 Also, I want to add one recommendation. Usually you want to set `pin` to the smallest value possible (that is `1`). Remember, we use `pin` to help the parser to build the AST tree for more cases. So, for example, if you set `{ pin=2 }` in our example with `statement_if`, it will only help to build an AST for `{ if ( }` but not for `{ if }`:
 
-![](intellij-awk_grammar_optimization8.png)
+![](intellij-awk_grammar_refactoring8.png)
 
 ### The tricky AWK grammar
 
@@ -160,13 +160,13 @@ But what does this have to do with our problem? Remember, we want to add the `pi
 
 Now, here is the problem. If we naively add `pin` to both `terminated_statement_if` and `unterminated_statement_if` we get broken parsing!
 
-![](intellij-awk_grammar_optimization4.png)
+![](intellij-awk_grammar_refactoring4.png)
 
 The reason for this is that `pin` makes the parsing always commit to `terminated_statement_if` (as the first in the order of parsing), even if it's incomplete! Because this is the semantics of `pin`: it considers a rule match to be successful even for a partial match that reached "pinned" token. 
 
 Just in case, here is the correct parsing (that resolves to `unterminated_statement_if`):
 
-![](intellij-awk_grammar_optimization5.png)
+![](intellij-awk_grammar_refactoring5.png)
   
 ***
 
@@ -182,7 +182,7 @@ Absolutely valid question!
 
 The negative implication of such rewrite is that now the grammar is more permissive than it should be. This means it parses as valid some invalid programs!
 
-![](intellij-awk_grammar_optimization6.png)
+![](intellij-awk_grammar_refactoring6.png)
 
 Is it an issue? Yes, but minor. Since the probability of writing this code is low and the problem will be immediately caught on the first run.
 
@@ -192,7 +192,7 @@ Was it worth it? Absolutely!
 
 Now, autocompletion works even in the presence of incomplete `if` (`for`, `while`, etc.) statement.
 
-![](intellij-awk_grammar_optimization7.png)
+![](intellij-awk_grammar_refactoring7.png)
 
 Besides, with this approach I was able to remove couple nasty hacks I had, like [this one](https://github.com/xonixx/intellij-awk/pull/185/files#diff-9b25939eeaf8c1ba3c581c90db25db98eefb216987bc7c7d67b3f981c22b604fR154).
 
