@@ -38,10 +38,13 @@ In case of success the tool will output nothing (in Unix tradition of being sile
 
 In case if the expected output of a command line doesn't match the expected output or exit code - the tool will show a `diff` of the expected and the actual results.
 
-- Each test file can have multiple such tests (like the file above have two)
-- fhtagn will only process lines starting `$`, `|`, `@` and `?`. So you can have any other content there, that doesn't start these symbols, for example description for each test. Alternatively, you can even make test files a markdown and place the tests into code blocks for readability.   
+- Each test file can have multiple such tests (like the file above have two, as you can see).
+- fhtagn will only process lines starting `$`, `|`, `@` and `?`. So you can have any other content there, that doesn't start these symbols, for example description for each test. Alternatively, you can even make test files a markdown and place the tests into code blocks for readability.
+- Command lines can be [multiline](https://github.com/xonixx/fhtagn/blob/0e70ab0329858ebbfd22b74bbf6fb51cb3e6d359/tests/4-multiline.tush).
 
 ## Why rewrite?
 
 ### Results
+
+## Tricky issue trying to test fhtagn with fhtagn 
 
