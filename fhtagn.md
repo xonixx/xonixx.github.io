@@ -86,10 +86,19 @@ diff expected_file actual_file
 
 Because this allows to skip creating the `actual_file`.
 
-Also note how we combine the deletion (`rm`) of a temp file [in the same call](https://github.com/xonixx/fhtagn/blob/0e70ab0329858ebbfd22b74bbf6fb51cb3e6d359/fhtagn.awk#L66).
+Also note how we combine there the deletion (`rm`) of a temp file in the same call.
 
 ### Results
+    
+On [makesure](https://github.com/xonixx/makesure) project running the test suite (excluding the tests in `200_update.tush` that does network calls) `./makesure tested_awks`: 
+              
+| Before (tush) | After (fhtagn) |
+|---------------|----------------|
+| 36.1 sec      | 25.9 sec       |
 
+The speedup is **28%**. 
+
+But note, this includes the own tests running time, which is the same. So the actual speedup of the fhtagn processing should be much bigger.
 
 
 ## Tricky issue trying to test fhtagn with fhtagn 
