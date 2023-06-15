@@ -9,7 +9,7 @@ image: TODO
 
 _June 2023_
 
-[fhtagn](https://github.com/xonixx/fhtagn) is a [tiny](https://github.com/xonixx/fhtagn/blob/0e70ab0329858ebbfd22b74bbf6fb51cb3e6d359/fhtagn.awk) CLI tool for literate testing for command-line programs.
+[fhtagn](https://github.com/xonixx/fhtagn) is a [tiny](https://github.com/xonixx/fhtagn/blob/764f6ecf600944ef043de3774a67478350740049/fhtagn.awk) CLI tool for literate testing for command-line programs.
 
 What does it mean literate testing?
                  
@@ -36,9 +36,9 @@ In case of success the tool will output nothing (in Unix tradition of being sile
 
 In case if the expected output of a command line doesn't match the expected output or exit code - the tool will show a `diff` of the expected and the actual results.
 
-- Each test file can have multiple such tests (like the file above have two, as you can see).
+- Each test file can have multiple such tests (like the example above have two, as you can see).
 - fhtagn will only process lines starting `$`, `|`, `@` and `?`. So you can have any other content there, that doesn't start these symbols, for example description for each test. Alternatively, you can even make test files a markdown and place the tests into code blocks for readability.
-- Command lines can be [multiline](https://github.com/xonixx/fhtagn/blob/0e70ab0329858ebbfd22b74bbf6fb51cb3e6d359/tests/4-multiline.tush).
+- Command lines can be [multiline](https://github.com/xonixx/fhtagn/blob/764f6ecf600944ef043de3774a67478350740049/tests/4-multiline.tush).
 
 I use fhtagn as a testing tool for my projects:
 - [makesure](https://github.com/xonixx/makesure)
@@ -69,11 +69,11 @@ By using `/usr/bin/awk` shebang instead of `/bin/sh` with subsequent awk invocat
 
 ### Do more in one shell invocation
 
-[Here](https://github.com/xonixx/fhtagn/blob/0e70ab0329858ebbfd22b74bbf6fb51cb3e6d359/fhtagn.awk#L12-L14) we do a single shell invocation and get two values from it. It's faster than doing two separate shell invocations.
+[Here](https://github.com/xonixx/fhtagn/blob/764f6ecf600944ef043de3774a67478350740049/fhtagn.awk#L13-L15) we do a single shell invocation and get two values from it. It's faster than doing two separate shell invocations.
 
 ### Creating one less file by using stdin
 
-[Here](https://github.com/xonixx/fhtagn/blob/0e70ab0329858ebbfd22b74bbf6fb51cb3e6d359/fhtagn.awk#L63-L66) we do 
+[Here](https://github.com/xonixx/fhtagn/blob/764f6ecf600944ef043de3774a67478350740049/fhtagn.awk#L65) we do 
 
 ```shell
 echo actual_data | diff expected_file -
@@ -94,12 +94,9 @@ On [makesure](https://github.com/xonixx/makesure) project running the test suite
               
 | Before (tush) | After (fhtagn) |
 |---------------|----------------|
-| 36.1 sec      | 25.9 sec       |
+| 36.1 sec      | 24.2 sec       |
 
-The speedup is **28%**. 
-
-But note, this includes the own tests running time, which is the same. So the actual speedup of the fhtagn processing should be much bigger.
-
+The speedup is **33%**! 
 
 ## Tricky issue trying to test fhtagn with fhtagn 
 
