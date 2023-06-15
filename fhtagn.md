@@ -44,6 +44,7 @@ I use fhtagn as a testing tool for my projects:
 - [makesure](https://github.com/xonixx/makesure)
 - [gron.awk](https://github.com/xonixx/gron.awk)
 - [awk_lab](https://github.com/xonixx/awk_lab)
+- [fhtagn](https://github.com/xonixx/fhtagn) (yes!)
 
 ***
 
@@ -104,5 +105,9 @@ On [makesure](https://github.com/xonixx/makesure) project running the test suite
 
 The speedup is **33%**! 
 
-## Tricky issue trying to test fhtagn with fhtagn 
+## Tricky issue trying to test fhtagn with fhtagn
+
+We test fhtagn with fhtagn! Yes, [we eat our own dog food](https://en.wikipedia.org/wiki/Eating_your_own_dog_food).
+
+In fact, since fhtagn is syntactically fully compatible with tush, for the reference we firstly run the [test suite](https://github.com/xonixx/fhtagn/blob/18f7865f8d58a30a263f45d0378c1e6f0b4c38b5/tests/fhtagn.tush) with tush, and then, as an additional check, we run it [with fhtagn](https://github.com/xonixx/fhtagn/blob/18f7865f8d58a30a263f45d0378c1e6f0b4c38b5/Makesurefile#L60-L61).
 
