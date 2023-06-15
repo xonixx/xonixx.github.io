@@ -87,6 +87,12 @@ diff expected_file actual_file
 Because this allows to skip creating the `actual_file`.
 
 Also note how we combine there the deletion (`rm`) of a temp file in the same call.
+           
+### Batching cleanup in a single call
+
+[This change](https://github.com/xonixx/fhtagn/pull/17/files) optimizes the temporary files removal. Instead of calling `rm` for each test we collect all temp files into `ToDel` variable and do the actual removal inside the `END` block.
+
+By the way, this issue was identified by [generating](https://github.com/xonixx/fhtagn/blob/764f6ecf600944ef043de3774a67478350740049/gen_speed_test.awk) an arbitrary large synthetic test file and was fixed [in this issue](https://github.com/xonixx/fhtagn/issues/14).
 
 ### Results
     
