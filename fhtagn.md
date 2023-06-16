@@ -46,7 +46,7 @@ I use fhtagn as a testing tool for my projects:
 - [awk_lab](https://github.com/xonixx/awk_lab)
 - [fhtagn](https://github.com/xonixx/fhtagn) (yes!)
 
-***
+## tush rewrite
 
 In fact this project is my re-implementation of [darius/tush](https://github.com/darius/tush), [adolfopa/tush](https://github.com/adolfopa/tush).
 But simpler (single tiny AWK script) and faster, because:
@@ -56,7 +56,7 @@ But simpler (single tiny AWK script) and faster, because:
 - it doesn't create a sandbox folder for each test
 - it doesn't use `mktemp` but rather generates random name in the code
 
-***
+## Design principles
 
 Below I want to elaborate a bit on design principles I've used to achieve the best speed. Basically there are two of them:
 - minimize running external processes
