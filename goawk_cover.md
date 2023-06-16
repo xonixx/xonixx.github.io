@@ -67,7 +67,7 @@ Essentially, to collect code coverage statistics, we use source code instrumenta
 
 ### How code coverage for AWK differs from mainstream languages
 
-For testing `makesure` I'm using the [tush](https://github.com/adolfopa/tush) tool (<u>Update: I switched to [fhtagn](fhtagn.md)</u>). It provides a really nice and simple way to test a CLI tool as a black box.  
+For testing `makesure` I'm using the [tush](https://github.com/adolfopa/tush) tool (<ins>Update: I switched to [fhtagn](fhtagn.md)</ins>). It provides a really nice and simple way to test a CLI tool as a black box.  
 
 The tests in `tush` look like this:
 
