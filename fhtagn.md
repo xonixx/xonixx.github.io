@@ -34,7 +34,7 @@ And running it:
     
 In case of success the tool will output nothing (in Unix tradition of being silent when all is OK).
 
-In case if the expected output of a command line doesn't match the expected output or exit code - the tool will show a `diff` of the expected and the actual results.
+In case if the actual output of a command line doesn't match the expected output or exit code - the tool will show a `diff` of the expected and the actual results.
 
 - Each test file can have multiple such tests (like the example above have two, as you can see).
 - fhtagn will only process lines starting `$`, `|`, `@` and `?`. So you can have any other content there, that doesn't start these symbols, for example description for each test. Alternatively, you can even make test files a markdown and place the tests into code blocks for readability.
@@ -136,7 +136,7 @@ I used [`rand()`](https://www.gnu.org/software/gawk/manual/html_node/Numeric-Fun
 
 It appears, that AWK
 
-1. `rand()` always generate the same random sequence unless you set the seed with `srand()`
+1. `rand()` always generates the same random sequence unless you set the seed with `srand()`
 2. `srand()` by default sets the seed number that equals to current timestamp (with 1 sec precision).
 
 At this point you may have already guessed the culprit.
