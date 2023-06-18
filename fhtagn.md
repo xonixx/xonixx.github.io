@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'TODO'
+title: 'fhtagn - tiny CLI programs tester written in AWK'
 description: 'Literate testing for command-line programs with fhtagn'
 image: TODO
 ---
@@ -50,7 +50,7 @@ I wrote this tool in AWK. Surprised? Check my article [Fascination with AWK](awk
 
 ## tush rewrite
 
-In fact this project is my re-implementation of [darius/tush](https://github.com/darius/tush), [adolfopa/tush](https://github.com/adolfopa/tush). So all credit for the idea goes to the original author [Darius Bacon](https://github.com/darius).
+In fact this project is my re-implementation of [darius/tush](https://github.com/darius/tush), so all credit for the idea goes to the original author [Darius Bacon](https://github.com/darius).
 
 But my rewrite is simpler (single tiny AWK script) and faster, because:
 
@@ -67,7 +67,7 @@ Below I want to elaborate a bit on design principles I've used to achieve the be
 
 Let's show on examples.
 
-### AWK script, not shell script
+### AWK script, not shell
 
 By using `/usr/bin/awk` shebang instead of `/bin/sh` with subsequent awk invocation we make it one shell process call less. 
 
@@ -84,7 +84,7 @@ echo actual_data | diff expected_file -
 ```
 
 instead of 
-```
+```shell
 diff expected_file actual_file
 ```
 
@@ -102,11 +102,13 @@ By the way, this issue was identified by [generating](https://github.com/xonixx/
     
 On [makesure](https://github.com/xonixx/makesure) project running the test suite (excluding the tests in `200_update.tush` that does network calls) `./makesure tested_awks`: 
               
-| Before (tush) | After (fhtagn) |
-|---------------|----------------|
-| 36.1 sec      | 24.2 sec       |
+| Before (tush*) | After (fhtagn) |
+|----------------|----------------|
+| 36.1 sec       | 24.2 sec       |
 
 The speedup is **33%**! 
+
+*) For tush I was using the [adolfopa/tush](https://github.com/adolfopa/tush) fork.
 
 ## Tricky issue trying to test fhtagn with fhtagn
 
