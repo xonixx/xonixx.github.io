@@ -1,11 +1,11 @@
 ---
 layout: post
-title: 'makesure - make with a human face'
+title: 'makesure -- make with a human face'
 description: 'I describe the ideas behind the makesure tool and the development process for one of its aspects.'
 image: makesure.png
 ---
 
-# makesure - make with a human face
+# makesure -- make with a human face
 
 _February 2023_
 
