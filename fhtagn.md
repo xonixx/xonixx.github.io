@@ -135,12 +135,12 @@ When running fhtagn tests with fhtagh what happens is
 
 Now, both fhtagn processes generate temporary `.err` and `.out` files with random names. 
 
-I used [`rand()`](https://www.gnu.org/software/gawk/manual/html_node/Numeric-Functions.html#index-rand_0028_0029-function) and [`srand()`](https://www.gnu.org/software/gawk/manual/html_node/Numeric-Functions.html#index-srand_0028_0029-function) AWK functions to generate a random name for a file. 
+I used `rand()` and `srand()` AWK functions to generate a random name for a file. 
 
 It appears, that AWK's
 
-1. `rand()` always generates the same random sequence unless you set a seed with `srand()`
-2. `srand()` by default sets the seed number that equals to the current timestamp (with 1 sec precision).
+1. [`rand()`](https://www.gnu.org/software/gawk/manual/html_node/Numeric-Functions.html#index-rand_0028_0029-function) always generates the same random sequence unless you set a seed with `srand()`
+2. [`srand()`](https://www.gnu.org/software/gawk/manual/html_node/Numeric-Functions.html#index-srand_0028_0029-function) by default sets the seed number that equals to the current timestamp (with 1 sec precision).
 
 At this point you may have already guessed the culprit.
 
