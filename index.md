@@ -8,6 +8,7 @@
 
 ## Blog
 
+- [fhtagn - tiny CLI programs tester written in AWK](fhtagn.md) (June 2023)
 - [A story about one refactoring of the parser grammar in IntelliJ-AWK](intellij-awk_grammar_refactoring.md) (May 2023)
 - [Bytebeating with GAWK](bytebeat_gawk.md) (April 2023)
 - [Rewriting Spring Boot integration tests for 10x speedup](https://www.cmlteam.com/blog/rewriting-spring-boot-integration-tests-for-10x-speedup) (April 2023)

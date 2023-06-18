@@ -50,8 +50,9 @@ I wrote this tool in AWK. Surprised? Check my article [Fascination with AWK](awk
 
 ## tush rewrite
 
-In fact this project is my re-implementation of [darius/tush](https://github.com/darius/tush), [adolfopa/tush](https://github.com/adolfopa/tush).
-But simpler (single tiny AWK script) and faster, because:
+In fact this project is my re-implementation of [darius/tush](https://github.com/darius/tush), [adolfopa/tush](https://github.com/adolfopa/tush). So all credit for the idea goes to the original author [Darius Bacon](https://github.com/darius).
+
+But my rewrite is simpler (single tiny AWK script) and faster, because:
 
 - it uses `/dev/shm` where available instead of `/tmp`
 - it compares the expected result with the actual in the code and only calls `diff` to show the difference if they don't match
@@ -134,10 +135,10 @@ Now, both fhtagn processes generate temporary `.err` and `.out` files with rando
 
 I used [`rand()`](https://www.gnu.org/software/gawk/manual/html_node/Numeric-Functions.html#index-rand_0028_0029-function) and [`srand()`](https://www.gnu.org/software/gawk/manual/html_node/Numeric-Functions.html#index-srand_0028_0029-function) AWK functions to generate a random name for a file. 
 
-It appears, that AWK
+It appears, that AWK's
 
-1. `rand()` always generates the same random sequence unless you set the seed with `srand()`
-2. `srand()` by default sets the seed number that equals to current timestamp (with 1 sec precision).
+1. `rand()` always generates the same random sequence unless you set a seed with `srand()`
+2. `srand()` by default sets the seed number that equals to the current timestamp (with 1 sec precision).
 
 At this point you may have already guessed the culprit.
 
