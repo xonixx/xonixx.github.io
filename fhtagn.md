@@ -2,7 +2,7 @@
 layout: post
 title: 'fhtagn -- a tiny CLI programs tester written in AWK'
 description: 'Literate testing for command-line programs with fhtagn'
-image: TODO
+image: fhtagn.png
 ---
 
 # fhtagn -- a tiny CLI programs tester written in AWK
