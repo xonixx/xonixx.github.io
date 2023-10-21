@@ -28,15 +28,15 @@ Makesure had `@define` directive that looked like:
 
 After adding [parameterized goals](parameterized_goals.md) feature it appeared that `@define` didn't always play well with the new feature. Notably, when you [defined a variable](https://github.com/xonixx/fhtagn/blob/f36d84f9593ed93b7f3b4704dbcd1daaa4c81992/Makesurefile#L5) there was [no way to reference it in a parameterized goal argument](https://github.com/xonixx/fhtagn/blob/f36d84f9593ed93b7f3b4704dbcd1daaa4c81992/Makesurefile#L70), so you needed copy-paste.
 
-Another reason to rework / improve the `@define` was it's existing syntax 
+Another reason to rework / improve the `@define` was it's existing syntax: 
 ```shell
 @define VAR='value'
 ``` 
-instead of more consistent (with the rest of makesure's directives) 
+instead of more consistent (with the rest of makesure's directives): 
 ```shell
 @define VAR 'value'
 ```
-The former syntax was chosen in accordance with "worse is better" principle, because it was simpler to implement, because the implementation was roughly replacing `@define` by `export` and passing the resulting `export VAR='value'` into shell.   
+The former syntax was chosen in accordance with "worse is better" principle: it was simpler to implement, because the implementation was roughly replacing `@define` by `export` and passing the resulting `export VAR='value'` into shell.   
 
 So the [issue](https://github.com/xonixx/makesure/issues/139) was added. I spent some time [analyzing the implementation aspects](https://github.com/xonixx/makesure/blob/b14d141f42f3fe9f7e7872fe131af2b4f5891ca0/docs/revamp_define.md) for the change. 
 
