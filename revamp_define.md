@@ -50,7 +50,7 @@ instead of more consistent (with the rest of makesure's directives):
 ```shell
 @define VAR 'value'
 ```
-The former syntax was chosen in accordance with "worse is better" principle: it was simpler to implement, because the implementation was roughly replacing `@define` by `export` and passing the resulting `export VAR='value'` into shell. Operationally, when `./makesure released` called, the shell script below was executed under the hood:
+The former syntax was chosen in accordance with "worse is better" principle: it was simpler to implement, because the implementation was roughly replacing `@define` by `export` and passing the resulting `export VAR='value'` into shell. Operationally, when `./makesure released` was called, the shell script below was executed under the hood:
 
 ```shell
 export VERSION='3.12'
@@ -69,7 +69,7 @@ I want to quote a piece from it:
 >
 > A custom parser would be a good option if it weren’t for the extreme complexity that needs to be added.
 
-So it became apparent that to fulfill both reasons (but, especially, Reason #1) above the existing execution model was not enough. The ad-hoc line parsing was needed that replicates the parsing of shell. Why is so?
+So it became apparent that to fulfill both reasons above (but, especially, **Reason #1**) the existing execution model was not enough. The ad-hoc line parsing was needed that replicates the parsing of shell. Why is so?
 
 The execution model of makesure consists roughly of two steps:
 
