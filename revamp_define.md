@@ -91,7 +91,7 @@ And this is exactly [what was done](https://github.com/xonixx/awk_lab/blob/458f9
 
 ## How it was implemented and tested
 
-The idea of using [AWK](awk.md) for Makesure is the ease of parsing. For example, when parsing this Makesure syntax:
+The idea of using [AWK](awk.md) for Makesure is the ease of parsing. For example, this Makesure syntax is fairly easy parseable with AWK:
 
 ```
 @goal built
@@ -99,7 +99,7 @@ The idea of using [AWK](awk.md) for Makesure is the ease of parsing. For example
     gcc code.c 
 ```
 
-If you know a bit of AWK, you understand that this syntax is fairly easy to parse with it. AWK already does word-splitting for you, so all you need is this:
+AWK already does word-splitting for you, so all you need is this:
 
 ```awk
 if      ($1 == "@goal")       handleGoal($2)
@@ -119,7 +119,7 @@ $3=dep2
 However, this breaks miserably if you want the tokenization to be shell-compatible:
 
 ```
-$ echo "aaa \"bb bbb\" 'cc c c'" | awk '{ printf "$1=%s\n$2=%s\n$3=%s\n", $1, $2, $3 }'
+$ echo " aaa   \"bb bbb\"   'cc c   c'  " | awk '{ printf "$1=%s\n$2=%s\n$3=%s\n", $1, $2, $3 }'
 $1=aaa
 $2="bb
 $3=bbb"
@@ -129,16 +129,16 @@ instead of desirable:
 ```
 $1=aaa
 $2=bb bbb
-$3=cc c c
+$3=cc c   c
 ```
 
 But this is the exact behavior we need for the Makesure parsing.
 
 ### reparseCli
 
-The idea behind `reparseCli` [(link)](https://github.com/xonixx/makesure/blob/6f35ec956931bf49b9e490d864fb24ac9ae51cc7/makesure.awk#L887) was to reparse the line to "patch" the way of how AWK parses it, making the tokenization shell-compatible.
+The idea behind `reparseCli` [(link)](https://github.com/xonixx/makesure/blob/v0.9.21/makesure.awk#L887) was to reparse the line to "patch" the way of how AWK parses it, making the tokenization shell-compatible.
 
-I developed the actual function [parseCli_2](https://github.com/xonixx/awk_lab/blob/458f9f7/parse_cli_2_lib.awk) in a separate repository [awk_lab](https://github.com/xonixx/awk_lab) which serves a role of a playground for my AWK-related experiments.
+I developed the actual function [parseCli_2](https://github.com/xonixx/awk_lab/blob/458f9f7/parse_cli_2_lib.awk) in a separate repository [awk_lab](https://github.com/xonixx/awk_lab) which is a playground for my AWK-related experiments.
 
 This way I can develop and test separate pieces for the main software (Makesure) in isolation, which is very convenient.
 
