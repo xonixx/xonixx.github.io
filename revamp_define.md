@@ -173,6 +173,10 @@ This approach also helps to have other parsing implementations side-by-side ([pa
 
 It's worth mentioning that this approach to testing is very similar to the ideas in [fhtagn](fhtagn.md).
 
+### Checking against bash
+
+To guarantee that our parsing is consistent with bash the positive parse results [are cross-checked](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_N_test.awk#L27) against bash parsing. 
+
 ### Mglwnafh
 
 A by-product of this development was a tiny script [mglwn.awk](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/mglwnafh/mglwn.awk) that contains very simple includes implementation for AWK.
@@ -186,11 +190,9 @@ BEGIN { libFunction() }
 
 So now, invoking `./mglwn.awk main.awk` will run `awk -f lib.awk -f main.awk`.
 
-This mechanism allows to implement some very basic form of [inheritance / abstract methods in AWK](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_2_test.awk)! 🤯
+This mechanism allows to implement some very basic form of [inheritance / abstract functions in AWK](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_2_test.awk)! 🤯
 
 By the way, this use-case allowed to identify and fix [this problem](https://github.com/xonixx/intellij-awk/issues/203) in intellij-awk project.
-
-### Checking against bash
 
 ## How we test samples in README for correctness
 
