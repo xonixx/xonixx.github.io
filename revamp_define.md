@@ -132,8 +132,6 @@ $2=bb bbb
 $3=cc c   c
 ```
 
-But this is the exact behavior we need for the Makesure parsing.
-
 ### Re-parsing CLI
 
 The idea behind `reparseCli` [(link)](https://github.com/xonixx/makesure/blob/v0.9.21/makesure.awk#L887) was to reparse the line to "patch" the way of how AWK parses it, making the tokenization shell-compatible.
@@ -171,9 +169,22 @@ The execution model is quite remarkable. The test runner only interprets the tes
 
 This is why to check the result we use `diff` to compare the test suite file content with the test output file content [(link)](https://github.com/xonixx/awk_lab/blob/458f9f7/parse_cli_2.tush). The `diff` output (if present) also helps to understand the failing tests.
 
-This approach also helps to have other parsing implementations side-by-side ([parseCli](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_0_lib.awk), [parseCli_1](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_1_lib.awk)) and tests for them in the same format ([parse_cli_0.txt](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_0.txt), [parse_cli_1.txt](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_1.txt)). 
+This approach also helps to have other parsing implementations side-by-side ([parseCli](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_0_lib.awk), [parseCli_1](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_1_lib.awk)) and tests for them in the same format ([parse_cli_0.txt](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_0.txt), [parse_cli_1.txt](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_1.txt)).
+
+It's worth mentioning that this approach to testing is very similar to the ideas in [fhtagn](fhtagn.md).
 
 ### Mglwnafh
+
+A by-product of this development was a tiny script [mglwn.awk](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/mglwnafh/mglwn.awk) that contains very simple includes implementation for AWK.
+
+The idea is simple. You define the include dependencies inline in your AWK script, as a comment. Let's say we have a file `main.awk`:
+
+```awk
+#include lib.awk
+BEGIN { libFunction() }
+```
+
+So now, invoking `./mglwn.awk main.awk` will run `awk -f lib.awk -f main.awk`.
 
 ### Checking against bash
 
