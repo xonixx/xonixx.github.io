@@ -134,13 +134,42 @@ $3=cc c   c
 
 But this is the exact behavior we need for the Makesure parsing.
 
-### reparseCli
+### Re-parsing CLI
 
 The idea behind `reparseCli` [(link)](https://github.com/xonixx/makesure/blob/v0.9.21/makesure.awk#L887) was to reparse the line to "patch" the way of how AWK parses it, making the tokenization shell-compatible.
 
 I developed the actual function [parseCli_2](https://github.com/xonixx/awk_lab/blob/458f9f7/parse_cli_2_lib.awk) in a separate repository [awk_lab](https://github.com/xonixx/awk_lab) which is a playground for my AWK-related experiments.
 
 This way I can develop and test separate pieces for the main software (Makesure) in isolation, which is very convenient.
+
+In particular, I want to show you the way I tested this function, using [literate testing](https://arrenbrecht.ch/testing/) approach. 
+
+All test cases are compiled in a single [text file](https://github.com/xonixx/awk_lab/blob/458f9f7/parse_cli_2.txt). 
+
+Each test is represented by the input, like:
+```
+=================
+| $'aaa'\t  $'bbb ccc'    # comment |
+```
+
+And the expected output:
+```
+-----------------
+0:$: aaa
+1:$: bbb ccc
+```
+
+or (if parse error is expected):
+```
+-----------------
+error: unterminated argument
+```
+
+Then, I have a small ["test runner"](https://github.com/xonixx/awk_lab/blob/458f9f7/parse_cli_N_test.awk) that interprets and runs the text file with a test suite above.
+
+The execution model is quite remarkable. The test runner only interprets the test input lines (starting with `|`). Then, they just copy the input lines as is, but produce the actual test outputs. Eventually, if all tests pass the result output file would match the input. 
+
+This is why to check the result we use `diff` to compare the test suite file content with the test output file content [(link)](https://github.com/xonixx/awk_lab/blob/458f9f7/parse_cli_2.tush). The `diff` output (if present) also helps to understand the failing tests. 
 
 ### Mglwnafh
 
