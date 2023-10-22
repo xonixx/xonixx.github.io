@@ -134,7 +134,7 @@ $3=cc c   c
 
 ### Re-parsing CLI
 
-The idea behind `reparseCli` [(link)](https://github.com/xonixx/makesure/blob/v0.9.21/makesure.awk#L887) was to reparse the line to "patch" the way of how AWK parses it, making the tokenization shell-compatible.
+To solve this problem we need to reparse the line to "patch" the way of how AWK parses it, making the tokenization shell-compatible. This is the idea behind [reparseCli](https://github.com/xonixx/makesure/blob/v0.9.21/makesure.awk#L887) function.
 
 I developed the actual function [parseCli_2](https://github.com/xonixx/awk_lab/blob/458f9f7/parse_cli_2_lib.awk) in a separate repository [awk_lab](https://github.com/xonixx/awk_lab) which is a playground for my AWK-related experiments.
 
@@ -185,6 +185,10 @@ BEGIN { libFunction() }
 ```
 
 So now, invoking `./mglwn.awk main.awk` will run `awk -f lib.awk -f main.awk`.
+
+This mechanism allows to implement some very basic form of [inheritance / abstract methods in AWK](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_2_test.awk)! 🤯
+
+By the way, this use-case allowed to identify and fix [this problem](https://github.com/xonixx/intellij-awk/issues/203) in intellij-awk project.
 
 ### Checking against bash
 
