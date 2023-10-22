@@ -110,7 +110,7 @@ else                          handleCodeLine($0)
 This approach is built on the fact that by default AWK tokenizes each input line to fields using whitespaces splitting:
 
 ```
-$ echo ' @depends_on  dep1 dep2    dep3  ' | awk '{ printf "$1=%s\n$2=%s\n$3=%s\n", $1, $2, $3 }'
+$ echo ' @depends_on  dep1    dep2  ' | awk '{ printf "$1=%s\n$2=%s\n$3=%s\n", $1, $2, $3 }'
 $1=@depends_on
 $2=dep1
 $3=dep2
@@ -167,9 +167,11 @@ error: unterminated argument
 
 Then, I have a small ["test runner"](https://github.com/xonixx/awk_lab/blob/458f9f7/parse_cli_N_test.awk) that interprets and runs the text file with a test suite above.
 
-The execution model is quite remarkable. The test runner only interprets the test input lines (starting with `|`). Then, they just copy the input lines as is, but produce the actual test outputs. Eventually, if all tests pass the result output file would match the input. 
+The execution model is quite remarkable. The test runner only interprets the test input lines (starting with `|`). Then, it just copies all the input lines as is, but produces the actual test outputs. Eventually, if all tests pass the result output file matches the input one. 
 
-This is why to check the result we use `diff` to compare the test suite file content with the test output file content [(link)](https://github.com/xonixx/awk_lab/blob/458f9f7/parse_cli_2.tush). The `diff` output (if present) also helps to understand the failing tests. 
+This is why to check the result we use `diff` to compare the test suite file content with the test output file content [(link)](https://github.com/xonixx/awk_lab/blob/458f9f7/parse_cli_2.tush). The `diff` output (if present) also helps to understand the failing tests.
+
+This approach also helps to have other parsing implementations side-by-side ([parseCli](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_0_lib.awk), [parseCli_1](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_1_lib.awk)) and tests for them in the same format ([parse_cli_0.txt](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_0.txt), [parse_cli_1.txt](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_1.txt)). 
 
 ### Mglwnafh
 
