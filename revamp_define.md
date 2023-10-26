@@ -196,9 +196,19 @@ By the way, this use-case allowed to identify and fix [this problem](https://git
 
 ## How we test samples in README for correctness
 
-## How we improved minifying
+A [script](https://github.com/xonixx/makesure/blob/6f35ec956931bf49b9e490d864fb24ac9ae51cc7/check_samples_in_README.awk) was added as a part of the release, that checks the validity of Makesure samples in project's [README.md](https://github.com/xonixx/makesure/blob/6f35ec956931bf49b9e490d864fb24ac9ae51cc7/README.md).
 
-[22.3 KB](https://github.com/xonixx/makesure/blob/v0.9.20/makesure) -> [22 KB](https://github.com/xonixx/makesure/blob/v0.9.21/makesure)
+## How we improved minifying
+       
+A script [minify.awk](https://github.com/xonixx/makesure/blob/6f35ec956931bf49b9e490d864fb24ac9ae51cc7/minify.awk) is a part of the project. It's used to compile the final executable file [makesure](https://github.com/xonixx/makesure/blob/6f35ec956931bf49b9e490d864fb24ac9ae51cc7/makesure).
+
+This script received some improvements in this release. 
+
+The result of this effort was that despite the added functionality, the size of the executable decreased:
+        
+| v0.9.20                                                             | v0.9.21                                                           |
+|---------------------------------------------------------------------|-------------------------------------------------------------------|
+| [22.3 KB](https://github.com/xonixx/makesure/blob/v0.9.20/makesure) | [22 KB](https://github.com/xonixx/makesure/blob/v0.9.21/makesure) |
 
 ## Spaces in `@define` and `@reached_if` bug
 
