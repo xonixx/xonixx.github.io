@@ -9,8 +9,6 @@ image: TODO.png
 
 _TODO 2023_
 
-## Makesure
-
 [Makesure](https://github.com/xonixx/makesure) is a task/command runner that
 I am developing. It is somewhat similar to the well-known `make` tool, but
 [without most of its idiosyncrasies](makesure-vs-make.md) (and with a couple of unique features!).
