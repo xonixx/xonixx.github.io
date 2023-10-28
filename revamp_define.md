@@ -28,7 +28,7 @@ Makesure's `@define` directive looked like:
   echo "Releasing version $VERSION..."
 ```
 
-Why did we want it to change and how?
+Why did we want to change it and how?
    
 ### Reason #1
 
@@ -92,8 +92,6 @@ This means, we literally need to implement the parsing and interpretation of the
 @define WORLD 'world'
 @defile HW    "$HELLO ${WORLD}!"
 ```
-
-And this is exactly [what was done](https://github.com/xonixx/awk_lab/blob/458f9f7/parse_cli_2_lib.awk).
 
 ## How it was implemented and tested
 
