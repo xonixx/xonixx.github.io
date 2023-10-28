@@ -5,7 +5,7 @@ description: 'TODO'
 image: TODO.png
 ---
 
-# Release v0.9.21 / Revamp define
+# makesure v0.9.21 -- what's new?
 
 _TODO 2023_
 
@@ -15,9 +15,11 @@ _TODO 2023_
 I am developing. It is somewhat similar to the well-known `make` tool, but
 [without most of its idiosyncrasies](makesure-vs-make.md) (and with a couple of unique features!).
 
-## Why revamping define?
+## Revamping `@define`
 
-Makesure had `@define` directive that looked like:
+The main theme of this [release](https://github.com/xonixx/makesure/milestone/15?closed=1) was [revamping](https://github.com/xonixx/makesure/issues/140) the `@define` directive.
+
+Makesure's `@define` directive looked like:
 
 ```shell
 @define VERSION='3.12'
@@ -25,10 +27,12 @@ Makesure had `@define` directive that looked like:
 @goal released
   echo "Releasing version $VERSION..."
 ```
+
+Why did we want it to change and how?
    
 ### Reason #1
 
-After adding [parameterized goals](parameterized_goals.md) feature it appeared that `@define` didn't always play well with the new feature. Notably, when you [defined a variable](https://github.com/xonixx/fhtagn/blob/f36d84f9593ed93b7f3b4704dbcd1daaa4c81992/Makesurefile#L5) there was no way to reference it in a parameterized goal argument, so you [needed copy-paste](https://github.com/xonixx/fhtagn/blob/f36d84f9593ed93b7f3b4704dbcd1daaa4c81992/Makesurefile#L70). We needed this instead:
+After adding [parameterized goals](parameterized_goals.md) feature it appeared that `@define` didn't always play well with the new feature. Notably, when you [defined a variable](https://github.com/xonixx/fhtagn/blob/f36d84f9593ed93b7f3b4704dbcd1daaa4c81992/Makesurefile#L5) there was no way to reference it in a parameterized goal argument, so you [needed copy-paste](https://github.com/xonixx/fhtagn/blob/f36d84f9593ed93b7f3b4704dbcd1daaa4c81992/Makesurefile#L70-L71). We needed this instead:
 
 ```shell
 @define GOAWK_VERSION '1.24.0'
@@ -57,7 +61,9 @@ export VERSION='3.12'
 echo "Releasing version $VERSION..."
 ```
 
-So the [issue](https://github.com/xonixx/makesure/issues/139) was added. I spent some time [analyzing the implementation aspects](https://github.com/xonixx/makesure/blob/b14d141f42f3fe9f7e7872fe131af2b4f5891ca0/docs/revamp_define.md) for the change. 
+I drafted the described changes in a [separate document](https://github.com/xonixx/makesure/blob/b14d141f42f3fe9f7e7872fe131af2b4f5891ca0/docs/revamp_define.md) in order to come up with the good implementation strategy.
+
+**TODO update the document to actual resolutions**
 
 ## Re-implement CLI parsing
 
