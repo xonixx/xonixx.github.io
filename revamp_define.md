@@ -15,9 +15,9 @@ _TODO 2023_
 I am developing. It is somewhat similar to the well-known `make` tool, but
 [without most of its idiosyncrasies](makesure-vs-make.md) (and with a couple of unique features!).
 
-## Revamping `@define`
+---
 
-The main theme of this [release](https://github.com/xonixx/makesure/milestone/15?closed=1) was [revamping](https://github.com/xonixx/makesure/issues/140) the `@define` directive.
+The main theme of [this release](https://github.com/xonixx/makesure/milestone/15?closed=1) was [revamping](https://github.com/xonixx/makesure/issues/140) the `@define` directive.
 
 Makesure's `@define` directive looked like:
 
@@ -54,7 +54,7 @@ instead of more consistent (with the rest of makesure's directives):
 ```shell
 @define VAR 'value'
 ```
-The former syntax was chosen in accordance with "worse is better" principle: it was simpler to implement, because the implementation was roughly replacing `@define` by `export` and passing the resulting `export VAR='value'` into shell. Operationally, when `./makesure released` was called, the shell script below was executed under the hood:
+The former syntax was chosen in accordance with ["worse is better"](https://www.dreamsongs.com/RiseOfWorseIsBetter.html) principle: it was simpler to implement, because the implementation was roughly replacing `@define` by `export` and passing the resulting `export VAR='value'` into shell. Operationally, when `./makesure released` was called, the shell script below was executed under the hood:
 
 ```shell
 export VERSION='3.12'
