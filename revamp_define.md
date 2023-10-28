@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 'TODO'
-description: 'TODO'
-image: TODO.png
+title: "makesure v0.9.21 -- what's new?"
+description: 'I describe the improvements in makesure v0.9.21. The main theme of this release is revamping the @define directive.'
+image: parameterized_goals2.png
 ---
 
 # makesure v0.9.21 -- what's new?
