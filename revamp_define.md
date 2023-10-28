@@ -204,7 +204,7 @@ A [script](https://github.com/xonixx/makesure/blob/6f35ec956931bf49b9e490d864fb2
 
 ## How we improved minifying
        
-A script [minify.awk](https://github.com/xonixx/makesure/blob/6f35ec956931bf49b9e490d864fb24ac9ae51cc7/minify.awk) is a part of the project. It's used to compile the final executable file [makesure](https://github.com/xonixx/makesure/blob/6f35ec956931bf49b9e490d864fb24ac9ae51cc7/makesure).
+A script [minify.awk](https://github.com/xonixx/makesure/blob/6f35ec956931bf49b9e490d864fb24ac9ae51cc7/minify.awk) is a part of the project. It's used to compile the final executable file [makesure](https://github.com/xonixx/makesure/blob/6f35ec956931bf49b9e490d864fb24ac9ae51cc7/makesure) out of the source file [makesure.awk](https://github.com/xonixx/makesure/blob/6f35ec956931bf49b9e490d864fb24ac9ae51cc7/makesure.awk).
 
 This script received some improvements in this release. 
 
@@ -214,13 +214,11 @@ The result of this effort was that despite the added functionality, the size of 
 |---------------------------------------------------------------------|-------------------------------------------------------------------|
 | [22.3 KB](https://github.com/xonixx/makesure/blob/v0.9.20/makesure) | [22 KB](https://github.com/xonixx/makesure/blob/v0.9.21/makesure) |
 
-## Spaces in `@define` and `@reached_if` bug
+---
 
-## Approach to more strict parsing
+So let's summarize. We redesigned a feature by making it more functional and consistent without the increase in final program size.
 
-https://github.com/xonixx/makesure/blob/main/docs/revamp_define.md#q-how-do-we-know-when-to-parse-with----quoted-strings-or-unquoted
-
-https://github.com/xonixx/makesure/issues/141
-
+If you are interested, I invite you to try out the [makesure](https://github.com/xonixx/makesure) utility in your projects.
+The more so as it doesn't require installation [(how is that?)](https://github.com/xonixx/makesure#installation) and is [very portable](https://github.com/xonixx/makesure#os).
 
 
