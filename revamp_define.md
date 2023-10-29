@@ -89,6 +89,8 @@ This means, we literally need to implement the parsing and interpretation of the
 @defile HW    "$HELLO ${WORLD}!"
 ```
 
+The [implemented parser](https://github.com/xonixx/awk_lab/blob/458f9f7/parse_cli_2_lib.awk) appears to be not so complex, mostly because intentionally it doesn't cover all possible shell-compatible syntax, but rather a sufficient subset of it.
+
 ## How it was implemented and tested
 
 The idea of using [AWK](awk.md) for Makesure is the ease of parsing. For example, this Makesure syntax is fairly easy parseable with AWK:
