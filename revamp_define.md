@@ -59,7 +59,7 @@ export VERSION='3.12'
 echo "Releasing version $VERSION..."
 ```
 
-I drafted the described changes in a [separate document](https://github.com/xonixx/makesure/blob/b14d141f42f3fe9f7e7872fe131af2b4f5891ca0/docs/revamp_define.md) in order to come up with the good implementation strategy.
+I drafted the described changes in a [separate document](https://github.com/xonixx/makesure/blob/9fd7fda8518d90aa6494cc0dd5ed19926dd8befb/docs/revamp_define.md) in order to come up with the good implementation strategy.
 
 ## Re-implement CLI parsing
 
