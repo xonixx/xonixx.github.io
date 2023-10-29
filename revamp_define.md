@@ -109,7 +109,7 @@ else if ($1 == "@depends_on") handleDependency($2)
 else                          handleCodeLine($0)
 ```
 
-This approach is built on the fact that by default AWK tokenizes each input line to fields using whitespaces splitting:
+This approach is built on the fact that by default AWK tokenizes each input line to fields. It does so by splitting by whitespaces:
 
 ```
 $ echo ' @depends_on  dep1    dep2  ' | awk '{ printf "$1=%s\n$2=%s\n$3=%s\n", $1, $2, $3 }'
@@ -183,7 +183,7 @@ To guarantee that our parsing is consistent with bash the positive parse results
 
 A by-product of this development was a tiny script [mglwn.awk](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/mglwnafh/mglwn.awk) that contains very simple includes implementation for AWK.
 
-The idea is simple. You define the include dependencies inline in your AWK script, as a comment. Let's say we have a file `main.awk`:
+The idea is simple. You define the included dependencies inline in your AWK script, as a comment. Let's say we have a file `main.awk`:
 
 ```awk
 #include lib.awk
