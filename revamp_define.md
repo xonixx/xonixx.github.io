@@ -61,8 +61,6 @@ echo "Releasing version $VERSION..."
 
 I drafted the described changes in a [separate document](https://github.com/xonixx/makesure/blob/b14d141f42f3fe9f7e7872fe131af2b4f5891ca0/docs/revamp_define.md) in order to come up with the good implementation strategy.
 
-**TODO update the document to actual resolutions**
-
 ## Re-implement CLI parsing
 
 The design of the `@define` directive was well described in my past [article](makesure.md#designing-define).
