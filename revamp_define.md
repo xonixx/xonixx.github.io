@@ -7,7 +7,7 @@ image: parameterized_goals2.png
 
 # makesure v0.9.21 -- what's new?
 
-_TODO 2023_
+_October 2023_
 
 [Makesure](https://github.com/xonixx/makesure) is a task/command runner that
 I am developing. It is somewhat similar to the well-known `make` tool, but
@@ -59,7 +59,7 @@ export VERSION='3.12'
 echo "Releasing version $VERSION..."
 ```
 
-I drafted the described changes in a [separate document](https://github.com/xonixx/makesure/blob/9fd7fda8518d90aa6494cc0dd5ed19926dd8befb/docs/revamp_define.md) in order to come up with the good implementation strategy.
+I drafted the described changes in a [separate document](https://github.com/xonixx/makesure/blob/f6b60b94f8281d1e28aa97b2390251cfa55d388c/docs/revamp_define.md) in order to come up with the good implementation strategy.
 
 ## Re-implement CLI parsing
 
@@ -167,7 +167,7 @@ error: unterminated argument
 
 Then, I have a small ["test runner"](https://github.com/xonixx/awk_lab/blob/458f9f7/parse_cli_N_test.awk) that interprets and runs the text file with a test suite above.
 
-The execution model is quite remarkable. The test runner only interprets the test input lines (starting with `|`). Then, it just copies all the input lines as is, but produces the actual test outputs. Eventually, if all tests pass the result output file matches the input one. 
+The execution model is quite remarkable. The test runner only interprets the test input lines (starting with `|`). Then, it just copies all the input lines as is, but produces the actual test outputs. Eventually, if all tests pass, the result output file matches the input one. 
 
 This is why to check the result we use `diff` to compare the test suite file content with the test output file content [(link)](https://github.com/xonixx/awk_lab/blob/458f9f7/parse_cli_2.tush). The `diff` output (if present) also helps to understand the failing tests.
 
@@ -177,11 +177,11 @@ It's worth mentioning that this approach to testing is very similar to the ideas
 
 ### Checking against bash
 
-To guarantee that our parsing is consistent with bash the positive parse results [are cross-checked](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_N_test.awk#L27) against bash parsing. 
+To guarantee that our parsing is consistent with bash, the positive parse results [are cross-checked](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/parse_cli_N_test.awk#L27) against bash parsing. 
 
 ### Mglwnafh
 
-A by-product of this development was a tiny script [mglwn.awk](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/mglwnafh/mglwn.awk) that contains very simple includes implementation for AWK.
+A by-product of this development was a tiny script [mglwn.awk](https://github.com/xonixx/awk_lab/blob/458f9f7cec12352d3a56b7dbf668bd247dbacf7c/mglwnafh/mglwn.awk) that contains a very simple includes implementation for AWK (core AWK lacks this feature).
 
 The idea is simple. You define the included dependencies inline in your AWK script, as a comment. Let's say we have a file `main.awk`:
 
@@ -198,7 +198,7 @@ By the way, this use-case allowed to identify and fix [this problem](https://git
 
 ## How we test samples in README for correctness
 
-A [script](https://github.com/xonixx/makesure/blob/6f35ec956931bf49b9e490d864fb24ac9ae51cc7/check_samples_in_README.awk) was added as a part of the release, that checks the validity of Makesure samples in project's [README.md](https://github.com/xonixx/makesure/blob/6f35ec956931bf49b9e490d864fb24ac9ae51cc7/README.md).
+A [script](https://github.com/xonixx/makesure/blob/6f35ec956931bf49b9e490d864fb24ac9ae51cc7/check_samples_in_README.awk) was added as a part of the release, that checks the validity of Makesure samples in project's [README.md](https://github.com/xonixx/makesure/blob/6f35ec956931bf49b9e490d864fb24ac9ae51cc7/README.md). This is really useful when we change the syntax (like in this release) and forget to update the documentation. 
 
 ## How we improved minifying
        
@@ -214,7 +214,7 @@ The result of this effort was that despite the added functionality, the size of 
 
 ---
 
-So let's summarize. We redesigned a feature by making it more functional and consistent without the increase in final program size.
+So let's summarize. We've redesigned the feature by making it more functional and consistent without increasing the final size of the program.
 
 If you are interested, I invite you to try out the [makesure](https://github.com/xonixx/makesure) utility in your projects.
 The more so as it doesn't require installation [(how is that?)](https://github.com/xonixx/makesure#installation) and is [very portable](https://github.com/xonixx/makesure#os).
