@@ -2,6 +2,7 @@
 layout: post
 title: 'Y-Combinator in Mercury'
 description: 'My ancient article revived from Blogspot'
+image: mercury.png
 ---
 
 # Y-Combinator in Mercury

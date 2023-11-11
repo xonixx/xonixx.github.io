@@ -2,6 +2,7 @@
 layout: post
 title: 'Implementation of the Brainfuck interpreter in the Mercury programming language'
 description: 'My ancient article revived from Blogspot'
+image: mercury.png
 ---
 
 # Implementation of the Brainfuck interpreter in the Mercury programming language
