@@ -22,4 +22,5 @@
 - [Code Coverage for GoAWK](goawk_cover.md) (December 2022)
 - [Develop a utility on GraalVM](https://medium.com/cmlteam/develop-a-utility-on-graalvm-cc160feafc19) (May 2019)
 - [Y-Combinator in Mercury](y-combinator.md) (May 2011)
+- [Implementation of the Brainfuck interpreter in the Mercury programming language](brainfuck.md) (Feb 2011)
 
