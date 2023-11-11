@@ -14,7 +14,7 @@ From [Wikipedia]():
 
 > In functional programming, the Y combinator can be used to formally define recursive functions in a programming language that does not support recursion.
 
-```
+```mercury
 :- module y2.
 
 :- interface.
@@ -58,6 +58,6 @@ Solution is based on Haskell/OCaml solutions from [Rosettacode](http://rosettaco
 
 ### Links
 
-1. http://en.wikipedia.org/wiki/Fixed_point_combinator
-2. http://rosettacode.org/wiki/Y_combinator
+1. [http://en.wikipedia.org/wiki/Fixed_point_combinator](http://en.wikipedia.org/wiki/Fixed_point_combinator)
+2. [http://rosettacode.org/wiki/Y_combinator](http://rosettacode.org/wiki/Y_combinator)
 
