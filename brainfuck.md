@@ -11,7 +11,7 @@ _Feb 2011_
    
 <sup>(This is an ancient article revived from my Blogspot. In those old times I was interested in the [Mercury](https://en.wikipedia.org/wiki/Mercury_(programming_language)) programming language)</sup>
 
-As part of the study of the functional-logical programming language, [Mercury](https://mercurylang.org/) ([wiki](https://en.wikipedia.org/wiki/Mercury_(programming_language))) I wrote my own version of the interpreter of the famous esoteric programming language [Brainfuck](https://en.wikipedia.org/wiki/Brainfuck). This is an optimizing interpreter, the following brainfuck templates are optimized:
+As part of the study of the functional-logical programming language [Mercury](https://mercurylang.org/) ([wiki](https://en.wikipedia.org/wiki/Mercury_(programming_language))), I wrote my own version of the interpreter of the famous esoteric programming language [Brainfuck](https://en.wikipedia.org/wiki/Brainfuck). This is an optimizing interpreter, the following brainfuck templates are optimized:
 
 * `[+], [-]` → `zero`
 * `+++++` → `plus(N)`
