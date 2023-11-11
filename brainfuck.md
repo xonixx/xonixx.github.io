@@ -606,7 +606,7 @@ Brainfuck-programs:
 * _jabh.b_ - outputs the phrase "Just another brainfuck hacker."
 * _PRIME.BF_ - outputs prime numbers
 * _kbfi.b_ - Brainfuck interpreter, written in Brainfuck. _jabh.b_ execution on this interpreter is demonstrated.
-* _gameoflife.b_ - Game of Life implementation in Brainfuck by [Linus Akesson](http://www.linusakesson.net/programming/brainfuck/index.php)
+* _gameoflife.b_ - Game of Life implementation in Brainfuck [by Linus Akesson](http://www.linusakesson.net/programming/brainfuck/index.php)
 * _dquine.b_ - Quine in brainfuck (program, that outputs its own source code)
 
 These and other programs in brainfuck can be found at the links: 
