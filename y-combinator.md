@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Y-Combinator in mercury'
-description: 'My ancient article revived from my Blogspot'
+description: 'My ancient article revived from Blogspot'
 ---
 
 # Y-Combinator in Mercury
