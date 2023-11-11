@@ -1,11 +1,11 @@
 ---
 layout: post
-title: 'Implementation of the Brainfuck interpreter in the Mercury programming language'
+title: 'Implementing Brainfuck interpreter in Mercury'
 description: 'My ancient article revived from Blogspot'
 image: mercury.png
 ---
 
-# Implementation of the Brainfuck interpreter in the Mercury programming language
+# Implementing Brainfuck interpreter in Mercury
 
 _Feb 2011_
    
