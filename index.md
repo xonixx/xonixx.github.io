@@ -23,4 +23,5 @@
 - [Develop a utility on GraalVM](https://medium.com/cmlteam/develop-a-utility-on-graalvm-cc160feafc19) (May 2019)
 - [Y-Combinator in Mercury](y-combinator.md) (May 2011)
 - [Implementing Brainfuck interpreter in Mercury](brainfuck.md) (February 2011)
+- [Abusing Python's list comprehensions](abusing_python.md) (December 2008)
 
