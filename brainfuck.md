@@ -7,7 +7,7 @@ image: mercury.png
 
 # Implementing Brainfuck interpreter in Mercury
 
-_Feb 2011_
+_February 2011_
    
 <sup>(This is an ancient article revived from my Blogspot. In those old times I was interested in the [Mercury](https://en.wikipedia.org/wiki/Mercury_(programming_language)) programming language)</sup>
 
