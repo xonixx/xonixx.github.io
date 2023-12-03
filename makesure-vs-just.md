@@ -14,7 +14,7 @@ I am developing. It is somewhat similar to the well-known `make` tool, but
 
 This article compares the two tools on some particular real-world examples.
 
-### Defining dependent vars 
+### #1 Defining dependent vars 
 
 [Problem](https://github.com/casey/just/issues/1292#issuecomment-1197748631)
 
@@ -31,7 +31,7 @@ Since Makesure doesn't have its own programming language, it doesn't suffer from
   echo "$GIT_TIME"
 ```
 
-### Comments in recipes are echoed
+### #2 Comments in recipes are echoed
 
 [Problem](https://github.com/casey/just/issues/1274)
 
@@ -56,7 +56,7 @@ TESTS PASSED : tests.basic.tush
   total time 0.281 s
 ```
 
-### Distinction between doc and non-doc comments
+### #3 Distinction between doc and non-doc comments
 
 [Problem](https://github.com/casey/just/issues/1273)
 
@@ -70,31 +70,31 @@ Makesure doesn't have such issue because it uses own directive for goal descript
   echo 'Doing...'
 ```
 
-### Need to install
+### #4 Need to install
 
 [Problem](https://github.com/casey/just/issues/429#issuecomment-1332682438)
 
 Makesure [doesn't need installation](https://github.com/xonixx/makesure#installation)
 
-### Files as dependency
+### #5 Files as dependency
 
 [Problem](https://github.com/casey/just/issues/867)
 
 [How you do it with makesure](https://github.com/casey/just/issues/867#issuecomment-1344887900)
 
-### Default target doesn't play well with `!include`
+### #6 Default target doesn't play well with `!include`
 
 [Problem](https://github.com/casey/just/issues/1557)
 
 By default, `just` invokes the first recipe. Makesure by default invokes the goal named `default`. So, although makesure doesn't have includes, if it had, the issue would not happen.
 
-### `just` can fail to execute shebang-recipes due to 'Permission denied'
+### #7 `just` can fail to execute shebang-recipes due to 'Permission denied'
 
 [Problem](https://github.com/casey/just/issues/1611)
                                                                          
 Makesure doesn't produce temp files during goal execution, so it's not susceptible to this problem.
 
-### Need for custom functions for string manipulation
+### #8 Need for custom functions for string manipulation
 
 [Problem](...)
   
@@ -144,4 +144,8 @@ pandoc input.md -o build/foo/out.html
 
 ```
 
+### #9 Lack of incremental changes support to avoid re-runs 
 
+[Problem](https://github.com/casey/just/issues/424)
+
+[Idempotence](https://arslan.io/2019/07/03/how-to-write-idempotent-bash-scripts/) is achievable elegantly with Makesure using [@reached_if](https://github.com/xonixx/makesure#reached_if) directive.
