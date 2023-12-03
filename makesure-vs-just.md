@@ -41,31 +41,19 @@ Although it echoes the goal names, such that it's clear what's going on, like so
 
 ```
 $ ./makesure
-  goal 'tush_installed' [already satisfied].
+  goal 'fhtagn_installed' [already satisfied].
   goal 'debug' ...
-awk: GNU Awk 5.0.1, API: 2.0 (GNU MPFR 4.0.2, GNU MP 6.2.0)
+GNU Awk 5.0.1, API: 2.0 (GNU MPFR 4.0.2, GNU MP 6.2.0)
 GNU bash, version 5.0.17(1)-release (x86_64-pc-linux-gnu)
-  goal 'debug' took 0.012 s
+  goal 'debug' took 0.006 s
   goal 'prepared4tests' [empty].
-  goal 'tests/0_basic.tush' ...
-TESTS PASSED : tests/0_basic.tush
-  goal 'tests/0_basic.tush' took 0.165 s
-  goal 'tests/1_goals.tush' ...
-TESTS PASSED : tests/1_goals.tush
-  goal 'tests/1_goals.tush' took 0.378 s
-  goal 'tests/2_mydir.tush' ...
-TESTS PASSED : tests/2_mydir.tush
-  goal 'tests/2_mydir.tush' took 0.426 s
-
-...lines omitted...
-
-  goal 'tests/200_update.tush' ...
-TESTS PASSED : tests/200_update.tush
-  goal 'tests/200_update.tush' took 1.322 s
-  goal 'tests/*.tush' [empty].
+  goal 'tests.basic.tush' ...
+TESTS PASSED : tests.basic.tush
+  goal 'tests.basic.tush' took 0.273 s
+  goal '*.tush' [empty].
   goal 'tested' [empty].
   goal 'default' [empty].
-  total time 6.475 s
+  total time 0.281 s
 ```
 
 ### Distinction between doc and non-doc comments
