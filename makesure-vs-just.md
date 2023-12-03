@@ -1,20 +1,20 @@
 ---
 layout: post
-title: 'makesure vs just comparison on examples'
+title: 'makesure vs just on examples'
 description: 'This article compares the two tools on some particular real-world examples'
 ---
 
-## `makesure` vs `just` comparison on examples
+# `makesure` vs `just` on examples
 
-[Makesure](https://github.com/xonixx/makesure) is a task/command runner that
+- [Makesure](https://github.com/xonixx/makesure) is a task/command runner that
 I am developing. It is somewhat similar to the well-known `make` tool, but
 [without most of its idiosyncrasies](makesure-vs-make.md) (and with a couple of unique features!).
 
-[just](https://github.com/casey/just) is a very popular alternative command runner that positions itself as "a handy way to save and run project-specific commands".
+- [just](https://github.com/casey/just) is a very popular alternative command runner that positions itself as "a handy way to save and run project-specific commands".
 
 This article compares the two tools on some particular real-world examples.
 
-### #1 Defining dependent vars 
+## #1 Defining dependent vars 
 
 [Problem](https://github.com/casey/just/issues/1292#issuecomment-1197748631)
 
@@ -31,7 +31,7 @@ Since Makesure doesn't have its own programming language, it doesn't suffer from
   echo "$GIT_TIME"
 ```
 
-### #2 Comments in recipes are echoed
+## #2 Comments in recipes are echoed
 
 [Problem](https://github.com/casey/just/issues/1274)
 
@@ -56,7 +56,7 @@ TESTS PASSED : tests.basic.tush
   total time 0.281 s
 ```
 
-### #3 Distinction between doc and non-doc comments
+## #3 Distinction between doc and non-doc comments
 
 [Problem](https://github.com/casey/just/issues/1273)
 
@@ -70,31 +70,31 @@ Makesure doesn't have such issue because it uses own directive for goal descript
   echo 'Doing...'
 ```
 
-### #4 Need to install
+## #4 Need to install
 
 [Problem](https://github.com/casey/just/issues/429#issuecomment-1332682438)
 
 Makesure [doesn't need installation](https://github.com/xonixx/makesure#installation)
 
-### #5 Files as dependency
+## #5 Files as dependency
 
 [Problem](https://github.com/casey/just/issues/867)
 
 [How you do it with makesure](https://github.com/casey/just/issues/867#issuecomment-1344887900)
 
-### #6 Default target doesn't play well with `!include`
+## #6 Default target doesn't play well with `!include`
 
 [Problem](https://github.com/casey/just/issues/1557)
 
 By default, `just` invokes the first recipe. Makesure by default invokes the goal named `default`. So, although makesure doesn't have includes, if it had, the issue would not happen.
 
-### #7 `just` can fail to execute shebang-recipes due to 'Permission denied'
+## #7 `just` can fail to execute shebang-recipes due to 'Permission denied'
 
 [Problem](https://github.com/casey/just/issues/1611)
                                                                          
 Makesure doesn't produce temp files during goal execution, so it's not susceptible to this problem.
 
-### #8 Need for custom functions for string manipulation
+## #8 Need for custom functions for string manipulation
 
 [Problem](...)
   
@@ -144,8 +144,12 @@ pandoc input.md -o build/foo/out.html
 
 ```
 
-### #9 Lack of incremental changes support to avoid re-runs 
+## #9 Lack of incremental changes support to avoid re-runs 
 
 [Problem](https://github.com/casey/just/issues/424)
 
 [Idempotence](https://arslan.io/2019/07/03/how-to-write-idempotent-bash-scripts/) is achievable elegantly with Makesure using [@reached_if](https://github.com/xonixx/makesure#reached_if) directive.
+
+## Conclusion
+
+It's clear that as an author of the tool I'm quite biased. But to me the minimalism and inherent simplicity and coherence allows Makesure to solve many problems more elegantly.   
