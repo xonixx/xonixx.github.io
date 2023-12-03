@@ -18,7 +18,7 @@ This article compares the two tools on some particular real-world examples.
 
 [Problem](https://github.com/casey/just/issues/1292#issuecomment-1197748631)
 
-Since Makesure doesn't have its own programming language ("Literally it’s goals + dependencies + handful of directives + bash/shell"), it doesn't suffer from this issue and has idiomatic solution:
+Makesure was deliberately designed to **not** have its own programming language. So it doesn't have two types of variables and therefore has an idiomatic solution:
 
 ```shell
 @lib
@@ -35,9 +35,9 @@ Since Makesure doesn't have its own programming language ("Literally it’s goal
 
 [Problem](https://github.com/casey/just/issues/1274)
 
-Makesure doesn't echo script lines by default, because it's implementation detail. 
+Makesure doesn't echo script lines by default. Command runner (as opposed to a build tool, like `make`) is recipe-oriented, not line-oriented. The unit of work is a recipe, not a line. So the recipe body is just an implementation detail.
 
-Although it echoes the goal names, such that it's clear what's going on, like so:
+However, it logs the goal names being executed, such that it's clear what's going on:
 
 ```
 $ ./makesure
