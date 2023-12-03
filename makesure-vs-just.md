@@ -18,7 +18,7 @@ This article compares the two tools on some particular real-world examples.
 
 [Problem](https://github.com/casey/just/issues/1292#issuecomment-1197748631)
 
-Since Makesure doesn't have its own programming language, it doesn't suffer from this issue and has idiomatic solution:
+Since Makesure doesn't have its own programming language ("Literally it’s goals + dependencies + handful of directives + bash/shell"), it doesn't suffer from this issue and has idiomatic solution:
 
 ```shell
 @lib
@@ -152,4 +152,8 @@ pandoc input.md -o build/foo/out.html
 
 ## Conclusion
 
-It's clear that as an author of the tool I'm quite biased. But to me the minimalism and inherent simplicity and coherence allows Makesure to solve many problems more elegantly.   
+It's clear that as an author of the tool I'm completely biased. 
+
+But to me the minimalism and inherent simplicity and coherence allows Makesure to
+- eliminate having some problems
+- solve many problems more elegantly   
