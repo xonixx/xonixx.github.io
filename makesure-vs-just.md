@@ -16,7 +16,7 @@ This article compares the two tools on some particular real-world examples.
 
 ## #1 Defining dependent vars 
 
-[Problem](https://github.com/casey/just/issues/1292#issuecomment-1197748631)
+[Problem](https://github.com/casey/just/issues/1292)
 
 Makesure was deliberately designed to **not** have its own programming language. So it doesn't have two types of variables and therefore has an idiomatic solution:
 
@@ -60,7 +60,7 @@ TESTS PASSED : tests.basic.tush
 
 [Problem](https://github.com/casey/just/issues/1273)
 
-Makesure doesn't have such issue because it uses own directive for goal description, which doesn't interfere with regular comments:
+Makesure doesn't have such issue because it uses own directive for a goal description, which doesn't interfere with regular comments:
 
 ```shell
 # some regular comment
@@ -103,8 +103,8 @@ Makesure uses shell (instead of own programming language) and relies on shell va
 The idiomatic solution to the described problem using [parameterized goals](https://maximullaris.com/parameterized_goals.html):
 
 ```shell
-@define BUILD_DIR  'build'
-@define FILE_NAME  'out'
+@define BUILD_DIR 'build'
+@define FILE_NAME 'out'
 
 @goal pandoc @params ARG EXT @private
     echo pandoc input.md -o "$BUILD_DIR/$ARG/$FILE_NAME.$EXT"
@@ -144,7 +144,9 @@ pandoc input.md -o build/foo/out.html
 
 ```
 
-## #9 Lack of incremental changes support to avoid re-runs 
+## #9 Lack of incremental changes support
+
+Such support could avoid unnecessary re-runs.
 
 [Problem](https://github.com/casey/just/issues/424)
 
