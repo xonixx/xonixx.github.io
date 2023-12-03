@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 'makesure vs just'
-description: 'makesure vs just comparison on examples'
+title: 'makesure vs just comparison on examples'
+description: 'This article compares the two tools on some particular real-world examples'
 ---
 
 ## `makesure` vs `just` comparison on examples
@@ -10,7 +10,7 @@ description: 'makesure vs just comparison on examples'
 I am developing. It is somewhat similar to the well-known `make` tool, but
 [without most of its idiosyncrasies](makesure-vs-make.md) (and with a couple of unique features!).
 
-[just](https://github.com/casey/just) is a handy way to save and run project-specific commands.
+[just](https://github.com/casey/just) is a very popular alternative command runner that positions itself as "a handy way to save and run project-specific commands".
 
 This article compares the two tools on some particular real-world examples.
 
