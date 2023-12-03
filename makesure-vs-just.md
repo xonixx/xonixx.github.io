@@ -82,7 +82,7 @@ Makesure [doesn't need installation](https://github.com/xonixx/makesure#installa
 
 [How you do it with makesure](https://github.com/casey/just/issues/867#issuecomment-1344887900)
 
-### Default target doesn't play well with !include
+### Default target doesn't play well with `!include`
 
 [Problem](https://github.com/casey/just/issues/1557)
 
