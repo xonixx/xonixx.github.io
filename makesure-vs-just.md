@@ -70,7 +70,7 @@ Makesure doesn't have such issue because it uses a special directive `@doc` for 
 # some regular comment
 @goal do_it
 # some other comment
-@doc 'This is very useful goal'
+@doc 'This is a very useful goal'
   echo 'Doing...'
 ```
 
