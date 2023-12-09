@@ -101,7 +101,7 @@ By default, `just` invokes the first recipe. Makesure by default invokes the goa
 
 [Problem](https://github.com/casey/just/issues/1611)
                                                                          
-Makesure doesn't produce temp files during goal execution, so it's not susceptible to this problem.
+Makesure doesn't produce temp files during goals execution, so it's not susceptible to this problem.
 
 ## #8 Need for custom functions for string manipulation
 
