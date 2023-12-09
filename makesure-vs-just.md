@@ -155,7 +155,7 @@ pandoc input.md -o build/foo/out.html
 
 ## #9 Lack of incremental changes support
 
-Such support could avoid unnecessary re-runs.
+Such support could help avoiding unnecessary re-runs.
 
 [Problem](https://github.com/casey/just/issues/424)
 
