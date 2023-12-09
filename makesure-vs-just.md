@@ -77,7 +77,9 @@ Makesure doesn't have such issue because it uses a special directive `@doc` for 
 Overall Makesure chose an approach with a uniform syntax via [directives](https://github.com/xonixx/makesure#directives) rather than an ad-hoc syntax for every feature. This proved to be very solid choice for many reasons:
 - uniformity;
 - ease of searching for documentation;
-- free syntax highlighting! Surprisingly, Makesurefile's [syntax is a valid shell syntax](https://github.com/xonixx/makesure/blob/aa4a32eae6178fd0c6a7f14e2f46142e099a8f97/Makesurefile).
+- free syntax highlighting! Surprisingly, `Makesurefile`'s [syntax is a valid shell syntax](https://github.com/xonixx/makesure/blob/aa4a32eae6178fd0c6a7f14e2f46142e099a8f97/Makesurefile).
+
+![Makesurefile syntax highlighting](parameterized_goals2.png)
 
 ## #4 Need to install
 
