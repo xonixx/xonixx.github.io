@@ -1,16 +1,18 @@
 ---
 layout: post
-title: 'makesure vs just on examples'
+title: 'Makesure vs Just command runners on examples'
 description: 'This article compares the two tools on some particular real-world examples'
 ---
 
-# `makesure` vs `just` on examples
+# Makesure vs Just command runners on examples
+
+_December 2023_
 
 - [Makesure](https://github.com/xonixx/makesure) is a task/command runner that
 I am developing. It is somewhat similar to the well-known `make` tool, but
 [without most of its idiosyncrasies](makesure-vs-make.md) (and with a couple of unique features!).
 
-- [just](https://github.com/casey/just) is a very popular alternative command runner that positions itself as "a handy way to save and run project-specific commands".
+- [Just](https://github.com/casey/just) is a very popular alternative command runner that positions itself as "a handy way to save and run project-specific commands".
 
 This article compares the two tools on some particular real-world examples.
 
@@ -105,7 +107,7 @@ Makesure doesn't produce temp files during goal execution, so it's not susceptib
 
 [Problem](...)
   
-Makesure uses shell (instead of own programming language) and relies on shell variables (instead of own kind of variables).
+Makesure uses shell (instead of its own programming language) and relies on shell variables (instead of its own kind of variables).
 
 The idiomatic solution to the described problem using [parameterized goals](https://maximullaris.com/parameterized_goals.html):
 
@@ -163,6 +165,6 @@ Such support could avoid unnecessary re-runs.
 
 It's clear that as an author of the tool I'm completely biased. 
 
-But to me the minimalism and inherent simplicity and coherence allows Makesure to
-- eliminate having some problems
-- solve many problems more elegantly   
+But to me the minimalism and inherent simplicity and coherence allows Makesure to eliminate having some problems, as well as solve many problems more elegantly.
+
+If you are interested, I invite you to try out the [makesure](https://github.com/xonixx/makesure) utility in your projects.
