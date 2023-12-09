@@ -105,7 +105,7 @@ Makesure doesn't produce temp files during goals execution, so it's not suscepti
 
 ## #8 Need for custom functions for string manipulation
 
-[Problem](...)
+[Problem](https://github.com/casey/just/issues/1059)
   
 Makesure uses shell (instead of its own programming language) and relies on shell variables (instead of its own kind of variables).
 
