@@ -23,7 +23,7 @@ Also, I wanted to try to program in Java like if I program in C and see how it g
 
 ## How
     
-### sun.misc.Unsafe
+### `sun.misc.Unsafe`
 
 ### Epsilon GC
 
@@ -31,9 +31,20 @@ Also, I wanted to try to program in Java like if I program in C and see how it g
 
 ### Data structures implementation
 
-### Benchmark
-
 ### Allocator + try-with-resources
 
 ### Ref
+
+### Memory leaks detection
+       
+### Using `java.lang.foreign.MemorySegment` 
+
+https://openjdk.org/jeps/8323072
+
+### Python-like hashtable implementation
+
+https://www.fluentpython.com/extra/internals-of-sets-and-dicts/
+
+### Benchmark
+
 
