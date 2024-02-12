@@ -27,6 +27,10 @@ Also, I wanted to try to program in Java like if I program in C and see how it g
 
 ### Epsilon GC
 
+To make sure that we indeed do not (accidentally) consume heap I enabled [the Epsilon GC setting](https://github.com/xonixx/gc_less/blob/7c6730eff1ec22c91f66826114de7943416771ad/Makesurefile#L34).
+
+[Epsilon GC](https://openjdk.org/jeps/318) is "a GC that handles memory allocation but does not implement any actual memory reclamation mechanism. Once the available Java heap is exhausted, the JVM will shut down."
+
 ### Generating code by template
 
 ### Data structures implementation
