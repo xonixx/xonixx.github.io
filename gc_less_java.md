@@ -23,7 +23,13 @@ Also, I wanted to try to program in Java like if I program in C and see how it g
 
 ## How
     
-### `sun.misc.Unsafe`
+### sun.misc.Unsafe
+
+`sun.misc.Unsafe` class is unsafe indeed. You can easily crash your JVM with just a couple lines of code:
+
+![JVM crash with sun.misc.Unsafe](gc_less_java2.png)
+
+Yet it still it appears to be [pretty widely used](https://github.com/search?q=getDeclaredField%28%22theUnsafe%22%29&type=code). 
 
 ### Epsilon GC
 
