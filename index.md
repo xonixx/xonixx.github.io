@@ -8,6 +8,7 @@
 
 ## Blog
 
+- [Using GAWK coprocess to speed up the script 50x](gawk_coprocess_speedup.md) (February 2023)
 - [Makesure vs Just command runners on examples](makesure-vs-just.md) (December 2023)
 - [makesure v0.9.21 -- what's new?](revamp_define.md) (October 2023)
 - [fhtagn -- a tiny CLI programs tester written in AWK](fhtagn.md) (June 2023)
