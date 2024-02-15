@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Using GAWK coprocess to speed up the script 50x'
-description: 'I describe a small but effective optimization in my script'
+description: 'I describe a small but efficient optimization in my script'
 ---
 
 # Using GAWK coprocess to speed up the script 50x
