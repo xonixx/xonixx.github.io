@@ -1,8 +1,7 @@
 ---
 layout: post
-title: 'TODO'
+title: 'Using GAWK coprocess to speed up the script 50x'
 description: 'I describe a small but effective optimization in my script'
-image: TODO
 ---
 
 # Using GAWK coprocess to speed up the script 50x
@@ -65,4 +64,11 @@ function hex2dec(h,   res) {
 Now we start only one `bc` subprocess--which runs in parallel with our code--and interactively write hexes to it and read decimals back. 
 
 ## Result
+
+| Before   | After   |
+|----------|---------|
+| 34.260 s | 0.608 s |
+
+This is **50x +** speedup! 🥳
+
 
