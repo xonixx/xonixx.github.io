@@ -11,13 +11,15 @@ _TODO 2024_
 
 ## What
 
-https://github.com/xonixx/gc_less - Experiments TODO
+https://github.com/xonixx/gc_less - in this repository I did a series of experiments in GC-less (heap-less) Java using `sun.misc.Unsafe` and also the newest alternative `java.lang.foreign.MemorySegment`.
+
+GC-less (heap-less) means we allocate data structures in native memory directly (outside JVM heap). Such structures are not visible to GC. But this means that we are responsible for their (explicit) deallocations (i.e., manual memory management).                       
 
 ## Why
 
 For fun and curiosity. 
 
-Basically I wanted to check if the famous `sun.misc.Unsafe` approach is still viable with latest Java. 
+Basically it started when I wanted to check if the famous `sun.misc.Unsafe` approach is still viable with the latest Java. 
 
 Also, I wanted to try to program in Java like if I program in C and see how it goes.
 
@@ -29,15 +31,18 @@ Also, I wanted to try to program in Java like if I program in C and see how it g
 
 ![JVM crash with sun.misc.Unsafe](gc_less_java2.png)
 
-Yet it still it appears to be [pretty widely used](https://github.com/search?q=getDeclaredField%28%22theUnsafe%22%29&type=code). 
-
-### Epsilon GC
-
-To make sure that we indeed do not (accidentally) consume heap I enabled [the Epsilon GC setting](https://github.com/xonixx/gc_less/blob/7c6730eff1ec22c91f66826114de7943416771ad/Makesurefile#L34).
-
-[Epsilon GC](https://openjdk.org/jeps/318) is "a GC that handles memory allocation but does not implement any actual memory reclamation mechanism. Once the available Java heap is exhausted, the JVM will shut down."
+Yet still it appears to be [pretty widely used](https://github.com/search?q=getDeclaredField%28%22theUnsafe%22%29&type=code). 
 
 ### Data structures implementation
+
+So as a practical application of GC-less (heap-less) style of programming I decided to implement some basic data structures:
+
+- array
+- array list
+- stack
+- hash map
+       
+Not only was I interested in how easy it is or if it's feasible at all. I also wondered how the performance will compare to plain Java's data structures.
 
 ### Generating code by template
 
@@ -57,6 +62,12 @@ The generation is implemented in form of a script [gen.awk](https://github.com/x
 We use annotation [@Type](https://github.com/xonixx/gc_less/blob/8fa1fa5858b85ad794c85cf284ffbbbfac3af975/src/main/java/gc_less/tpl/Type.java) and class [Tpl](https://github.com/xonixx/gc_less/blob/8fa1fa5858b85ad794c85cf284ffbbbfac3af975/src/main/java/gc_less/tpl/Tpl.java) to denote patterns to be replaced by a generator:
 
 ![](gc_less_java1.png)
+
+### Epsilon GC
+
+To make sure that we indeed do not (accidentally) consume heap I enabled [the Epsilon GC setting](https://github.com/xonixx/gc_less/blob/7c6730eff1ec22c91f66826114de7943416771ad/Makesurefile#L34).
+
+[Epsilon GC](https://openjdk.org/jeps/318) is "a GC that handles memory allocation but does not implement any actual memory reclamation mechanism. Once the available Java heap is exhausted, the JVM will shut down."
 
 ### Allocator + try-with-resources
 
