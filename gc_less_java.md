@@ -68,10 +68,32 @@ We use annotation [@Type](https://github.com/xonixx/gc_less/blob/8fa1fa5858b85ad
 To make sure that we indeed do not (accidentally) consume heap I enabled [the Epsilon GC setting](https://github.com/xonixx/gc_less/blob/7c6730eff1ec22c91f66826114de7943416771ad/Makesurefile#L34).
 
 [Epsilon GC](https://openjdk.org/jeps/318) is "a GC that handles memory allocation but does not implement any actual memory reclamation mechanism. Once the available Java heap is exhausted, the JVM will shut down."
+   
+### Some implementation details
 
-### Allocator + try-with-resources
+I implemented the data structures in a slightly "strange" OOP-resembling way.
 
-### Ref
+So, for example, take a look at [IntArrayList](https://github.com/xonixx/gc_less/blob/main/src/main/java/gc_less/IntArrayList.java). 
+
+All the methods of this class are static, because we don't want to allocate object on heap. 
+
+Also, all the methods (except for `allocate`, which plays a role of the constructor) accept `long address` as first parameter. It plays a role of `this` (in a sense, it is somehow analogous to Python's `self` parameter). 
+
+So the usage looks like:
+
+```java
+    long address = IntArray.allocate(cleaner,10);
+    IntArray.set(address, 7, 222);
+    System.out.println(IntArray.get(address, 7));
+```
+
+So this `long address` plays a role of a reference. Obviously, with this you can't have inheritance / overriding, but we don't need it.
+
+#### try-with-resources + class `Cleaner`
+
+#### class `Ref`
+
+
 
 ### Memory leaks detection
 
