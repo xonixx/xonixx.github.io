@@ -91,6 +91,20 @@ So this `long address` plays a role of a reference. Obviously, with this you can
 
 #### try-with-resources + class `Cleaner`
 
+The idea of the [Cleaner](https://github.com/xonixx/gc_less/blob/92b526a2eb4c82a44b32623171c3727b04a03ed9/src/main/java/gc_less/Cleaner.java) class is you pass the instance of it in the allocation procedure of a (GC-less) class, such that the Cleaner becomes responsible to free-ing the memory. This is better played with try-with-resources.
+
+```java
+    try (Cleaner cleaner = new Cleaner()) {
+      long array = IntArray.allocate(cleaner,10);
+      IntArray.set(array,1,1);
+      long map = IntHashtable.allocate(cleaner,10,.75f);
+      IntHashtable.put(map,1,1);
+      System.out.println(IntArray.getLength(array));
+      System.out.println(IntHashtable.getSize(map));
+    }
+    // both array and map above are de-allocated
+```
+
 #### class `Ref`
 
 
