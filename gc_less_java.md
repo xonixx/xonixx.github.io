@@ -17,7 +17,7 @@ GC-less (heap-less) means we allocate data structures in native memory directly 
 
 ## Why
 
-For fun and curiosity. 
+For fun and out of curiosity. 
 
 Basically it started when I wanted to check if the famous `sun.misc.Unsafe` approach is still viable with the latest Java. 
 
@@ -32,6 +32,8 @@ Also, I wanted to try to program in Java like if I program in C and see how it g
 ![JVM crash with sun.misc.Unsafe](gc_less_java2.png)
 
 Yet still it appears to be [pretty widely used](https://github.com/search?q=getDeclaredField%28%22theUnsafe%22%29&type=code). 
+ 
+Anyway, of interest to us is a [family of methods in this class, related to off-heap memory management](https://blog.vanillajava.blog/2014/01/sunmiscunsafe-and-off-heap-memory.html).
 
 ### Data structures implementation
 
