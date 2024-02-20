@@ -89,9 +89,9 @@ So the usage looks like:
 
 So this `long address` plays a role of a reference. Obviously, with this you can't have inheritance / overriding, but we don't need it.
 
-#### try-with-resources + class `Cleaner`
+#### try-with-resources + `Cleaner` and `Ref` classes
 
-The idea of the [Cleaner](https://github.com/xonixx/gc_less/blob/92b526a2eb4c82a44b32623171c3727b04a03ed9/src/main/java/gc_less/Cleaner.java) class is you pass the instance of it in the allocation procedure of a (GC-less) class, such that the Cleaner becomes responsible to free-ing the memory. This is better played with try-with-resources.
+The idea of the [Cleaner](https://github.com/xonixx/gc_less/blob/92b526a2eb4c82a44b32623171c3727b04a03ed9/src/main/java/gc_less/Cleaner.java) class is you pass the instance of it in the allocation procedure of a (GC-less) class, such that the `Cleaner` becomes responsible for free-ing the memory of the allocated instance. This plays best with try-with-resources.
 
 ```java
     try (Cleaner cleaner = new Cleaner()) {
@@ -102,10 +102,10 @@ The idea of the [Cleaner](https://github.com/xonixx/gc_less/blob/92b526a2eb4c82a
       System.out.println(IntArray.getLength(array));
       System.out.println(IntHashtable.getSize(map));
     }
-    // both array and map above are de-allocated
+    // both array and map above are de-allocated, memory reclaimed
 ```
 
-#### class `Ref`
+[Ref](https://github.com/xonixx/gc_less/blob/92b526a2eb4c82a44b32623171c3727b04a03ed9/src/main/java/gc_less/Ref.java) class is needed when we want to register some object for cleanup. But we can't simply register its address, because the object can be relocated due to memory reallocation due to growing. So it means, the GC-less object registers for cleanup by `Cleaner` [via the `Ref`](https://github.com/xonixx/gc_less/blob/92b526a2eb4c82a44b32623171c3727b04a03ed9/src/main/java/gc_less/IntArrayList.java#L28) and then the `Ref` pointer gets updated [on each object relocation](https://github.com/xonixx/gc_less/blob/92b526a2eb4c82a44b32623171c3727b04a03ed9/src/main/java/gc_less/IntArrayList.java#L72). 
 
 
 
