@@ -13,7 +13,7 @@ _TODO 2024_
 
 https://github.com/xonixx/gc_less - in this repository I did a series of experiments in GC-less (heap-less) Java using `sun.misc.Unsafe` and also the newest alternative `java.lang.foreign.MemorySegment`.
 
-GC-less (heap-less) means we allocate data structures in native memory directly (outside JVM heap). Such structures are not visible to GC. But this means that we are responsible for their (explicit) deallocations (i.e., manual memory management).                       
+GC-less (heap-less) means we allocate data structures in native memory directly (outside JVM heap). Such structures are not visible to GC. But this means that we are responsible for their (explicit) de-allocations (i.e., manual memory management).                       
 
 ## Why
 
@@ -26,6 +26,8 @@ Also, I wanted to try to program in Java like if I program in C and see how it g
 ## How
     
 ### sun.misc.Unsafe
+                   
+It was a surprise to find that this class is still supported by the latest (at the time of this writing) Java version 23.
 
 `sun.misc.Unsafe` class is unsafe indeed. You can easily crash your JVM with just a couple lines of code:
 
