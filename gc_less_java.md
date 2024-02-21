@@ -118,9 +118,20 @@ Thus, at the end we check what's left.
 
 I implemented a [base test class](https://github.com/xonixx/gc_less/blob/3615ee7a490cc353ff7eb7c5a12221a94ed49ebb/src/test/java/gc_less/MemoryTrackingBase.java) such that test that extend it can automatically ensure the absence of memory leaks.
        
-### Using `java.lang.foreign.MemorySegment` 
+### Using `java.lang.foreign.MemorySegment`
 
-https://openjdk.org/jeps/8323072
+It appears, that very recently this JEP emerged: ["Deprecate Memory-Access Methods in sun.misc.Unsafe for Removal"](https://openjdk.org/jeps/8323072).
+
+This means that despite using memory-access methods in `sun.misc.Unsafe` is fun and sometimes useful, we can no longer rely on this functionality. 
+
+The JEP happens to provide the safer alternatives. I decided to take a deeper look at the updated API and understand how it compares to now deprecated `sun.misc.Unsafe`.
+
+Overall I found that the new API provides a "managed" API over the native memory. That is, when previously we accessed memory via `long` that represented the raw memory address, now we have `java.lang.foreign.MemorySegment` object (that represents both a _pointer_ and a _memory region_). Obviously this is good and bad.
+
+Good, as using a dedicated get/set methods from that class gives much safer guarantees, like, for example, built-in out-of-bounds access checks, control of accessing properly aligned memory, etc.
+
+Bad, as it's much heavier. So now, for every of-heap allocation we need to have an on-heap handler in the form of `MemorySegment` instance. To me this renders the idea of using the algorithms with lots of small allocations non-viable.  
+
 
 https://openjdk.org/jeps/454#Linking-Java-code-to-foreign-functions
 
