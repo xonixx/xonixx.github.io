@@ -132,7 +132,7 @@ Overall I found that the new API provides a "managed" API over the native memory
 
 Good, as using a dedicated get/set methods from that class gives much safer guarantees, like, for example, built-in out-of-bounds access checks, control of accessing properly aligned memory, etc.
 
-Bad, as it's much heavier. So now, for every of-heap allocation we need to have an on-heap handler in the form of `MemorySegment` instance. To me this renders the idea of using the algorithms with lots of small allocations non-viable.  
+Bad, as it's much heavier. So now, for every off-heap allocation we need to have an on-heap handler in the form of `MemorySegment` instance. To me this renders the idea of using the algorithms with lots of small allocations non-viable.  
 
 
 https://openjdk.org/jeps/454#Linking-Java-code-to-foreign-functions
