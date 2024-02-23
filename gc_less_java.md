@@ -148,7 +148,7 @@ For some time I was puzzled--is it even possible with `MemorySegment` to realize
 
 ### Python-like hashtable implementation
 
-While doing these experiments I was lucky enough to meet [this article](https://www.fluentpython.com/extra/internals-of-sets-and-dicts/). It describes the implementation details of sets and maps in the latest Python.
+While doing these experiments I was lucky enough to meet this article: [Internals of sets and dicts](https://www.fluentpython.com/extra/internals-of-sets-and-dicts/). It describes the implementation details of sets and maps in the latest Python.
 
 It appears, that the map algorithm in Python doesn't use many allocations, instead it allocates one piece of memory and distributes the key, value, hashes data in it. When collection grows, it re-allocates this continuous piece of memory and re-distributes the data. This is exactly what we need!
              
@@ -158,7 +158,7 @@ Indeed, this appears to be working solution!
 
 ### Memory consumption comparison
 
-To illustrate the point I've created this small [experiment](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1934bfc187713db70b/src/main/java/gc_less/MainHashtableComparison.java). It's a program that allocates a hashtable and fills it with 1 million of elements for each of 3 implementation:
+To illustrate the point I've created this small [experiment](https://github.com/xonixx/gc_less/blob/b8dfb903c502ff07bb4d953f6d552ffd63fecd35/src/main/java/gc_less/MainHashtableComparison.java). It's a program that allocates a hashtable and fills it with 1 million of elements for each of 3 implementation:
 
 - `Unsafe`-based hashtable
 - Python-based hashtable
