@@ -158,7 +158,7 @@ Indeed, this appears to be working solution!
 
 ### Memory consumption comparison
 
-To illustrate the point I've created this small [experiment](https://github.com/xonixx/gc_less/blob/b8dfb903c502ff07bb4d953f6d552ffd63fecd35/src/main/java/gc_less/MainHashtableComparison.java). It's a program that allocates a hashtable and fills it with 1 million of elements for each of 3 implementation:
+To illustrate the point I've created this small [experiment](https://github.com/xonixx/gc_less/blob/dc33625e108ef862fbfabdbd2c39538043e6c112/src/main/java/gc_less/MainHashtableComparison.java). It's a program that allocates a hashtable and fills it with 1 million of elements for each of 3 implementation:
 
 - `Unsafe`-based hashtable
 - Python-based hashtable
@@ -172,22 +172,22 @@ Predictably, `Unsafe` and Python variants pass the test, while `MemorySegment` f
 [0.002s][info][gc] Using Epsilon
 [0.002s][warning][gc,init] Consider enabling -XX:+AlwaysPreTouch to avoid memory commit hiccups
 [0.012s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 1060K (12.94%) used
-Unsafe-based hashtable
+
+===== Unsafe-based hashtable =====
 Unsafe-based: 0
 Unsafe-based: 1000
 Unsafe-based: 2000
 Unsafe-based: 3000
 Unsafe-based: 4000
-
 ...
-
 Unsafe-based: 998000
 Unsafe-based: 999000
 Freeing...
 Freeing local addr 140323383005200...
 Freeing local ref  140324903752624...
 Freeing locals     140324903751200...
-Python-based hashtable
+
+===== Python-based hashtable =====
 [0.540s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 1954K (23.86%) used
 WARNING: A restricted method in java.lang.foreign.Linker has been called
 WARNING: java.lang.foreign.Linker::downcallHandle has been called by gc_less.no_unsafe.NativeMem in an unnamed module
@@ -205,12 +205,11 @@ Python-based: 1000
 Python-based: 2000
 Python-based: 3000
 Python-based: 4000
-
 ...
-
 Python-based: 998000
 Python-based: 999000
-MemorySegment-based hashtable
+
+===== MemorySegment-based hashtable =====
 MemorySegment-based: 0
 [1.098s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 5899K (72.01%) used
 [1.150s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 6392K (78.03%) used
