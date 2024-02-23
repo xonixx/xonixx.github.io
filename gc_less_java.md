@@ -1,11 +1,11 @@
 ---
 layout: post
-title: 'TODO'
+title: 'Experimenting with GC-less (heap-less) Java'
 description: 'I describe my experiments with programming Java sans GC'
 image: TODO
 ---
 
-# GC-less (heap-less) Java
+# Experimenting with GC-less (heap-less) Java
 
 _TODO 2024_
 
@@ -140,11 +140,91 @@ Good, as using a dedicated get/set methods from that class gives much safer guar
 
 Bad, as it's much heavier. So now, for every off-heap allocation we need to have an on-heap handler in the form of `MemorySegment` instance. To me this renders the idea of using the algorithms with lots of small allocations non-viable.  
 
+It appears, that my `sun.misc.Unsafe`-based [implementation](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1934bfc187713db70b/src/main/java/gc_less/tpl/TemplateHashtable.java) of hashtable is an example of such algorithm that uses many allocation. It's a well-known hashtable algorithm (analogous to standard Java's `HashMap`), with array of buckets and using linked lists of nodes for elements.
+
+When, for the sake of experiment I [converted it](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1934bfc187713db70b/src/main/java/gc_less/no_unsafe/tpl/TemplateHashtable.java) to be `MemorySegment`-based, I found, that this implementation doesn't make any sense now, because due to many `MemorySegment` objects allocated, its JVM heap consumption is proportional to the hashtable size.
+
+For some time I was puzzled--is it even possible with `MemorySegment` to realize efficiently the same algorithms / data structures?  
+
 ### Python-like hashtable implementation
 
-https://www.fluentpython.com/extra/internals-of-sets-and-dicts/
+While doing these experiments I was lucky enough to meet [this article](https://www.fluentpython.com/extra/internals-of-sets-and-dicts/). It describes the implementation details of sets and maps in the latest Python.
+
+It appears, that the map algorithm in Python doesn't use many allocations, instead it allocates one piece of memory and distributes the key, value, hashes data in it. When collection grows, it re-allocates this continuous piece of memory and re-distributes the data. This is exactly what we need!
+             
+So I came up with this `MemorySegment`-based, [Python-based off-heap hashtable implementation](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1934bfc187713db70b/src/main/java/gc_less/python_like/IntHashtableOffHeap.java).
+
+Indeed, this appears to be working solution!
 
 ### Memory consumption comparison
+
+To illustrate the point I've created this small [experiment](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1934bfc187713db70b/src/main/java/gc_less/MainHashtableComparison.java). It's a program that allocates a hashtable and fills it with 1 million of elements for each of 3 implementation:
+
+- `Unsafe`-based hashtable
+- Python-based hashtable
+- `MemorySegment`-based hashtable
+
+The experiment runs with Epsilon-GC with heap size [fixed at 8 MB](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1934bfc187713db70b/Makesurefile#L38).
+
+Predictably, `Unsafe` and Python variants pass the test, while `MemorySegment` fails due to excessive heap usage:
+
+```
+[0.002s][info][gc] Using Epsilon
+[0.002s][warning][gc,init] Consider enabling -XX:+AlwaysPreTouch to avoid memory commit hiccups
+[0.012s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 1060K (12.94%) used
+Unsafe-based hashtable
+Unsafe-based: 0
+Unsafe-based: 1000
+Unsafe-based: 2000
+Unsafe-based: 3000
+Unsafe-based: 4000
+
+...
+
+Unsafe-based: 998000
+Unsafe-based: 999000
+Freeing...
+Freeing local addr 140323383005200...
+Freeing local ref  140324903752624...
+Freeing locals     140324903751200...
+Python-based hashtable
+[0.540s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 1954K (23.86%) used
+WARNING: A restricted method in java.lang.foreign.Linker has been called
+WARNING: java.lang.foreign.Linker::downcallHandle has been called by gc_less.no_unsafe.NativeMem in an unnamed module
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+[0.653s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 2423K (29.59%) used
+[0.796s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 2914K (35.58%) used
+[0.812s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 3406K (41.58%) used
+[0.876s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 3897K (47.58%) used
+[0.889s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 4389K (53.58%) used
+[0.953s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 4913K (59.98%) used
+Python-based: 0
+Python-based: 1000
+Python-based: 2000
+Python-based: 3000
+Python-based: 4000
+
+...
+
+Python-based: 998000
+Python-based: 999000
+MemorySegment-based hashtable
+MemorySegment-based: 0
+[1.098s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 5899K (72.01%) used
+[1.150s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 6392K (78.03%) used
+MemorySegment-based: 1000
+[1.164s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 6883K (84.03%) used
+MemorySegment-based: 2000
+[1.178s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 7375K (90.03%) used
+[1.186s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 7867K (96.03%) used
+MemorySegment-based: 3000
+MemorySegment-based: 4000
+Terminating due to java.lang.OutOfMemoryError: Java heap space
+```
+
+### Memory alignment
 
 https://openjdk.org/jeps/454#Linking-Java-code-to-foreign-functions
 
