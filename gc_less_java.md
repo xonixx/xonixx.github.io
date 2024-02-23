@@ -111,15 +111,21 @@ The idea of the [Cleaner](https://github.com/xonixx/gc_less/blob/92b526a2eb4c82a
 
 [Ref](https://github.com/xonixx/gc_less/blob/92b526a2eb4c82a44b32623171c3727b04a03ed9/src/main/java/gc_less/Ref.java) class is needed when we want to register some object for cleanup. But we can't simply register its address, because the object can be relocated due to memory reallocation due to growing. So it means, the GC-less object registers for cleanup by `Cleaner` [via the `Ref`](https://github.com/xonixx/gc_less/blob/92b526a2eb4c82a44b32623171c3727b04a03ed9/src/main/java/gc_less/IntArrayList.java#L28) and then the `Ref` pointer gets updated [on each object relocation](https://github.com/xonixx/gc_less/blob/92b526a2eb4c82a44b32623171c3727b04a03ed9/src/main/java/gc_less/IntArrayList.java#L72). 
 
-
-
 ### Memory leaks detection
 
 I had an idea to implement memory leaks detection. This appeared [relatively easy to achieve](https://github.com/xonixx/gc_less/blob/3615ee7a490cc353ff7eb7c5a12221a94ed49ebb/src/main/java/gc_less/Unsafer.java#L30). The idea: on each memory allocation we remember the place (we instantiate `new Exception()` to capture a stack trace). On each corresponding memory `free()` we discard it.
 Thus, at the end we check what's left.
 
 I implemented a [base test class](https://github.com/xonixx/gc_less/blob/3615ee7a490cc353ff7eb7c5a12221a94ed49ebb/src/test/java/gc_less/MemoryTrackingBase.java) such that test that extend it can automatically ensure the absence of memory leaks.
-       
+               
+### Visual demonstration
+               
+So we can say that one of the benefits of manual memory management off-heap is _deterministic memory usage_. 
+
+The class [Main4](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1934bfc187713db70b/src/main/java/gc_less/Main4.java) provides a visual demonstration of allocation and de-allocation in a loop as seen via memory graph of Task Manager:
+
+![Visual demonstration](gc_less_java3.png)
+
 ### Using `java.lang.foreign.MemorySegment`
 
 It appears, that very recently this JEP emerged: ["Deprecate Memory-Access Methods in sun.misc.Unsafe for Removal"](https://openjdk.org/jeps/8323072).
@@ -134,12 +140,13 @@ Good, as using a dedicated get/set methods from that class gives much safer guar
 
 Bad, as it's much heavier. So now, for every off-heap allocation we need to have an on-heap handler in the form of `MemorySegment` instance. To me this renders the idea of using the algorithms with lots of small allocations non-viable.  
 
-
-https://openjdk.org/jeps/454#Linking-Java-code-to-foreign-functions
-
 ### Python-like hashtable implementation
 
 https://www.fluentpython.com/extra/internals-of-sets-and-dicts/
+
+### Memory consumption comparison
+
+https://openjdk.org/jeps/454#Linking-Java-code-to-foreign-functions
 
 ### Benchmark
 
