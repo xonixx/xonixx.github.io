@@ -224,6 +224,8 @@ MemorySegment-based: 4000
 Terminating due to java.lang.OutOfMemoryError: Java heap space
 ```
 
+Thus, we can conclude that the same algorithm that worked via `sun.misc.Unsafe` will not work when done with `java.lang.foreign.MemorySegment`.
+
 ### Memory alignment
 
 https://openjdk.org/jeps/454#Linking-Java-code-to-foreign-functions
