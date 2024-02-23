@@ -39,12 +39,12 @@ Anyway, of interest to us is a [family of methods in this class, related to off-
 
 ### Data structures implementation
 
-So as a practical application of GC-less (heap-less) style of programming I decided to implement some basic data structures:
+So as a practical application of GC-less (heap-less) style of programming I decided to implement some basic [data structures](https://github.com/xonixx/gc_less/tree/b8dfb903c502ff07bb4d953f6d552ffd63fecd35/src/main/java/gc_less):
 
 - array
 - array list
 - stack
-- hash map
+- hash table
        
 Not only was I interested in how easy it is or if it's feasible at all. I also wondered how the performance will compare to plain Java's data structures.
 
