@@ -176,7 +176,7 @@ for(;;t++)putchar(
 );}
 ```
 
-This is where GAWK started to fail miserably. The reason for this was that C allows binary operations on negative numbers. After all, it's a binary representation of a number that matters, so you are allowed to do it, provided that you understand what you are doing. However, GAWK [chose to explicitly disallow](https://www.gnu.org/software/gawk/manual/html_node/Bitwise-Functions.html#index-sidebar-22). It appears, the bytebeat above uses heavily binary operation on negatives ☹.
+This is where GAWK started to fail miserably. The reason for this was that C allows binary operations on negative numbers. After all, it's a binary representation of a number that matters, so you are allowed to do it, provided that you understand what you are doing. However, GAWK [chose to explicitly disallow](https://www.gnu.org/software/gawk/manual/html_node/Bitwise-Functions.html#index-sidebar-Beware-The-Smoke-and-Mirrors_0021). It appears, the bytebeat above uses heavily binary operation on negatives ☹.
 
 Let me show you the problem.
 
