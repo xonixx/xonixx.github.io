@@ -140,11 +140,13 @@ It appears, that very recently this JEP emerged: ["Deprecate Memory-Access Metho
 
 This means that despite using memory-access methods in `sun.misc.Unsafe` is fun and sometimes useful, we can no longer rely on this functionality. 
 
-The JEP happens to provide the safer alternatives (via `java.lang.foreign.MemorySegment`). I decided to take a deeper look at the updated API and understand how it compares to now deprecated `sun.misc.Unsafe`.
+The JEP happens to provide the safer alternatives. I decided to take a deeper look at the updated API and understand how it compares to now deprecated `sun.misc.Unsafe`.
 
-It's worth mentioning that the `java.lang.foreign.MemorySegment` is a part of a bigger API, dedicated to ["invoking foreign functions (i.e., code outside the JVM)"](https://openjdk.org/jeps/454) that enables "Java programs to call native libraries and process native data without the brittleness and danger of JNI".
+As an alternative we now have `java.lang.foreign.MemorySegment` class. It's worth mentioning that this class is a part of a bigger API, dedicated to ["invoking foreign functions (i.e., code outside the JVM)"](https://openjdk.org/jeps/454) that enables "Java programs to call native libraries and process native data without the brittleness and danger of JNI".
 
-Overall I found that the new API provides a "managed" API over the native memory. That is, when previously we accessed memory via `long` that represented the raw memory address, now we have `java.lang.foreign.MemorySegment` object (that represents both a _pointer_ and a _memory region_). Obviously this is good and bad.
+Overall I found that the new API provides a "managed" API over the native memory. That is, when previously we accessed memory via `long` that represented the raw memory address, now we have `java.lang.foreign.MemorySegment` object (that represents both a _pointer_ and a _memory region_). 
+
+Obviously this is good and bad.
 
 Good, as using a dedicated get/set methods from that class gives much safer guarantees, like, for example, built-in out-of-bounds access checks, control of accessing properly aligned memory, etc.
 
