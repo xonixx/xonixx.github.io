@@ -150,7 +150,7 @@ Obviously this is good and bad.
 
 Good, as using a dedicated get/set methods from that class gives much safer guarantees, like, for example, built-in out-of-bounds access checks, control of accessing properly aligned memory, etc.
 
-Bad, as it's much heavier. So now, for every off-heap allocation we need to have an on-heap handler in the form of `MemorySegment` instance. To me this renders the idea of using the algorithms with lots of small allocations non-viable.  
+Bad, as it's much heavier. So now, for every off-heap allocation we need to have an on-heap handle in the form of `MemorySegment` instance. To me this renders the idea of using the algorithms with lots of small allocations non-viable.  
 
 It appears, that my `sun.misc.Unsafe`-based [implementation](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1934bfc187713db70b/src/main/java/gc_less/tpl/TemplateHashtable.java) of hashtable is an example of such algorithm that uses many allocation. It's a well-known hashtable algorithm (analogous to standard Java's `HashMap`), with array of buckets and using linked lists of nodes for elements.
 
