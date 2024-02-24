@@ -132,7 +132,9 @@ It appears, that very recently this JEP emerged: ["Deprecate Memory-Access Metho
 
 This means that despite using memory-access methods in `sun.misc.Unsafe` is fun and sometimes useful, we can no longer rely on this functionality. 
 
-The JEP happens to provide the safer alternatives. I decided to take a deeper look at the updated API and understand how it compares to now deprecated `sun.misc.Unsafe`.
+The JEP happens to provide the safer alternatives (via `java.lang.foreign.MemorySegment`). I decided to take a deeper look at the updated API and understand how it compares to now deprecated `sun.misc.Unsafe`.
+
+It's worth mentioning that the `java.lang.foreign.MemorySegment` is a part of a bigger API, dedicated to ["invoking foreign functions (i.e., code outside the JVM)"](https://openjdk.org/jeps/454) that enables "Java programs to call native libraries and process native data without the brittleness and danger of JNI".
 
 Overall I found that the new API provides a "managed" API over the native memory. That is, when previously we accessed memory via `long` that represented the raw memory address, now we have `java.lang.foreign.MemorySegment` object (that represents both a _pointer_ and a _memory region_). Obviously this is good and bad.
 
@@ -148,9 +150,9 @@ For some time I was puzzled--is it even possible with `MemorySegment` to realize
 
 ### Python-like hashtable implementation
 
-While doing these experiments I was lucky enough to meet this article: [Internals of sets and dicts](https://www.fluentpython.com/extra/internals-of-sets-and-dicts/). It describes the implementation details of sets and maps in the latest Python.
+While doing these experiments I was lucky enough to meet this article: [Internals of sets and dicts](https://www.fluentpython.com/extra/internals-of-sets-and-dicts/). It describes the implementation details of sets and maps in the Python programming language.
 
-It appears, that the map algorithm in Python doesn't use many allocations, instead it allocates one piece of memory and distributes the key, value, hashes data in it. When collection grows, it re-allocates this continuous piece of memory and re-distributes the data. This is exactly what we need!
+It appears, that the `dict` (this is the name for hashtable in Python) algorithm in Python doesn't use many allocations. Instead, it allocates one piece of memory and distributes the key, value, hashes data in it. When collection grows, it re-allocates this continuous piece of memory and re-distributes the data. This is exactly what we need!
              
 So I came up with this `MemorySegment`-based, [Python-based off-heap hashtable implementation](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1934bfc187713db70b/src/main/java/gc_less/python_like/IntHashtableOffHeap.java).
 
@@ -225,10 +227,4 @@ Terminating due to java.lang.OutOfMemoryError: Java heap space
 
 Thus, we can conclude that the same algorithm that worked via `sun.misc.Unsafe` will not work when done with `java.lang.foreign.MemorySegment`.
 
-### Memory alignment
-
-https://openjdk.org/jeps/454#Linking-Java-code-to-foreign-functions
-
-### Benchmark
-
-
+### Benchmarks
