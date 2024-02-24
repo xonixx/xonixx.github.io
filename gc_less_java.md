@@ -102,7 +102,15 @@ The idea of the [Cleaner](https://github.com/xonixx/gc_less/blob/92b526a2eb4c82a
       long array = IntArray.allocate(cleaner,10);
       IntArray.set(array,1,1);
       long map = IntHashtable.allocate(cleaner,10,.75f);
-      IntHashtable.put(map,1,1);
+      map = IntHashtable.put(map,1,1); 
+      /*
+        Why do we re-assign the map? 
+        It's because when the data structure grows,
+        it can eventually overgrow its initially-allocated memory region. 
+        The algorithm will re-allocate the bigger internal storage which will cause
+        the address change. 
+      */
+      map = IntHashtable.put(map,2,22);
       System.out.println(IntArray.getLength(array));
       System.out.println(IntHashtable.getSize(map));
     }
