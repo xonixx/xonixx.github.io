@@ -124,6 +124,8 @@ The idea of the [Cleaner](https://github.com/xonixx/gc_less/blob/92b526a2eb4c82a
 I had an idea to implement memory leaks detection. This appeared [relatively easy to achieve](https://github.com/xonixx/gc_less/blob/3615ee7a490cc353ff7eb7c5a12221a94ed49ebb/src/main/java/gc_less/Unsafer.java#L30). The idea: on each memory allocation we remember the place (we instantiate `new Exception()` to capture a stack trace). On each corresponding memory `free()` we discard it.
 Thus, at the end we check what's left.
 
+![Memory leak detection demo](gc_less_java4.png)
+
 I implemented a [base test class](https://github.com/xonixx/gc_less/blob/3615ee7a490cc353ff7eb7c5a12221a94ed49ebb/src/test/java/gc_less/MemoryTrackingBase.java) such that test that extend it can automatically ensure the absence of memory leaks.
                
 ### Visual demonstration
