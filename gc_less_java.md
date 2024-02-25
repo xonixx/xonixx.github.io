@@ -126,7 +126,7 @@ Thus, at the end we check what's left.
 
 ![Memory leak detection demo](gc_less_java4.png)
 
-I implemented a [base test class](https://github.com/xonixx/gc_less/blob/3615ee7a490cc353ff7eb7c5a12221a94ed49ebb/src/test/java/gc_less/MemoryTrackingBase.java) such that test that extend it can automatically ensure the absence of memory leaks.
+I implemented a [base test class](https://github.com/xonixx/gc_less/blob/3615ee7a490cc353ff7eb7c5a12221a94ed49ebb/src/test/java/gc_less/MemoryTrackingBase.java) such that test that extends it can automatically ensure the absence of memory leaks.
                
 ### Visual demonstration
                
