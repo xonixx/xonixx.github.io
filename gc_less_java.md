@@ -203,11 +203,6 @@ Freeing locals     140324903751200...
 
 ===== Python-based hashtable =====
 [0.540s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 1954K (23.86%) used
-WARNING: A restricted method in java.lang.foreign.Linker has been called
-WARNING: java.lang.foreign.Linker::downcallHandle has been called by gc_less.no_unsafe.NativeMem in an unnamed module
-WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
-WARNING: Restricted methods will be blocked in a future release unless native access is enabled
-
 [0.653s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 2423K (29.59%) used
 [0.796s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 2914K (35.58%) used
 [0.812s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 3406K (41.58%) used
