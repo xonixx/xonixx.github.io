@@ -148,17 +148,19 @@ As an alternative we now have `java.lang.foreign.MemorySegment` class. It's wort
 
 Overall I found that the new API provides a "managed" API over the native memory. That is, when previously we accessed memory via `long` that represented the raw memory address, now we have `java.lang.foreign.MemorySegment` object (that represents both a _pointer_ and a _memory region_). 
 
-Obviously this is good and bad.
+This is, obviously, good. Using a dedicated get/set methods from that class gives much safer guarantees, like, for example, built-in out-of-bounds access checks, control of accessing properly aligned memory, etc.
 
-Good, as using a dedicated get/set methods from that class gives much safer guarantees, like, for example, built-in out-of-bounds access checks, control of accessing properly aligned memory, etc.
+It can seem that this API is much heavier. For every off-heap allocation we need to have an on-heap handle in the form of `MemorySegment` instance. So, we can think that this can render the idea of using the algorithms with lots of small allocations non-viable.  
+ 
+Surprisingly, this is not the case!
 
-Bad, as it's much heavier. So now, for every off-heap allocation we need to have an on-heap handle in the form of `MemorySegment` instance. To me this renders the idea of using the algorithms with lots of small allocations non-viable.  
+My `sun.misc.Unsafe`-based [hashtable implementation](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1934bfc187713db70b/src/main/java/gc_less/tpl/TemplateHashtable.java) is an example of an algorithm that uses many allocation. It's a well-known hashtable algorithm (analogous to standard Java's `HashMap`), with an array of buckets filled based on the hash code, and using linked lists of nodes for elements.
 
-It appears, that my `sun.misc.Unsafe`-based [implementation](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1934bfc187713db70b/src/main/java/gc_less/tpl/TemplateHashtable.java) of hashtable is an example of such algorithm that uses many allocation. It's a well-known hashtable algorithm (analogous to standard Java's `HashMap`), with array of buckets and using linked lists of nodes for elements.
+For the sake of experiment I [converted it](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1934bfc187713db70b/src/main/java/gc_less/no_unsafe/tpl/TemplateHashtable.java) to `MemorySegment`. I was expecting that, because of many `MemorySegment` objects allocated, its JVM heap consumption will be proportional to the hashtable size.
 
-When, for the sake of experiment I [converted it](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1934bfc187713db70b/src/main/java/gc_less/no_unsafe/tpl/TemplateHashtable.java) to be `MemorySegment`-based, I found, that this implementation doesn't make any sense now, because due to many `MemorySegment` objects allocated, its JVM heap consumption is proportional to the hashtable size.
+Instead, experiment shows that the heap memory consumption is rather O(1).
 
-For some time I was puzzled--is it even possible with `MemorySegment` to realize efficiently the same algorithms / data structures?  
+### How is this possible? 
 
 ### Python-like hashtable implementation
 
