@@ -172,68 +172,68 @@ So I came up with this `MemorySegment`-based, [Python-based off-heap hashtable i
 
 Indeed, this appears to be working solution!
 
-### Memory consumption comparison
+### Stress test with limited heap
+                        
+With Java it's inevitable, that even if you implement an off-heap algorithm, some heap will be used. So we can only consider an off-heap algorithm practical if it consumes small/fixed amount of heap. Otherwise, if its additional consumption of heap is proportional to the problem size, off-heap doesn't make much sense.  
 
-To illustrate the point I've created this small [experiment](https://github.com/xonixx/gc_less/blob/dc33625e108ef862fbfabdbd2c39538043e6c112/src/main/java/gc_less/MainHashtableComparison.java). It's a program that allocates a hashtable and fills it with 1 million of elements for each of 3 implementation:
+I've created this small [experiment](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/MainHashtableComparison.java) - a program that allocates a hashtable and fills it with 50 million of elements for each of 3 implementation:
 
 - `Unsafe`-based hashtable
 - Python-based hashtable
 - `MemorySegment`-based hashtable
 
-The experiment runs with Epsilon-GC with heap size [fixed at 8 MB](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1934bfc187713db70b/Makesurefile#L38).
+The experiment runs with Epsilon-GC with heap size [fixed at 20 MB](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/Makesurefile#L35).
 
-Predictably, `Unsafe` and Python variants pass the test, while `MemorySegment` fails due to excessive heap usage:
+We can confirm that all three implementation pass the test with this heap limit.
 
 ```
 [0.002s][info][gc] Using Epsilon
-[0.002s][warning][gc,init] Consider enabling -XX:+AlwaysPreTouch to avoid memory commit hiccups
-[0.012s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 1060K (12.94%) used
+[0.003s][warning][gc,init] Consider enabling -XX:+AlwaysPreTouch to avoid memory commit hiccups
+[0.011s][info   ][gc     ] Heap: 20480K reserved, 20480K (100.00%) committed, 1060K (5.18%) used
 
 ===== Unsafe-based hashtable =====
 Unsafe-based: 0
-Unsafe-based: 1000
-Unsafe-based: 2000
-Unsafe-based: 3000
-Unsafe-based: 4000
+Unsafe-based: 1000000
+Unsafe-based: 2000000
+Unsafe-based: 3000000
 ...
-Unsafe-based: 998000
-Unsafe-based: 999000
+Unsafe-based: 47000000
+Unsafe-based: 48000000
+Unsafe-based: 49000000
 Freeing...
-Freeing local addr 140323383005200...
-Freeing local ref  140324903752624...
-Freeing locals     140324903751200...
-
-===== Python-based hashtable =====
-[0.540s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 1954K (23.86%) used
-[0.653s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 2423K (29.59%) used
-[0.796s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 2914K (35.58%) used
-[0.812s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 3406K (41.58%) used
-[0.876s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 3897K (47.58%) used
-[0.889s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 4389K (53.58%) used
-[0.953s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 4913K (59.98%) used
-Python-based: 0
-Python-based: 1000
-Python-based: 2000
-Python-based: 3000
-Python-based: 4000
-...
-Python-based: 998000
-Python-based: 999000
+Freeing local addr 140590889037840...
+Freeing local ref  140596292148752...
+Freeing locals     140596292147328...
 
 ===== MemorySegment-based hashtable =====
+[16.869s][info   ][gc     ] Heap: 20480K reserved, 20480K (100.00%) committed, 2106K (10.28%) used
+[16.941s][info   ][gc     ] Heap: 20480K reserved, 20480K (100.00%) committed, 3159K (15.43%) used
+[16.980s][info   ][gc     ] Heap: 20480K reserved, 20480K (100.00%) committed, 4262K (20.82%) used
+[17.019s][info   ][gc     ] Heap: 20480K reserved, 20480K (100.00%) committed, 5438K (26.55%) used
 MemorySegment-based: 0
-[1.098s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 5899K (72.01%) used
-[1.150s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 6392K (78.03%) used
-MemorySegment-based: 1000
-[1.164s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 6883K (84.03%) used
-MemorySegment-based: 2000
-[1.178s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 7375K (90.03%) used
-[1.186s][info   ][gc     ] Heap: 8192K reserved, 8192K (100.00%) committed, 7867K (96.03%) used
-MemorySegment-based: 3000
-MemorySegment-based: 4000
-Terminating due to java.lang.OutOfMemoryError: Java heap space
-```
+[17.084s][info   ][gc     ] Heap: 20480K reserved, 20480K (100.00%) committed, 6665K (32.55%) used
+[17.129s][info   ][gc     ] Heap: 20480K reserved, 20480K (100.00%) committed, 7894K (38.55%) used
+[17.165s][info   ][gc     ] Heap: 20480K reserved, 20480K (100.00%) committed, 9123K (44.55%) used
+[17.186s][info   ][gc     ] Heap: 20480K reserved, 20480K (100.00%) committed, 10352K (50.55%) used
+[17.203s][info   ][gc     ] Heap: 20480K reserved, 20480K (100.00%) committed, 11581K (56.55%) used
+MemorySegment-based: 1000000
+MemorySegment-based: 2000000
+MemorySegment-based: 3000000
+...
+MemorySegment-based: 47000000
+MemorySegment-based: 48000000
+MemorySegment-based: 49000000
 
-Thus, we can conclude that the same algorithm that worked via `sun.misc.Unsafe` will not work when done with `java.lang.foreign.MemorySegment`.
+===== Python-based hashtable =====
+Python-based: 0
+Python-based: 1000000
+Python-based: 2000000
+Python-based: 3000000
+...
+Python-based: 47000000
+Python-based: 48000000
+Python-based: 49000000
+[33.169s][info   ][gc     ] Heap: 20480K reserved, 20480K (100.00%) committed, 11993K (58.56%) used
+```
 
 ### Benchmarks
