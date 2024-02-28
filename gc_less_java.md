@@ -243,3 +243,25 @@ Python-based: 49000000
 ```
 
 ### Benchmarks
+
+Finally, I would like to present to your attention couple benchmarks I've created.
+
+[AccessSpeedTest.java](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/AccessSpeedTest.java) measures read/write speed:
+                              
+|                    | `int[]` | `Unsafe` | `MemorySegment` |
+|--------------------|---------|----------|-----------------|
+| **Read test, ms**  | 1885    | 1883     | 1879            |
+| **Write test, ms** | 2177    | 2213     | 2214            |
+
+Surprisingly we can hardly see here any noticeable difference.
+
+Another speed test is [IntHashtableSpeedTest](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/IntHashtableSpeedTest.java):
+
+| Implementation                                                                                                                                                             | Speed, ms |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
+| Java's `HashMap`                                                                                                                                                           | 40        |
+| [Unsafe-based](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/IntHashtable.java)                                    | 130       |
+| [MemorySegment-based](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/no_unsafe/IntHashtable.java)                   | 141       |
+| [Python-based](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/python_like/IntHashtable.java)                        | 5         |
+| [Python-based (MemorySegment)](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/python_like/IntHashtableOffHeap.java) | 19        |
+
