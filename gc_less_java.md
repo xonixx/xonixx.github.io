@@ -160,7 +160,15 @@ For the sake of experiment I [converted it](https://github.com/xonixx/gc_less/bl
 
 Instead, experiment shows that the heap memory consumption is rather O(1).
 
-### How is this possible? 
+### How is this possible?
+
+It appears that:
+
+1. `MemorySegment` is a [value-based class](https://help.intrexx.com/apidocs/jdk16/api/java.base/java/lang/doc-files/ValueBased.html) as stated by its javadoc. [Value-based classes represent the first move towards the inline classes](https://marxsoftware.blogspot.com/2020/09/inline-classes-jep-390.html) that will be introduced by the [project Valhalla](https://openjdk.org/projects/valhalla/).
+2. It looks like the implementation of inlining value objects is already available at least for some JDK classes, like our `MemorySegment`. This is implemented by excessive usage of `@jdk.internal.vm.annotation.ForceInline` annotation:
+ ![](gc_less_java5.png)
+
+My take on this is that during the JIT-compilation all allocations of `MemorySegment`s are completely removed by inlining this class.
 
 ### Python-like hashtable implementation
 
@@ -169,8 +177,6 @@ While doing these experiments I was lucky enough to meet this article: [Internal
 It appears, that the `dict` (this is the name for hashtable in Python) algorithm in Python doesn't use many allocations. Instead, it allocates one piece of memory and distributes the key, value, hashes data in it. When collection grows, it re-allocates this continuous piece of memory and re-distributes the data. This is exactly what we need!
              
 So I came up with this `MemorySegment`-based, [Python-based off-heap hashtable implementation](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1934bfc187713db70b/src/main/java/gc_less/python_like/IntHashtableOffHeap.java).
-
-Indeed, this appears to be working solution!
 
 ### Stress test with limited heap
                         
