@@ -246,22 +246,36 @@ Python-based: 49000000
 
 Finally, I would like to present to your attention couple benchmarks I've created.
 
-[AccessSpeedTest.java](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/AccessSpeedTest.java) measures read/write speed:
+[AccessSpeedTest.java](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/AccessSpeedTest.java) measures read/write speed (lower = better):
                               
 |                    | `int[]` | `Unsafe` | `MemorySegment` |
 |--------------------|---------|----------|-----------------|
 | **Read test, ms**  | 1885    | 1883     | 1879            |
 | **Write test, ms** | 2177    | 2213     | 2214            |
 
-Surprisingly we can hardly see here any noticeable difference.
+Surprisingly we can hardly see here any noticeable difference in speed, despite `int[]` and `MemorySegment` have bounds checking, so I expected them to be slower than `Unsafe`.
+                  
+***
 
-Another speed test is [IntHashtableSpeedTest](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/IntHashtableSpeedTest.java):
+Another speed test is [IntHashtableSpeedTest](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/IntHashtableSpeedTest.java) (lower = better):
 
-| Implementation                                                                                                                                                             | Speed, ms |
-|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
-| Java's `HashMap`                                                                                                                                                           | 40        |
-| [Unsafe-based](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/IntHashtable.java)                                    | 130       |
-| [MemorySegment-based](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/no_unsafe/IntHashtable.java)                   | 141       |
-| [Python-based](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/python_like/IntHashtable.java)                        | 5         |
-| [Python-based (MemorySegment)](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/python_like/IntHashtableOffHeap.java) | 19        |
+| Implementation                                                                                                                                                             | Duration, ms |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
+| Java's `HashMap`                                                                                                                                                           | 40           |
+| [Unsafe-based](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/IntHashtable.java)                                    | 130          |
+| [MemorySegment-based](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/no_unsafe/IntHashtable.java)                   | 141          |
+| [Python-like](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/python_like/IntHashtable.java)                        | 5            |
+| [Python-like (MemorySegment)](https://github.com/xonixx/gc_less/blob/77cd4a6845f297ff7a0dce788dea7bbf391e6385/src/main/java/gc_less/python_like/IntHashtableOffHeap.java) | 19           |
 
+What can we see here?
+
+1. It appears that GC-less algorithms is generally slower than usual GC-full
+   - Built-in `HashMap` is 3+ times faster than `Unsafe`-based with similar algorithm
+   - Python-like on-heap is almost 4 times faster than off-heap.
+2. It also appears that for the particular case of `map<int,int>` it's possible to come up with the implementation (Python-like) that is 8 times faster over the built-in implementation (`HashMap`)
+
+## Takeaways
+
+1. It is possible to use manual memory management in Java, for example, if you need deterministic memory consumption.
+2. In your implementation it's advised to prefer `java.lang.foreign.MemorySegment` over `sun.misc.Unsafe`.
+3. Speed is not a good reason for using off-heap algorithms. We've seen that same algorithms are 3+ times slower off-heap. Probably due to better optimization opportunities for JIT compiler with usual Java code.  
