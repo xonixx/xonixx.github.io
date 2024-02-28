@@ -8,6 +8,7 @@
 
 ## Blog
 
+- [Experimenting with GC-less (heap-less) Java](gc_less_java.md) (February 2023)
 - [Using GAWK coprocess to speed up the script 50x](gawk_coprocess_speedup.md) (February 2023)
 - [Makesure vs Just command runners on examples](makesure-vs-just.md) (December 2023)
 - [makesure v0.9.21 -- what's new?](revamp_define.md) (October 2023)
