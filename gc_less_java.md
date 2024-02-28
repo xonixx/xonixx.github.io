@@ -2,12 +2,12 @@
 layout: post
 title: 'Experimenting with GC-less (heap-less) Java'
 description: 'I describe my experiments with programming Java sans GC'
-image: TODO
+image: gc_less_java3.png
 ---
 
 # Experimenting with GC-less (heap-less) Java
 
-_TODO 2024_
+_February 2024_
 
 ## What
 
@@ -136,7 +136,7 @@ The class [Main4](https://github.com/xonixx/gc_less/blob/85985326c2503126be6b0f1
 
 ![Visual demonstration](gc_less_java3.png)
 
-### Using `java.lang.foreign.MemorySegment`
+### java.lang.foreign.MemorySegment
 
 It appears, that very recently this JEP emerged: ["Deprecate Memory-Access Methods in sun.misc.Unsafe for Removal"](https://openjdk.org/jeps/8323072).
 
@@ -277,5 +277,5 @@ What can we see here?
 ## Takeaways
 
 1. It is possible to use manual memory management in Java, for example, if you need deterministic memory consumption.
-2. In your implementation it's advised to prefer `java.lang.foreign.MemorySegment` over `sun.misc.Unsafe`.
-3. Speed is not a good reason for using off-heap algorithms. We've seen that same algorithms are 3+ times slower off-heap. Probably due to better optimization opportunities for JIT compiler with usual Java code.  
+2. Speed is not a good reason for using off-heap algorithms. We've seen that same algorithms are 3+ times slower off-heap. Probably due to better optimization opportunities for JIT compiler with usual Java code.
+3. In your implementation it's advised to prefer `java.lang.foreign.MemorySegment` over `sun.misc.Unsafe`.
