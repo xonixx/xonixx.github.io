@@ -10,7 +10,7 @@ _March 2024_
 
 In this article I want to present you the tiny utility [mdbooker](https://github.com/xonixx/mdbooker). 
 
-This allows me to convert my project's [README.md](https://github.com/xonixx/makesure) into a beautiful documentation site [makesure.dev](https://makesure.dev).
+It allows me to convert my project's [README.md](https://github.com/xonixx/makesure) into a beautiful documentation site [makesure.dev](https://makesure.dev).
 
 The utility works in conjunction with the amazing [mdBook](https://github.com/rust-lang/mdBook) tool.
 
@@ -62,27 +62,7 @@ Before explaining some bits of my implementation let's come up with the requirem
 
 Now let's take a look at how these requirements are implemented in code.
  
-Let me remind you how in markdown the hierarchy of titles is defined:
-
-| md          | html             |
-|-------------|------------------|
-| `# Title`   | `<h1>Title</h1>` |
-| `## Title`  | `<h2>Title</h2>` |
-| `### Title` | `<h3>Title</h3>` |
-| etc.        |                  |
-      
-So to parse nesting you need to parse the number of `#`. How do you do it with AWK?
-
-It appears, AWK's `match()` function can match a regex in a string and set `RSTART` and `RLENGTH` for you:
-
-```
-$ awk 'BEGIN { match("#####",/^#+/); print "RSTART="RSTART", RLENGTH="RLENGTH }'
-RSTART=1, RLENGTH=5
-```
-
-This explains [this line](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L16). 
-
-It's worth noting, that this implementation requires parsing (traversing) the input file README.md two times. 
+This implementation requires parsing (traversing) the input file README.md two times. 
 
 - First pass [is done](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L16) via standard AWK's pattern matching syntax. This pass
   - [prepares the mapping for cross-README link](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L25) (requirement 3.)
@@ -95,7 +75,31 @@ It's worth noting, that this implementation requires parsing (traversing) the in
   - [Populates SUMMARY.md](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L37) (requirement 1.)
   - [Populates a separate .md-file per section](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L33-L34) (requirement 2.)
 
-Yet another small trick. With awk you can easily produce the needed indentation using `printf`. 
+Couple more AWK trick.
+
+Let me remind you how in markdown the hierarchy of titles is defined:
+
+| md          | html             |
+|-------------|------------------|
+| `# Title`   | `<h1>Title</h1>` |
+| `## Title`  | `<h2>Title</h2>` |
+| `### Title` | `<h3>Title</h3>` |
+| etc.        |                  |
+
+So to parse nesting you need to parse the number of `#`. How do you do it with AWK?
+
+It appears, AWK's `match()` function can match a regex in a string and set `RSTART` and `RLENGTH` for you:
+
+```
+$ awk 'BEGIN { match("#####",/^#+/); print "RSTART="RSTART", RLENGTH="RLENGTH }'
+RSTART=1, RLENGTH=5
+```
+
+This explains [this line](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L16).
+
+***
+
+With awk you can easily produce the needed indentation using `printf`. 
 
 This usage is common:
 
@@ -123,6 +127,8 @@ This explains the logic in [this line](https://github.com/xonixx/mdbooker/blob/5
 ![SUMMARY.md](mdbooker1.png)
 
 I hope this information should be enough to explain the logic of my script.
+ 
+***
 
 Here is an example tool's output:
 ```
