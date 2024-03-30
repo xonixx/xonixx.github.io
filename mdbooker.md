@@ -18,7 +18,7 @@ The utility works in conjunction with the amazing [mdBook](https://github.com/ru
 
 `mdBook` generates a documentation site (a "book") from a set of markdown files based on a [SUMMARY.md](https://rust-lang.github.io/mdBook/format/summary.html).
 
-Therefore, `mdbooker` splits your README.md into a set of markdown files (based on titles) and generates the SUMMARY.md.
+Therefore, `mdbooker` splits your README.md into a set of markdown files (based on header titles) and generates the SUMMARY.md.
 
 
 ## Usage
@@ -67,17 +67,19 @@ This implementation requires parsing (traversing) the input file README.md two t
 - First pass [is done](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L16) via standard AWK's pattern matching syntax. This pass
   - [prepares the mapping for cross-README link](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L25) (requirement 3.)
   - [populates "empty" sections](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L27) (requirement 5.)
-- Second pass [is invoked](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L45) in the `END {}` block. [Here](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L49) it explicitly traverses our file (`FILENAME` is a variable equal to the file passed to `awk` command, README.md in our case). This pass:
+- Second pass [is invoked](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L45) in the `END { ... }` block. [Here](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L49) it explicitly traverses our file again (`FILENAME` is a variable equal to the file passed to `awk` command, README.md in our case). This pass:
   - Uses data, collected in pass 1
   - [Collects content](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L63) for each section
   - [Fixes cross-links](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L54-L55) (requirement 3.)
   - [Fixes relative links](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L57-L61) (requirement 4.). Note, how file links `[title](link)` and image links `![title](link)` require different handling.
   - [Populates SUMMARY.md](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L37) (requirement 1.)
   - [Populates a separate .md-file per section](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L33-L34) (requirement 2.)
+    
+***
 
 Couple more AWK trick.
 
-Let me remind you how in markdown the hierarchy of titles is defined:
+Let me remind you how in markdown the hierarchy of headers is defined:
 
 | md          | html             |
 |-------------|------------------|
