@@ -62,6 +62,26 @@ Before explaining some bits of my implementation let's come up with the requirem
 5. "Empty" sections should be filled by the list of links to their child sub-sections. This is needed when `## section` is immediately followed by `### sub-section` (So we want [this](https://makesure.dev/Directives.html) instead of [this](https://just.systems/man/en/chapter_22.html)).   
 
 Now let's take a look at how these requirements are implemented in code.
+ 
+Let me remind you how in markdown the hierarchy of titles is defined:
+
+| md          | html             |
+|-------------|------------------|
+| `# Title`   | `<h1>Title</h1>` |
+| `## Title`  | `<h2>Title</h2>` |
+| `### Title` | `<h3>Title</h3>` |
+| etc.        |                  |
+      
+So to parse nesting you need to parse the number of `#`. How do you do it with AWK?
+
+It appears, AWK's `match()` function can match a regex in a string and set `RSTART` and `RLENGTH` for you:
+
+```
+$ awk 'BEGIN { match("#####",/^#+/); print "RSTART="RSTART", RLENGTH="RLENGTH }'
+RSTART=1, RLENGTH=5
+```
+
+This explains [this line](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L16). 
 
   
 ## Alternatives
