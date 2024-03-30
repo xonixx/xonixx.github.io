@@ -2,12 +2,11 @@
 layout: post
 title: 'mdbooker -- turn your README.md into a documentation site'
 description: "mdbooker -- tiny AWK script that can turn your project's README.md into a documentation site"
-image: TODO
 ---
 
 # mdbooker -- turn your README.md into a documentation site
 
-_TODO 2024_
+_March 2024_
 
 In this article I want to present you the tiny utility [mdbooker](https://github.com/xonixx/mdbooker). 
 
@@ -96,9 +95,9 @@ It's worth noting, that this implementation requires parsing (traversing) the in
   - [Populates SUMMARY.md](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L37) (requirement 1.)
   - [Populates a separate .md-file per section](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L33-L34) (requirement 2.)
 
-Couple more tricks. 
+Yet another small trick. With awk you can easily produce the needed indentation using `printf`. 
 
-With awk you can easily apply the needed indentation using `printf`. This usage is common:
+This usage is common:
 
 ```
 $ awk 'BEGIN { printf "%10s\n", "hello" }'
