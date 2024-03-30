@@ -12,7 +12,7 @@ _TODO 2024_
 In this article I want to present you the tiny utility [mdbooker](https://github.com/xonixx/mdbooker). 
 It lets me convert the [README.md](https://github.com/xonixx/makesure) of my project into the beautiful documentation site [makesure.dev](https://makesure.dev).
 
-This utility works in conjunction with the amazing [mdBook](https://github.com/rust-lang/mdBook) project.
+This utility works in conjunction with the amazing [mdBook](https://github.com/rust-lang/mdBook) tool.
 
 The project is implemented as a single-file [AWK script](https://github.com/xonixx/mdbooker/blob/main/mdbooker.awk).   
 
@@ -49,6 +49,19 @@ mbdook build
 The deployment of final html/js/css to the public domain is out of scope of this article.
 
 ## Technical details
+
+As I've mentioned, the tool is implemented in AWK. ([Why?](awk.md)).
+
+This part can be of interest to those who would like to sharpen their AWK-fu a bit.
+
+Before explaining some bits of [my implementation](https://github.com/xonixx/mdbooker/blob/main/mdbooker.awk) let's come up with requirements.
+
+1. `SUMMARY.md` should be generated with a structure (nesting) determined by `## titles` in README.md.
+2. README.md is split into separate .md-files named by titles.
+3. Relative links are "fixed". Since README.md resides in a repository it can reference any project file by its relative path. This requires special handling.
+4. "Empty" sections should be filled by the list of links to their child sub-sections. This is needed when `## section` is immediately followed by `### sub-section` ([example](https://makesure.dev/Directives.html)).   
+
+Now let's take a look how these requirements are implemented in code.
 
   
 ## Alternatives
