@@ -35,7 +35,7 @@ BOOK=path/to/book_folder \
 
 where
 
-- `username/reponame` - the GitHub repository where README resides. Why this is needed? To correctly rewrite relative links.
+- `username/reponame` - the GitHub repository where README resides. This is needed to correctly rewrite relative links.
 - `path/to/book_folder` (optional, default `./book`) - the output folder for generated markdown files.
 
 ### Step 2: run mdBook
@@ -46,14 +46,11 @@ mbdook build
 
 ### Step 3: deploy the website
 
-After the previous steps the final html/js/css will be generated. 
-
-However, it's out of scope of this article how to host them on the public domain.
+The deployment of final html/js/css to the public domain is out of scope of this article.
 
 ## Technical details
 
   
 ## Alternatives
 
-- [Docsify](https://colinhacks.com/essays/docs-the-smart-way) - small JS lib that renders your README.md as a single-page website. I didn't like it because such single-pages give poor user experience.
-- 
+The only alternative I've found is [Docsify](https://colinhacks.com/essays/docs-the-smart-way) -- small JS lib that renders your README.md as a single-page website. I didn't like it, though, because such single-pages usually give poor user experience.
