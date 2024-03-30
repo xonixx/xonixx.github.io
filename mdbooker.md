@@ -54,8 +54,8 @@ This part can be of interest to those who would like to sharpen their AWK-fu a b
 
 Before explaining some bits of my implementation let's come up with the requirements.
 
-1. `SUMMARY.md` should be generated with a structure (nesting) determined by `## titles` in README.md.
-2. README.md is split into separate .md-files named by titles.
+1. SUMMARY.md should be generated with a structure (nesting) determined by `## titles` in README.md.
+2. README.md is split into separate .md-files named by header titles.
 3. Cross-README links are "fixed". In markdown you can reference any `## Section Title` by a `href="#section-title"`. This requires special handling. 
 4. Relative links are "fixed". Since README.md resides in a repository it can reference any project file by its relative path. This requires special handling.
 5. "Empty" sections should be filled by the list of links to their child sub-sections. This is needed when `## section` is immediately followed by `### sub-section` (So we want [this](https://makesure.dev/Directives.html) instead of [this](https://just.systems/man/en/chapter_22.html)).   
@@ -90,7 +90,7 @@ Let me remind you how in markdown the hierarchy of headers is defined:
 
 So to parse nesting you need to parse the number of `#`. How do you do it with AWK?
 
-It appears, AWK's `match()` function can match a regex in a string and set `RSTART` and `RLENGTH` for you:
+It appears, AWK's `match()` function can match a regex in a string, and it sets `RSTART` and `RLENGTH` for you:
 
 ```
 $ awk 'BEGIN { match("#####",/^#+/); print "RSTART="RSTART", RLENGTH="RLENGTH }'
