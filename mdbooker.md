@@ -96,6 +96,36 @@ It's worth noting, that this implementation requires parsing (traversing) the in
   - [Populates SUMMARY.md](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L37) (requirement 1.)
   - [Populates a separate .md-file per section](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L33-L34) (requirement 2.)
 
+Couple more tricks. 
+
+With awk you can easily apply the needed indentation using `printf`. This usage is common:
+
+```
+$ awk 'BEGIN { printf "%10s\n", "hello" }'
+     hello
+```
+This is not that obvious:
+```
+$ awk 'BEGIN { N=10; printf "%" N "s\n", "hello" }'
+     hello
+```
+But this gives you:
+```
+$ awk 'BEGIN { for (N=5;N<10;N++) printf "%" N "s\n", "hello" }'
+hello
+ hello
+  hello
+   hello
+    hello
+```
+
+This explains the logic in [this line](https://github.com/xonixx/mdbooker/blob/5602b433bfc78d1404e9d610c150920a049e6eb8/mdbooker.awk#L37). It allows producing this structure:
+
+![SUMMARY.md](mdbooker1.png)
+
+
+
+
 I hope this information should be enough to explain the logic of my script.
 
   
