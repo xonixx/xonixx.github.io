@@ -39,7 +39,7 @@ where
 ### Step 2: run mdBook
 
 ```sh
-mbdook build
+mdbook build
 ```
 
 ### Step 3: deploy the website
