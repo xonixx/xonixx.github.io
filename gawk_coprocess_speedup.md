@@ -6,7 +6,7 @@ description: 'I describe a small but efficient optimization in my script'
 
 # Using GAWK coprocess to speed up the script 50x
 
-_February 2023_
+_February 2024_
 
 In a need to parse some logs, extract values from it, and convert a value from hex to decimal, I came up with this GAWK script:
 
