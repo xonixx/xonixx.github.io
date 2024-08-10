@@ -31,7 +31,7 @@ boolean hotelMatched = hotelIds && hotelIds.contains(message.hotelId)
 boolean messageAddressedToAll = hotelUser && message.type.toAllHotelUsers || reservationId && message.type.toAllReservations
 boolean shouldSendByHotel = hotelMatched && (messageAddressedToAll || isAdmin)
 boolean senderIsNotReceiver = userId != message.authorId || message.authorId == null
-boolean shouldSend = (reservationMatched || facilityMatched || shouldSendByHotel) && senderIsNotReceiver
+boolean shouldSend = senderIsNotReceiver && (reservationMatched || facilityMatched || shouldSendByHotel)
 
 if (shouldSend) {
     send(message)
@@ -40,14 +40,14 @@ if (shouldSend) {
 
 What did we do? We split the complex expression to sub-expressions by giving them meaningful names.
 
-This way the code is much easier to maintain and reason about. 
+This way the code is much **easier to maintain and reason about**. 
 
 For an `if` with a complex condition it's hard to reason if the condition is correct (and exhaustive) in a sense of complying to the business requirements. 
 
-In the example above (1st piece of code) we see that the code sends a message under some conditions. But what are those conditions and if they satisfy the business needs is hard to get. 
+In the example above (1st piece of code) we see that the code sends a message under some conditions. But what are those conditions and if they satisfy the business needs is hard to tell. 
 
 In the refactored code we clearly see that message is sent only when sender is not receiver and either reservation matches or facility matches or sending is favored by the hotel.
 
-For the same reason, the refactored code is much easier to debug. Because when the if condition appears to be incorrect, you just put the breakpoint, and you immediately see the actual values of all sub-expressions. Therefore, you easily see which sub-expression calculates incorrectly. 
+For the same reason, the refactored code is much **easier to debug**. Because when the if condition appears to be incorrect, you just put the breakpoint, and you immediately see the actual values of all sub-expressions. Therefore, you easily see which sub-expression calculates incorrectly. 
                                                                                          
 
