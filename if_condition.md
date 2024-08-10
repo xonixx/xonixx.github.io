@@ -48,6 +48,7 @@ In the example above (1st piece of code) we see that the code sends a message un
 
 In the refactored code we clearly see that message is sent only when sender is not receiver and either reservation matches or facility matches or sending is favored by the hotel.
 
-For the same reason, the refactored code is much **easier to debug**. Because when the if condition appears to be incorrect, you just put the breakpoint, and you immediately see the actual values of all sub-expressions. Therefore, you easily see which sub-expression calculates incorrectly. 
-                                                                                         
+Every time you assign a name to something you have a chance to think if the name describes that "something" correctly. So by just doing this rewrite you can identify the bug.
+
+For the same reason, the refactored code is much **easier to debug**. When the `if` condition appears to be incorrect, you just put the breakpoint, and you immediately see the actual values of all sub-expressions. Therefore, you easily see which sub-expression gives incorrect result.
 
