@@ -9,32 +9,32 @@ image: TODO
 
 _August 2024_
      
-Let's consider a piece of code below. It belongs to a chat sub-system of some hypothetical application. The code determines if the message should be sent to any particular user or not. 
+Let's consider a piece of code below. It belongs to a notification sub-system of some hypothetical application. The code determines if the notification should be sent to any particular user or not. 
 
 ```groovy
-if ((((reservationId && message.reservationId == reservationId)
-    || (facilityId && message.facilityId in facilityId)
-    || (hotelIds && hotelIds.contains(message.hotelId)) && (hotelUser && message.type.toAllHotelUsers || reservationId && message.type.toAllReservations))
-    || (isAdmin && hotelIds.contains(message.hotelId))
-    && (userId != message.authorId || message.authorId == null))) 
+if ((((reservationId && notification.reservationId == reservationId)
+    || (facilityId && notification.facilityId in facilityId)
+    || (hotelIds && hotelIds.contains(notification.hotelId)) && (hotelUser && notification.type.toAllHotelUsers || reservationId && notification.type.toAllReservations))
+    || (isAdmin && hotelIds.contains(notification.hotelId))
+    && (userId != notification.authorId || notification.authorId == null))) 
 {
-    send(message)
+    send(notification)
 }
 ```
               
 The code above is absolutely incomprehensible. Let's make it better: 
 
 ```groovy
-boolean reservationMatched = reservationId && message.reservationId == reservationId
-boolean facilityMatched = facilityId && message.facilityId in facilityId
-boolean hotelMatched = hotelIds && hotelIds.contains(message.hotelId)
-boolean messageAddressedToAll = hotelUser && message.type.toAllHotelUsers || reservationId && message.type.toAllReservations
-boolean shouldSendByHotel = hotelMatched && (messageAddressedToAll || isAdmin)
-boolean senderIsNotReceiver = userId != message.authorId || message.authorId == null
-boolean shouldSend = senderIsNotReceiver && (reservationMatched || facilityMatched || shouldSendByHotel)
+boolean reservationMatches = reservationId && notification.reservationId == reservationId
+boolean facilityMatches = facilityId && notification.facilityId in facilityId
+boolean hotelMatches = hotelIds && hotelIds.contains(notification.hotelId)
+boolean messageAddressedToAll = hotelUser && notification.type.toAllHotelUsers || reservationId && notification.type.toAllReservations
+boolean shouldSendByHotel = hotelMatches && (messageAddressedToAll || isAdmin)
+boolean senderIsNotReceiver = userId != notification.authorId || notification.authorId == null
+boolean notificationMatchesUser = senderIsNotReceiver && (reservationMatches || facilityMatches || shouldSendByHotel)
 
-if (shouldSend) {
-    send(message)
+if (notificationMatchesUser) {
+    send(notification)
 }
 ```
 
@@ -44,11 +44,11 @@ This way the code is much **easier to maintain and reason about**.
 
 For an `if` with a complex condition it's hard to reason if the condition is correct (and exhaustive) in a sense of complying to the business requirements. 
 
-In the example above (1st piece of code) we see that the code sends a message under some conditions. But what are those conditions and if they satisfy the business needs is hard to tell. 
+In the example above (1st piece of code) we see that the code sends a notification under some conditions. But what are those conditions and if they satisfy the business needs is hard to tell. 
 
-In the refactored code we clearly see that message is sent only when sender is not receiver and either reservation matches or facility matches or sending is favored by the hotel.
+In the refactored code we clearly see that notification is sent only when it matches user (business requirement). And "matches user" means sender is not receiver and either reservation (of user) matches or facility (of user) matches or sending is favored by the hotel (of user). And so on.
 
 Every time you assign a name to something you have a chance to think if the name describes that "something" correctly. So by just doing this rewrite you can identify the bug.
 
-For the same reason, the refactored code is much **easier to debug**. When the `if` condition appears to be incorrect, you just put the breakpoint, and you immediately see the actual values of all sub-expressions. Therefore, you easily see which sub-expression gives incorrect result.
+For the same reason, the refactored code is much **easier to debug**. When the `if` condition appears to be incorrect, you just put a breakpoint, and you immediately see the actual values of all sub-expressions. Therefore, you easily see which sub-expression gives incorrect result.
 
