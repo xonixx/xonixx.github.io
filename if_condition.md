@@ -51,7 +51,7 @@ Every time you assign a name to something you have a chance to think if the name
 
 Additionally, the refactored code is much <ins>easier to debug</ins>. When the `if` condition appears to be incorrect, you just put a breakpoint, and you immediately see the actual values of all sub-expressions. Therefore, you easily see which sub-expression gives incorrect result.
 
-> ##### TIP
+> ##### 💡 TIP
 >
 > The rule of thumb would be that ideally you should not have `||` or `&&` in your `if` conditions.
 {: .block-tip }
