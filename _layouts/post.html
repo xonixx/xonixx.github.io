@@ -5,6 +5,23 @@ layout: default
     @media print {
         .no-print {display: none}
     }
+    :root {
+        --c-tip: #42b983;
+        --c-tip-bg: #e2f5ec;
+        --c-tip-text: #215d42;
+        --c-tip-title: #359469;
+    }
+    .markdown-section blockquote.block-tip h5 {
+        color: var(--c-tip-title);
+        margin: 0 0 5px;
+    }
+    .markdown-body blockquote.block-tip {
+        border-color: var(--c-tip);
+        background-color: var(--c-tip-bg);
+        color: var(--c-tip-text);
+        /*font-family: var(--font-family);*/
+        padding: 10px;
+    }
 </style>
 <a class="no-print" href="https://stand-with-ukraine.pp.ua"><img src="https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg" alt="Stand With Ukraine" /></a>
 
