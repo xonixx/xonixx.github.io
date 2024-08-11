@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Don't use complex expressions in if condition"
+title: "Don't use complex expressions in if conditions"
 description: 'I explain how to refactor complex if conditions'
 ---
 
-# Don't use complex expressions in if condition
+# Don't use complex expressions in if conditions
 
 _August 2024_
      
