@@ -28,8 +28,8 @@ The code above is absolutely incomprehensible. Let's make it better:
 boolean reservationMatches = reservationId && notification.reservationId == reservationId
 boolean facilityMatches = facilityId && notification.facilityId in facilityId
 boolean hotelMatches = hotelIds && hotelIds.contains(notification.hotelId)
-boolean messageAddressedToAll = hotelUser && notification.type.toAllHotelUsers || reservationId && notification.type.toAllReservations
-boolean shouldSendByHotel = hotelMatches && (messageAddressedToAll || isAdmin)
+boolean addressedToAll = hotelUser && notification.type.toAllHotelUsers || reservationId && notification.type.toAllReservations
+boolean shouldSendByHotel = hotelMatches && (addressedToAll || isAdmin)
 boolean senderIsNotReceiver = userId != notification.authorId || notification.authorId == null
 boolean notificationMatchesUser = senderIsNotReceiver && (reservationMatches || facilityMatches || shouldSendByHotel)
 
@@ -53,3 +53,17 @@ Every time you assign a name to something you have a chance to think if the name
 For the same reason, the refactored code is much **easier to debug**. When the `if` condition appears to be incorrect, you just put a breakpoint, and you immediately see the actual values of all sub-expressions. Therefore, you easily see which sub-expression gives incorrect result.
 
 The rule of thumb would be that ideally you should not have `||` or `&&` in your `if` conditions. It's OK, though, for trivial cases.
+
+Any of the following is equally good:
+
+```groovy
+if (notificationMatchesUser(notification, reservationId, facilityId, hotelIds, userId)) {
+    send(notification)
+}
+```
+
+```groovy
+if (notification.matches(reservationId, facilityId, hotelIds, userId)) {
+    send(notification)
+}
+```
