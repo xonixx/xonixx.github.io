@@ -1,8 +1,7 @@
 ---
 layout: post
 title: "Don't use complex expressions in if condition"
-description: 'TODO'
-image: TODO
+description: 'I explain how to refactor complex if conditions'
 ---
 
 # Don't use complex expressions in if condition
@@ -40,7 +39,7 @@ if (notificationMatchesUser) {
 
 What did we do? We split the complex expression to sub-expressions by giving them meaningful names.
 
-This way the code is much **easier to maintain and reason about**. 
+This way the code is much <u>easier to maintain and reason about</u>. 
 
 For a complex `if` condition it's hard to reason if the condition is correct (and exhaustive) in a sense of complying to the business requirements. 
 
@@ -50,7 +49,7 @@ In the refactored code we clearly see that the notification is only sent when it
 
 Every time you assign a name to something you have a chance to think if the name describes that "something" correctly. So by just doing this rewrite you can identify the bug.
 
-For the same reason, the refactored code is much **easier to debug**. When the `if` condition appears to be incorrect, you just put a breakpoint, and you immediately see the actual values of all sub-expressions. Therefore, you easily see which sub-expression gives incorrect result.
+Additionally, the refactored code is much <u>easier to debug</u>. When the `if` condition appears to be incorrect, you just put a breakpoint, and you immediately see the actual values of all sub-expressions. Therefore, you easily see which sub-expression gives incorrect result.
   
 > [!TIP]
 > The rule of thumb would be that ideally you should not have `||` or `&&` in your `if` conditions.
