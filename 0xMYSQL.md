@@ -100,3 +100,50 @@ If we look closer at the log, we'll see:
 [22007][1292] Truncated incorrect DOUBLE value: ''
 0 rows retrieved in 53 ms (execution: 23 ms, fetching: 30 ms)
 ```
+
+## What's going on?
+
+As a Java developer, I was naive to think that `0xABC` is just an alternative syntax to defining a number. I was almost right, but it's slightly trickier than that. It appears, the treatment of `0x` literals depends on if it appears in numeric context, in which case it's treated as `BIGINT UNSIGNED`, otherwise it represents a binary string ([link](https://dev.mysql.com/doc/refman/8.4/en/hexadecimal-literals.html)). 
+
+So apparently, for my "clever" CTE-based query the `IdList.id` produces binary string and `Transactions.id` produces numeric, however for the `JOIN` condition, although in numeric context, the string gets cast (in fact, truncated) to numeric `0`.
+
+Thus, you can easily reproduce the problem by a simple query:
+```sql
+SELECT 'a' = 7; -- 0
+```
+this query generates the same warning
+```
+[22007][1292] Truncated incorrect DOUBLE value: 'a'
+```
+
+Note, how it changes to 1 for comparing with `0`:
+```sql
+SELECT 'a' = 0; -- 1
+```
+
+This means for my "clever" query all `id` values coming from `IdList` were treated as `0`!
+
+Mystery solved. But how can we fix?
+
+## The fix
+
+The same documentation link also gives the recipes:
+
+- `0+0xABC`
+- `CAST(0xABC AS UNSIGNED)`
+
+Both will cast the `0x` value as `BIGINT UNSIGNED`, but I prefer the first option for brevity.
+
+Now, the fixed query will look like:
+
+```sql
+WITH Transactions AS ( -- real data table
+    SELECT 1224980829049300745 AS id
+), IdList AS ( -- search data set
+              SELECT 0+0x0 AS id -- just mark the column
+    UNION ALL SELECT 0+0x11000192E425A709 -- match
+    UNION ALL SELECT 0+0x11000192E425A70A
+    UNION ALL SELECT 0+0x11000192E425A70B
+)
+SELECT * FROM Transactions t JOIN IdList i ON t.id = i.id;
+```
