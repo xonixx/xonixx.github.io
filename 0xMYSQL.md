@@ -24,7 +24,7 @@ Often we need to conduct some bug investigation which is reported for the partic
 Imagine we have a table:
 ```sql
 CREATE TABLE Transactions (
-    id NOT NULL BIGINT UNSIGNED PRIMARY KEY
+    id BIGINT UNSIGNED NOT NULL PRIMARY KEY
 )
 ```
 
@@ -83,7 +83,7 @@ Now to easily reproduce the problem we can use this query
 WITH Transactions AS ( -- real data table
     SELECT 1224980829049300745 AS id
 ), IdList AS ( -- search data set
-    SELECT 0 AS id -- just mark the column
+              SELECT 0 AS id -- just mark the column
     UNION ALL SELECT 0x11000192E425A709 -- match
     UNION ALL SELECT 0x11000192E425A70A
     UNION ALL SELECT 0x11000192E425A70B
@@ -103,7 +103,7 @@ If we look closer at the log, we'll see:
 
 ## What's going on?
 
-As a Java developer, I was naive to think that `0xABC` is just an alternative syntax to defining a number. I was almost right, but it's slightly trickier than that. It appears, the treatment of `0x` literals depends on if it appears in numeric context, in which case it's treated as `BIGINT UNSIGNED`, otherwise it represents a binary string ([link](https://dev.mysql.com/doc/refman/8.4/en/hexadecimal-literals.html)). 
+As a Java developer, I was naive to think that `0xABC` is just an alternative syntax to defining a number. I was almost right, but it's slightly trickier than that. It appears, the treatment of `0x` literal depends on if it appears in numeric context, in which case it's treated as `BIGINT UNSIGNED`, otherwise it represents a binary string `VARBINARY(N)` ([link](https://dev.mysql.com/doc/refman/8.4/en/hexadecimal-literals.html)). 
 
 So apparently, for my "clever" CTE-based query the `IdList.id` produces binary string and `Transactions.id` produces numeric, however for the `JOIN` condition, although in numeric context, the string gets cast (in fact, truncated) to numeric `0`.
 
@@ -147,3 +147,5 @@ WITH Transactions AS ( -- real data table
 )
 SELECT * FROM Transactions t JOIN IdList i ON t.id = i.id;
 ```
+
+## Bonus
