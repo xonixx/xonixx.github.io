@@ -44,8 +44,8 @@ SELECT * FROM Transactions WHERE id IN (0x11000192E425A709, ...)
 It's worth noting that MySQL has an easy way to come from one form to the other:
 
 ```sql
-SELECT HEX(1224980829049300745); -- 11000192E425A709
-SELECT 0+0x11000192E425A709;     -- 1224980829049300745
+SELECT HEX(1224980829049300745); -- → 11000192E425A709
+SELECT 0+0x11000192E425A709;     -- → 1224980829049300745
 ```
 
 ## The problem
@@ -109,7 +109,7 @@ So apparently, for my "clever" CTE-based query the `IdList.id` produces binary s
 
 Thus, you can easily reproduce the problem by a simple query:
 ```sql
-SELECT 'a' = 7; -- 0
+SELECT 'a' = 7; -- → 0
 ```
 this query generates the same warning
 ```
@@ -118,7 +118,7 @@ this query generates the same warning
 
 Note, how it changes to 1 for comparing with `0`:
 ```sql
-SELECT 'a' = 0; -- 1
+SELECT 'a' = 0; -- → 1
 ```
 
 This means for my "clever" query all `id` values coming from `IdList` were treated as `0`!
@@ -156,7 +156,7 @@ In the first case the the `IdList.id` will be inferred as `BIGINT UNSIGNED` (pre
 
 More cases for comparison:
 
-| SQL | type |
+| SQL | Type |
 |-----|------|
 |`SELECT 0`|`BIGINT:19`|
 |`SELECT 0x0`|`VARBINARY:1`|
@@ -174,7 +174,7 @@ import java.sql.*;
 
 public class ShowType {
   public static void main(String[] args) throws Exception {
-    System.out.println("| SQL | type |");
+    System.out.println("| SQL | Type |");
     System.out.println("|-----|------|");
     for (String sql :
         new String[] {
