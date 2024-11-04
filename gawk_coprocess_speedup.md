@@ -8,7 +8,7 @@ description: 'I describe a small but efficient optimization in my script'
 
 _February 2024_
 
-In a need to parse some logs, extract values from it, and convert a value from hex to decimal, I came up with this GAWK script:
+In a need to parse some logs, extract values from them, and convert a value from hex to decimal, I came up with this GAWK script:
 
 ```awk
 match($0, /larger than 15 chars: (.+) actual size is: 19 .+ GUID: (.+),/, arr) {
