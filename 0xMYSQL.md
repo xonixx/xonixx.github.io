@@ -152,7 +152,7 @@ SELECT * FROM Transactions t JOIN IdList i ON t.id = i.id;
 
 You may ask why `SELECT 0+0x0` not just `SELECT 0`. The reason is subtle.
 
-In the first case the the `IdList.id` will be inferred as `BIGINT UNSIGNED` (preferable), while in the second case `DECIMAL(21)`. You may wonder, why is so? Well, the type of `0` is `BIGINT` (signed). The type of `0+0x` is `BIGINT UNSIGNED`. The smallest type that fills both without loss is `DECIMAL(21)`.
+In the first case the the `IdList.id` will be inferred as `BIGINT UNSIGNED` (preferable), while in the second case `DECIMAL(21)`. You may wonder, why is so? Well, the type of `0` is `BIGINT` (signed). The type of `0+0x` is `BIGINT UNSIGNED`. The smallest type that fits both without loss is `DECIMAL(21)`.
 
 More cases for comparison:
 
