@@ -198,8 +198,7 @@ public class ShowType {
   }
 
   private static Connection getConnection() throws SQLException {
-    return DriverManager.getConnection(
-        "jdbc:mysql://127.0.0.1/mysql?autoReconnect=true", "root", "root");
+    return DriverManager.getConnection("jdbc:mysql://127.0.0.1/mysql", "root", "root");
   }
 }
 ```
