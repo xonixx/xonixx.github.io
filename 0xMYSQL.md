@@ -1,13 +1,12 @@
 ---
 layout: post
-title: 'TODO'
-description: 'TODO'
-image: TODO
+title: 'Notes on 0x MySQL literals'
+description: 'I describe some nuances of using 0x literals in MySQL'
 ---
 
 # Notes on 0x MySQL literals
 
-_TODO 2024_
+_November 2024_
 
 I write this article as a reminder to myself since I found that I'm making the same mistake second time.
 
