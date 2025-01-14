@@ -9,7 +9,7 @@ image: saner_jdbc.png
 
 _January 2025_
   
-When you work with database in Java using [JDBC](https://en.wikipedia.org/wiki/Java_Database_Connectivity) you often encounter the code like this:
+When you work with database in Java using [JDBC](https://en.wikipedia.org/wiki/Java_Database_Connectivity) you often see the code like this:
 
 ```java
     try (PreparedStatement statement =
@@ -71,9 +71,9 @@ This is a good example. Often it's just:
     }
 ```
 
-☝ Happy matching numbers with parameter placeholders!
+☝ Good luck matching numbers to parameter placeholders!
 
-Wouldn't it be great if there was a method to use the SQL arguments inline in the SQL query still avoiding SQL injections?
+Wouldn't it be great if there was a method to use the SQL arguments inline in the SQL query while still avoiding SQL injections?
                                                                                                                    
 Well, there is such method!
 
@@ -153,7 +153,7 @@ But you have more! It's as easy with this approach to construct dynamic SQL:
     )
 ```
 
-You can also find the code and tests of the approach in [this GitHub repo](https://github.com/xonixx/saner-jdbc).
+You can find the code and tests of the approach in [this GitHub repo](https://github.com/xonixx/saner-jdbc).
 
 ## But you can use ORM instead!
 
