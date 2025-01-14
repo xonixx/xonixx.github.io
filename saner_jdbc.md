@@ -51,7 +51,7 @@ This is a good example. Often it's just:
 
 ```java
     try (PreparedStatement statement =
-    connection.prepareStatement(
+      connection.prepareStatement(
         "SELECT * FROM employee WHERE (first_name LIKE ? OR last_name LIKE ?) AND department = ? AND position = ? AND seniority IN (?, ?) AND speciality = ? AND salary BETWEEN ? AND ? AND hire_date >= DATE_SUB(NOW(), INTERVAL ? YEAR) LIMIT ? OFFSET ?")) {
 
       statement.setString(1, name);
