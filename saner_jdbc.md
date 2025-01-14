@@ -71,9 +71,9 @@ This is a good example. Often it's just:
     }
 ```
 
-☝ Happy matching numbers with parameter placeholders (`?`).
+☝ Happy matching numbers with parameter placeholders!
 
-Wouldn't it be nice if there were a method to use the SQL arguments inline in the SQL query still avoiding SQL injections?
+Wouldn't it be great if there was a method to use the SQL arguments inline in the SQL query still avoiding SQL injections?
                                                                                                                    
 Well, there is such method!
 
@@ -123,7 +123,7 @@ And now voilà:
                 + "  AND speciality = " + $.arg(speciality)
                 + "  AND salary BETWEEN " + $.arg(salaryFrom) + " AND " + $.arg(salaryTo)
                 + "  AND hire_date >= DATE_SUB(NOW(), INTERVAL " + $.arg(yearsInCompany) + " YEAR) "
-                + "LIMIT " + $.arg(pageSize) + " OFFSET " + $.arg(pageSize * (pageNo-1))
+                + "  LIMIT " + $.arg(pageSize) + " OFFSET " + $.arg(pageSize * (pageNo-1))
         )) {
 
       $.setArgs(statement); // just one line instead of tedious statement.set*() calls!
@@ -132,23 +132,36 @@ And now voilà:
     }
 ```
 
-How cool is that? 😀
+How cool is that? 😃
 
 But you have more! It's as easy with this approach to construct dynamic SQL:
 
 ```java
-    connection.prepareStatement(
-        "SELECT * "
-            + "FROM employee "
-            + "WHERE 1=1 "
-            + (name       != null ? " AND (first_name LIKE " + $.arg(name) + " OR last_name LIKE " + $.arg(name) + ") " : "")
-            + (department != null ? " AND department = " + $.arg(department) : "")
-            + (title      != null ? " AND position = " + $.arg(title) : "")
-            + (seniority  != null ? " AND seniority IN " + $.list(seniority) : "")
-            + (speciality != null ? " AND speciality = " + $.arg(speciality) : "")
-            + (salaryFrom > 0     ? " AND salary >= " + $.arg(salaryFrom) : "")
-            + (salaryTo   > 0     ? " AND salary <= " + $.arg(salaryTo) : "")
-            + (yearsInCompany > 0 ? " AND hire_date >= DATE_SUB(NOW(), INTERVAL " + $.arg(yearsInCompany) + " YEAR) " : "")
-            + "LIMIT " + $.arg(pageSize) + " OFFSET " + $.arg(pageSize * (pageNo-1))
-      )
+  connection.prepareStatement(
+    "SELECT * "
+      + "FROM employee "
+      + "WHERE 1=1 "
+      + (name       != null ? " AND (first_name LIKE " + $.arg(name) + " OR last_name LIKE " + $.arg(name) + ") " : "")
+      + (department != null ? " AND department = " + $.arg(department) : "")
+      + (title      != null ? " AND position = " + $.arg(title) : "")
+      + (seniority  != null ? " AND seniority IN " + $.list(seniority) : "")
+      + (speciality != null ? " AND speciality = " + $.arg(speciality) : "")
+      + (salaryFrom > 0     ? " AND salary >= " + $.arg(salaryFrom) : "")
+      + (salaryTo   > 0     ? " AND salary <= " + $.arg(salaryTo) : "")
+      + (yearsInCompany > 0 ? " AND hire_date >= DATE_SUB(NOW(), INTERVAL " + $.arg(yearsInCompany) + " YEAR) " : "")
+      + " LIMIT " + $.arg(pageSize) + " OFFSET " + $.arg(pageSize * (pageNo-1))
+    )
 ```
+
+## But you can use ORM instead!
+
+Please let me quote my [comment](https://news.ycombinator.com/item?id=41455719) on the orange website:
+
+> My take on this is that it's not always the best idea to abstract-out SQL. You see, the SQL itself is too valuable abstraction, and also a very "wide" one. Any attempt to hide it behind another abstraction layer will face these problems:
+> 
+> - need to learn secondary API which still doesn't cover the whole scope of SQL
+> - abstraction which is guaranteed to leak, because any time you'll need to optimize - you'll need to start reason in terms of SQL and try to force the ORM produce SQL you need.
+> - performance
+> - deceptive simplicity, when it's super-easy to start on simple examples, but it's getting increasingly hard as you go. But at the point you realize it doesn't work (well) - you already produced tons of code which business will disallow you to simply rewrite
+>
+>(knowledge based on my own hard experiences)
