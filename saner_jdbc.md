@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 'TODO'
-description: 'TODO'
-image: TODO
+title: 'One method for easier JDBC'
+description: 'I describe a trick to make your JDBC programming easier'
+image: saner_jdbc.png
 ---
 
 # One method for easier JDBC
@@ -116,13 +116,13 @@ And now voilà:
             "SELECT * "
                 + "FROM employee "
                 + "WHERE (first_name LIKE " + $.arg(name)
-                + "    OR last_name LIKE " + $.arg(name) + ") "
+                + "    OR last_name LIKE " + $.arg(name) + ")"
                 + "  AND department = " + $.arg(department)
                 + "  AND position = " + $.arg(title)
                 + "  AND seniority IN " + $.list(Seniority.MIDDLE, Seniority.SENIOR)
                 + "  AND speciality = " + $.arg(speciality)
                 + "  AND salary BETWEEN " + $.arg(salaryFrom) + " AND " + $.arg(salaryTo)
-                + "  AND hire_date >= DATE_SUB(NOW(), INTERVAL " + $.arg(yearsInCompany) + " YEAR) "
+                + "  AND hire_date >= DATE_SUB(NOW(), INTERVAL " + $.arg(yearsInCompany) + " YEAR)"
                 + "  LIMIT " + $.arg(pageSize) + " OFFSET " + $.arg(pageSize * (pageNo-1))
         )) {
 
@@ -141,17 +141,19 @@ But you have more! It's as easy with this approach to construct dynamic SQL:
     "SELECT * "
       + "FROM employee "
       + "WHERE 1=1 "
-      + (name       != null ? " AND (first_name LIKE " + $.arg(name) + " OR last_name LIKE " + $.arg(name) + ") " : "")
+      + (name       != null ? " AND (first_name LIKE " + $.arg(name) + " OR last_name LIKE " + $.arg(name) + ")" : "")
       + (department != null ? " AND department = " + $.arg(department) : "")
       + (title      != null ? " AND position = " + $.arg(title) : "")
       + (seniority  != null ? " AND seniority IN " + $.list(seniority) : "")
       + (speciality != null ? " AND speciality = " + $.arg(speciality) : "")
       + (salaryFrom > 0     ? " AND salary >= " + $.arg(salaryFrom) : "")
       + (salaryTo   > 0     ? " AND salary <= " + $.arg(salaryTo) : "")
-      + (yearsInCompany > 0 ? " AND hire_date >= DATE_SUB(NOW(), INTERVAL " + $.arg(yearsInCompany) + " YEAR) " : "")
+      + (yearsInCompany > 0 ? " AND hire_date >= DATE_SUB(NOW(), INTERVAL " + $.arg(yearsInCompany) + " YEAR)" : "")
       + " LIMIT " + $.arg(pageSize) + " OFFSET " + $.arg(pageSize * (pageNo-1))
     )
 ```
+
+You can also find the code and tests of the approach in [this GitHub repo](https://github.com/xonixx/saner-jdbc).
 
 ## But you can use ORM instead!
 
