@@ -8,6 +8,7 @@
 
 ## Blog
 
+- [One method for easier JDBC](saner_jdbc.md) (January 2025)
 - [Notes on 0x MySQL literals](0xMYSQL.md) (November 2024)
 - [Don't use complex expressions in if conditions](if_condition.md) (August 2024)
 - [mdbooker -- turn your README.md into a documentation site](mdbooker.md) (March 2024)
