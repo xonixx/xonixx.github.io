@@ -65,9 +65,9 @@ Surprisingly, the less-clever second variant also has some advantages:
 
 - It's conceptually simpler, less framework magic involved (of JUnit test engine).
 
-- It's less straightforward (although, of course, possible) to run a single test case with parameterized test.
+- With parameterized testing, running a specific test case becomes somewhat cumbersome.
              
-- Since you have separate tests you are able to apply meaningful names to each of them. If you go further, you could say of adding javadocs to some/all of them to clarify each test scenario (example: reference to a business requirement, etc.).
+- You are able to apply meaningful names to each of separate `@Test`s. If needed, you are able to also add javadocs to some/all of them to clarify each test scenario (example: reference to a business requirement, etc.).
 
 - It's more IDE-friendly (therefore, maintainable, comprehensible).
 
