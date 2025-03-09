@@ -23,10 +23,10 @@ public class CalculatorTests {
 
   static Stream<Arguments> calculatorTestScenarios() {
     return Stream.of(
-        Arguments.of("1 + 3", 4), // tests addition
-        Arguments.of("10 - 6", 4),// tests subtraction 
-        Arguments.of("12 / 3", 4),// tests division
-        Arguments.of("2 * 2", 4)  // tests multiplication
+        Arguments.of("1 + 3",  4), // tests addition
+        Arguments.of("10 - 6", 4), // tests subtraction 
+        Arguments.of("12 / 3", 4), // tests division
+        Arguments.of("2 * 2",  4)  // tests multiplication
     );
   }
 }
@@ -49,13 +49,13 @@ public class CalculatorTests {
     assertEquals(expectedResult, Calculator.calculate(expression));
   }
   @Test
-  void testAddition()       { testCalculation("1 + 3", 4); }
+  void testAddition()       { testCalculation("1 + 3",  4); }
   @Test
   void testSubtraction()    { testCalculation("10 - 6", 4); }
   @Test
   void testDivision()       { testCalculation("12 / 3", 4); }
   @Test
-  void testMultiplication() { testCalculation("2 * 2", 4); }
+  void testMultiplication() { testCalculation("2 * 2",  4); }
 }
 ```
 
@@ -65,7 +65,7 @@ Surprisingly, the less-clever second variant also has some advantages:
 
 - It's less straightforward (although, of course, possible) to run a single test case with parameterized test.
              
-- Since you have separate tests you are able to apply meaningful names to each of them. If you go further, you could say of adding a java-doc to some/all of them to clarify each test scenario (example: reference to a business requirement, etc.).
+- Since you have separate tests you are able to apply meaningful names to each of them. If you go further, you could say of adding javadocs to some/all of them to clarify each test scenario (example: reference to a business requirement, etc.).
 
 - It's more IDE-friendly (therefore, maintainable, comprehensible).
 
