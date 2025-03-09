@@ -81,6 +81,11 @@ If this is not convincing enough, here is an example from a real project:
 
 ☝ Good luck matching to test parameters!
 
+To be fair, there is at least one argument in favor of parameterized tests: you can use test names parameterization to get human-readable names:
+
+![](param_tests4.png)
+
+However, I think this is only usable when test has up to a few parameters.
 
 
 
