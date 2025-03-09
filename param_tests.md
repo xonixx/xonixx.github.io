@@ -64,7 +64,9 @@ Surprisingly, the less-clever second variant also has some advantages:
 - It's conceptually simpler, less framework magic involved (JUnit engine).
 
 - It's less straightforward (although, of course, possible) to run a single test case with parameterized test.
-  
+             
+- Since you have separate tests you are able to apply meaningful names to each of them. If you go further, you could say of adding a java-doc to them that clarify each tests scenario (example: reference to a business requirement, etc.).
+
 - It's more IDE-friendly (therefore, maintainable, comprehensible).
 
 Compare this (notice, how IDE helps with the meaning of arguments):
@@ -87,6 +89,10 @@ To be fair, there is at least one argument in favor of parameterized tests: you 
 
 However, I think this is only usable when test has up to a few parameters.
 
+## Conclusion
 
+There is nothing wrong in not using parameterizing tests and preferring less-clever ordinary tests approach.
+
+It's also worth mentioning how using the same strategy of preferring "ordinary" tests over "clever" tests in other case [helped to speed up the test suit](optimize_tests.md). 
 
 
