@@ -1,8 +1,7 @@
 ---
 layout: post
-title: 'TODO'
-description: 'TODO'
-image: TODO
+title: 'You might not need parameterized tests'
+description: 'Just because you can use parameterized tests doesn''t mean you should. I explain why and propose an alternative'
 ---
 
 # You might not need parameterized tests
