@@ -30,16 +30,19 @@ public class CalculatorTests {
     );
   }
 }
-
-// Application under test
+```
+    
+for a hypothetical application:
+```java
 class Calculator {
   public static int calculate(String expression) {
-    return 4; // TODO implement
+    // actual implementation goes here
+    return 4;
   }
 }
 ```
 
-Conceptually this is almost identical to writing the tests without parameterization:
+Conceptually the test above is almost identical to writing the tests without parameterization:
 
 ```java
 public class CalculatorTests {
@@ -87,7 +90,7 @@ To be fair, there is at least one argument in favor of parameterized tests: you 
 
 ![](param_tests4.png)
 
-However, I think this is only usable when test has up to a few parameters.
+However, I think this is only usable if the test has up to a few parameters.
 
 ## Conclusion
 
