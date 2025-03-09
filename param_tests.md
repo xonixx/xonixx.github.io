@@ -23,10 +23,10 @@ public class CalculatorTests {
 
   static Stream<Arguments> calculatorTestScenarios() {
     return Stream.of(
-        Arguments.of("1 + 3", 4), // test addition
-        Arguments.of("10 - 6", 4),// test subtraction 
-        Arguments.of("12 / 3", 4),// test division
-        Arguments.of("2 * 2", 4)  // test multiplication
+        Arguments.of("1 + 3", 4), // tests addition
+        Arguments.of("10 - 6", 4),// tests subtraction 
+        Arguments.of("12 / 3", 4),// tests division
+        Arguments.of("2 * 2", 4)  // tests multiplication
     );
   }
 }
@@ -58,6 +58,29 @@ public class CalculatorTests {
   void testMultiplication() { testCalculation("2 * 2", 4); }
 }
 ```
+
+Surprisingly, the less-clever second variant also has some advantages:
+
+- It's conceptually simpler, less framework magic involved (JUnit engine).
+
+- It's less straightforward (although, of course, possible) to run a single test case with parameterized test.
+  
+- It's more IDE-friendly (therefore, maintainable, comprehensible).
+
+Compare this (notice, how IDE helps with the meaning of arguments):
+
+![](param_tests1.png)
+
+to this (not much help):
+
+![](param_tests2.png)
+
+If this is not convincing enough, here is an example from a real project:
+
+![](param_tests3.png)
+
+☝ Good luck matching to test parameters!
+
 
 
 
