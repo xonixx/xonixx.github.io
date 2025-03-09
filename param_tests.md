@@ -95,6 +95,6 @@ However, I think this is only usable if the test has up to a few parameters.
 
 There is nothing wrong in not using parameterized tests and preferring less-clever ordinary tests approach.
 
-It's also worth mentioning how in other case using the same strategy of preferring "ordinary" tests over "clever" tests [helped to speed up the test suit](optimize_tests.md). 
+It's also worth mentioning how in other case using the same strategy of preferring "ordinary" tests over "clever" tests [helped speed up the test suit](optimize_tests.md). 
 
 
