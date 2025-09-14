@@ -26,9 +26,9 @@ The most important thing here is how to determine the latest version.
 For a long time it was implemented by simply checking the version in the most recent utility source file stored in the GitHub repo:
 `https://raw.githubusercontent.com/xonixx/makesure/main/makesure?token=$RANDOM`. 
 
-The trick with `?token=$RANDOM` [was needed](https://stackoverflow.com/a/79080107/104522) to overcome caching. By default, GitHub caches the raw links for an unpredictable amount of time (from minutes to, sometimes, days).
+The trick with `?token=$RANDOM` [was needed](https://stackoverflow.com/a/79080107/104522) to overcome caching. By default, GitHub caches raw links [for an unpredictable amount of time](https://news.ycombinator.com/item?id=34761284) (from minutes to, sometimes, days).
 
-This trick was "patched" by GitHub, effectively breaking it. Now adding the parameter produces a 404 error.
+This trick was "patched" by GitHub, effectively breaking it. Now adding the parameter results in a 404 error.
 
 Now, what options do we have?
 
