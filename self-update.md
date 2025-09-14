@@ -34,17 +34,17 @@ Now, what options do we have?
 
 Probably, the most correct one is to maintain a separate file (like a text file or JSON) on our own server with a list of all releases and their versions.
                                              
-I didn't want to put this in place right now because the (maintenance) complexity of this solution would be much higher than the current scale of the project.
+I didn't want to go this route right now because the maintenance complexity of this solution would be much higher than the current scale of the project.
 
 Another option would be to use the GitHub API to get the latest release version.
 
-I did try this approach, but the main obstacle here appeared to be the aggressive rate limiting applied by GitHub.
+I did try this approach, but the main obstacle here appeared to be the aggressive [rate limiting applied by GitHub](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28).
 
 Let me demonstrate. 
 
 At first, [I tried](https://github.com/xonixx/makesure/commit/8c645e3a67f76e369117702211fee607f95be327) to get the latest commit hash and use it to reliably fetch the most recent (not stale) version of the file.
 
-Quickly I realized my [self-update integration test](https://github.com/xonixx/makesure/blob/main/tests/200_update.tush) breaks in GitHub Actions (unfortunately, logs are expired, so cannot show). In my pipeline I run this test multiple times to cover different OSes and different AWK versions.
+Quickly I realized my [self-update integration test](https://github.com/xonixx/makesure/blob/main/tests/200_update.tush) breaks in GitHub Actions (unfortunately, logs are expired, so cannot show). In my pipeline I run the test suit over multiple OSes in parallel.
 
 It's important to note that I could do a compromise and exclude the test from the CI pipeline. It's unlikely that rate limiting will be triggered for final users. Unlikely, but not impossible. What if users sit inside a corporate network (i.e. behind a single IP) and decide to update the utility simultaneously?  
 
@@ -56,10 +56,25 @@ For some reason I kept persisting. I [attempted](https://github.com/xonixx/makes
 
 All in all, it appeared that GitHub represented an inscrutable wall here. 
 
-Basically, if you want to implement the mechanism while relying solely on GitHub you have to choose between:
+Basically, if you want to implement the mechanism staying solely in the realm of GitHub, you have to choose between:
 
 1. Aggressive caching of raw links (`raw.githubusercontent.com`) (but no rate limiting!)
 2. Aggressive rate limiting of the GitHub API (`api.github.com`) and GitHub UI (`github.com`) (but no caching!)
+
+---
+ 
+Is there a way out? I found one, I called it "incremental strategy".
+
+The idea is simple. Can we predict the next release version? Well, if the current version of the utility is [0.9.24](https://github.com/xonixx/makesure/releases/tag/v0.9.24) it seems reasonable to expect the next one to be [0.9.25](https://github.com/xonixx/makesure/releases/tag/v0.9.25).
+
+If we know the next version beforehand, we can download the file from a (now known) raw link (in this case `https://raw.githubusercontent.com/xonixx/makesure/v0.9.25/makesure`), and there won't be any caching-related problem!
+
+How cool is that?
+
+And that's exactly [what I've implemented](https://github.com/xonixx/makesure/compare/9e879557d95c501584f783bbb05db3f43e79920d...d3d1c8d1e5631be066a8925b9742b4278cef492e).
+
+---
+
 
 
 
