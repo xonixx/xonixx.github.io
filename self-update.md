@@ -75,6 +75,19 @@ And that's exactly [what I've implemented](https://github.com/xonixx/makesure/co
 
 ---
 
+Does this solution have drawbacks? Lots of!
+
+- No easy way to implement a major version update (e.g. from 0.9.24 to 1.0.0) or any other versioning scheme change.
+- No easy way to retract a broken/vulnerable release.
+- Complexity in handling the update over multiple versions. From 0.9.24 we need to attempt 0.9.25, 0.9.26, 0.9.27, etc., till we find there is no more.
+- I'm sure there are more.
+
+The implemented approach is not ideal for sure. For a more robust self-update implementation, it needs to support our own server with a release versions file.
+
+Even better - distribute the utility via the default package managers on every OS, but the implementation efforts are monumental 🤯.
+
+I decided not to do any of this to keep it manageable for me.
+
 
 
 
