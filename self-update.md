@@ -61,6 +61,8 @@ Basically, if you want to implement the mechanism staying solely in the realm of
 1. Aggressive caching of raw links (`raw.githubusercontent.com`) (but no rate limiting!)
 2. Aggressive rate limiting of the GitHub API (`api.github.com`) and GitHub UI (`github.com`) (but no caching!)
 
+And if you think about it, these constraints make a lot of sense for the resilience of such a big service as GitHub.
+
 ---
  
 Is there a way out? I found one, I called it "incremental strategy".
@@ -80,6 +82,7 @@ Does this solution have drawbacks? Lots of!
 - No easy way to implement a major version update (e.g. from 0.9.24 to 1.0.0) or any other versioning scheme change.
 - No easy way to retract a broken/vulnerable release.
 - Complexity in handling the update over multiple versions. From 0.9.24 we need to attempt 0.9.25, 0.9.26, 0.9.27, etc., till we find there is no more.
+- Relying on a third-party service and its mechanisms always brings additional stability risks.
 - I'm sure there are more.
 
 The implemented approach is not ideal for sure. For a more robust self-update implementation, it needs to support our own server with a release versions file.
