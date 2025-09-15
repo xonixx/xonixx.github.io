@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 'TODO'
-description: 'TODO'
-image: TODO
+title: 'On one approach to implementing self-update'
+description: 'I describe how I implemented self-updating for my CLI utility'
+image: self-update.png
 ---
 
 # On one approach to implementing self-update
