@@ -23,10 +23,8 @@ Under the hood it is implemented by downloading the latest version of the utilit
                                                                                             
 The most important thing here is how to determine the latest version.
 
-For a long time it was implemented by simply checking the version in the most recent utility source file stored in the GitHub repo:
-`https://raw.githubusercontent.com/xonixx/makesure/main/makesure?token=$RANDOM`. 
-
-The trick with `?token=$RANDOM` [was needed](https://stackoverflow.com/a/79080107/104522) to overcome caching. By default, GitHub caches raw links [for an unpredictable amount of time](https://news.ycombinator.com/item?id=34761284) (from minutes to, sometimes, days).
+For a long time it was implemented by simply checking the version inside the most recent utility source file stored in the GitHub repo:
+`https://raw.githubusercontent.com/xonixx/makesure/main/makesure?token=$RANDOM`. The trick with `?token=$RANDOM` [was needed](https://stackoverflow.com/a/79080107/104522) to overcome caching. By default, GitHub caches raw links [for an unpredictable amount of time](https://news.ycombinator.com/item?id=34761284) (from minutes to, sometimes, days).
 
 This trick was "patched" by GitHub, effectively breaking it. Now adding the parameter results in a 404 error.
 
@@ -34,7 +32,7 @@ Now, what options do we have?
 
 Probably, the most correct one is to maintain a separate file (like a text file or JSON) on our own server with a list of all releases and their versions.
                                              
-I didn't want to go this route right now because the maintenance complexity of this solution would be much higher than the current scale of the project.
+I didn't want to go this route because the maintenance complexity of this solution would be much higher than the current scale of the project.
 
 Another option would be to use the GitHub API to get the latest release version.
 
@@ -42,11 +40,11 @@ I did try this approach, but the main obstacle here appeared to be the aggressiv
 
 Let me demonstrate. 
 
-At first, [I tried](https://github.com/xonixx/makesure/commit/8c645e3a67f76e369117702211fee607f95be327) to get the latest commit hash and use it to reliably fetch the most recent (not stale) version of the file.
+At first, [I tried](https://github.com/xonixx/makesure/commit/8c645e3a67f76e369117702211fee607f95be327) to get the latest commit hash and use it to reliably fetch the most recent (= not stale) version of the file.
 
-Quickly I realized my [self-update integration test](https://github.com/xonixx/makesure/blob/main/tests/200_update.tush) breaks in GitHub Actions (unfortunately, logs are expired, so cannot show). In my pipeline I run the test suit over multiple OSes in parallel.
+Quickly I realized my [self-update integration test](https://github.com/xonixx/makesure/blob/main/tests/200_update.tush) breaks in GitHub Actions. In my pipeline I run the test suit over multiple OSes in parallel, and this hits the rate limit.
 
-It's important to note that I could do a compromise and exclude the test from the CI pipeline. It's unlikely that rate limiting will be triggered for final users. Unlikely, but not impossible. What if users sit inside a corporate network (i.e. behind a single IP) and decide to update the utility simultaneously?  
+It's important to note that I could do a compromise and exclude the test from the CI pipeline. It's unlikely that rate limiting will affect final users. Unlikely, but not impossible. What if users sit inside a corporate network (i.e. behind a single IP) and decide to update the utility simultaneously?  
 
 My [next attempt](https://github.com/xonixx/makesure/commit/ab176c696b5177f1912095e75d025c057ded3f89) to outsmart GitHub (haha, how naive I was) was to download and parse the HTML page instead of the API/JSON one.
 
@@ -87,7 +85,7 @@ Does this solution have drawbacks? Lots of!
 
 The implemented approach is not ideal for sure. For a more robust self-update implementation, it needs to support our own server with a release versions file.
 
-Even better - distribute the utility via the default package managers on every OS, but the implementation efforts are monumental 🤯.
+Even better — distribute the utility via the default package managers on every OS, but the implementation efforts are monumental 🤯.
 
 I decided not to do any of this to keep it manageable for me.
 
