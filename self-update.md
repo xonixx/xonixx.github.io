@@ -56,8 +56,8 @@ All in all, it appeared that GitHub represented an inscrutable wall here.
 
 Basically, if you want to implement the mechanism staying solely in the realm of GitHub, you have to choose between:
 
-1. Aggressive caching of raw links (`raw.githubusercontent.com`) (but no rate limiting!)
-2. Aggressive rate limiting of the GitHub API (`api.github.com`) and GitHub UI (`github.com`) (but no caching!)
+- Aggressive caching of raw links (`raw.githubusercontent.com`) (but no rate limiting!)
+- Aggressive rate limiting of the GitHub API (`api.github.com`) and GitHub UI (`github.com`) (but no caching!)
 
 And if you think about it, these constraints make a lot of sense for the resilience of such a big service as GitHub.
 
