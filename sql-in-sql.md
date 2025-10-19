@@ -51,11 +51,3 @@ Couple things to note regarding the query above:
 7. `read_csv()` - the function you use to query CSV files ([link](https://duckdb.org/docs/stable/data/csv/overview)). Automatic CSV parsing is applied, which seems to work in most cases. If it doesn't, you can supply many available options to the function.
 
 I think DuckDB is becoming an inevitable addition to my development toolbox.
-
-
-
-
- 
-                                   
-
-
