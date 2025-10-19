@@ -37,7 +37,7 @@ select hex(tr_id), tr_scheme_transaction_id, tr_scheme_settlement_date from tran
 ```
 (all potentially sensitive data is obfuscated with `X`)
 
-Why may this be even needed? In this case I needed to confirm the chargebacks matching logic against real data before committing to actual implementation. Simply speaking, I wanted to confirm the data coming via the `chargebacks.csv` file can correctly match to the transaction records in the database.
+Why may this be even needed? In this case I needed to confirm the chargebacks matching logic against real data before committing to actual implementation. Simply speaking, I wanted to make sure the data coming via the `chargebacks.csv` file can correctly match to the transaction records in the database.
 
 I used to use a scripting language like Python to do this before I discovered DuckDB. I found this SQL-in-SQL approach much more elegant and straightforward. DuckDB allows directly querying CSV files. With a script it needed a separate CSV parsing step which added friction. 
 
@@ -47,7 +47,7 @@ Couple things to note regarding the query above:
 2. `.headers off` - we want to get the clean SQL, we don't want DuckDB to add default headers.
 3. The trick using `IF` and `ROW_NUMBER() OVER ()` ([link](https://duckdb.org/docs/stable/sql/functions/window_functions)) is needed to only insert `union all` after the first `select`.
 4. The `e` modifier in `e'union all\n'` is needed to output the actual newline instead of `\n`. 
-5. You can reference columns in the CSV file by their actual names (like `"Banknet Reference Number"`), not their position.
+5. You can reference columns in the CSV file by their actual names (like `"Banknet Reference Number"`), not necessarily their position.
 6. `read_csv()` - the function you use to query CSV files ([link](https://duckdb.org/docs/stable/data/csv/overview)). Automatic CSV parsing is applied, which seems to work in most cases. If it doesn't, you can supply many available options to the function.
 
 I think DuckDB is becoming an inevitable addition to my development toolbox.
