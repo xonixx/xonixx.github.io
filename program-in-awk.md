@@ -15,7 +15,7 @@ AWK is a CLI utility (and a programming language), present in every Unix-like OS
 
 **What do I program in AWK?** 
 
-[Makesure](https://github.com/xonixx/makesure) – a task/command runner that is somewhat similar to the well-known `make` tool, but
+[Makesure](https://github.com/xonixx/makesure) – a task runner that is somewhat similar to `make`, but
 [without most of its idiosyncrasies](makesure-vs-make.md) (and with a couple of unique features!).
     
 **Wait, but AWK is intended only for one-liners... How come do I program a whole project in it?**
