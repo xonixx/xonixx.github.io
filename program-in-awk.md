@@ -53,7 +53,7 @@ Absolutely, see the tools above.
 
 In addition, I [use](https://github.com/xonixx/makesure/blob/main/Makesurefile) Makesure to develop Makesure.
 
-I also [use](https://github.com/xonixx/intellij-awk/blob/main/Makesurefile) Makesure to develop intellij-awk.
+Clearly, I develop Makesure in intellij-awk. I also [use](https://github.com/xonixx/intellij-awk/blob/main/Makesurefile) Makesure to develop intellij-awk itself.
 
 I [use](https://github.com/xonixx/fhtagn/blob/main/Makesurefile) Makesure to develop fhtagn.
 
