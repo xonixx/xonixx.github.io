@@ -42,3 +42,16 @@ Sure:
 - [fhtagn](fhtagn.md) – a tiny CLI tool for literate testing for command-line programs. I test Makesure with it.
 - [AWK code coverage support in GoAWK](goawk_cover.md) – I calculate test coverage for Makesure with it.
 - [mdBooker](mdbooker.md) – it helps me to generate a Makesure documentation site [makesure.dev](https://makesure.dev).
+
+**Do I eat my own dog food?**
+
+Absolutely, see the tools above.
+
+In addition, I [use](https://github.com/xonixx/makesure/blob/main/Makesurefile) Makesure to develop Makesure.
+
+I also [use](https://github.com/xonixx/intellij-awk/blob/main/Makesurefile) Makesure to develop intellij-awk.
+
+I [use](https://github.com/xonixx/fhtagn/blob/main/Makesurefile) Makesure to develop fhtagn.
+
+And so on.
+
