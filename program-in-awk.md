@@ -39,6 +39,6 @@ Btw, you can read about [one of my adventures in creating this plugin](intellij-
 
 Sure:
 
-- [fhtagn](fhtagn.md)
-- [AWK code coverage support in GoAWK](goawk_cover.md)
-- [mdBooker](mdbooker.md)
+- [fhtagn](fhtagn.md) – a tiny CLI tool for literate testing for command-line programs. I test Makesure with it.
+- [AWK code coverage support in GoAWK](goawk_cover.md) – I calculate test coverage for Makesure with it.
+- [mdBooker](mdbooker.md) – it helps me to generate a Makesure documentation site [makesure.dev](https://makesure.dev).
