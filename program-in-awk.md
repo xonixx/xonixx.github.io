@@ -9,6 +9,10 @@ image: TODO
 
 _January 2026_
 
+**What is AWK?** 
+
+AWK is a CLI utility (and a programming language), present in every Unix-like OS.
+
 **What do I program in AWK?** 
 
 [Makesure](https://github.com/xonixx/makesure) – a task/command runner that is somewhat similar to the well-known `make` tool, but
@@ -54,4 +58,12 @@ I also [use](https://github.com/xonixx/intellij-awk/blob/main/Makesurefile) Make
 I [use](https://github.com/xonixx/fhtagn/blob/main/Makesurefile) Makesure to develop fhtagn.
 
 And so on.
+
+TODO
+
+- sandbox
+- gron
+- bytebeat
+- technical notes
+- stress test AWK implementations
 
