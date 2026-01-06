@@ -8,6 +8,7 @@
 
 ## Blog
 
+- [How I program in AWK](program-in-awk.md) (January 2026)
 - [Generate SQL in SQL with DuckDB](sql-in-sql.md) (October 2025)
 - [On one approach to implementing self-update](self-update.md) (September 2025)
 - [You might not need parameterized tests](param_tests.md) (March 2025)
