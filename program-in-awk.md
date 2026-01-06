@@ -18,7 +18,7 @@ AWK is a CLI utility (and a programming language), targeted at text processing, 
 [Makesure](https://github.com/xonixx/makesure) – a task runner that is somewhat similar to `make`, but
 [without most of its idiosyncrasies](makesure-vs-make.md) (and with a couple of unique features!).
     
-**Wait, but AWK is intended only for one-liners... How come do you program a whole project in it?**
+**Wait, but AWK is intended only for one-liners... How come you program a whole project in it?**
 
 Indeed, the language is really minimalistic, but it has just enough to fulfill certain kinds of projects.
 
@@ -63,7 +63,7 @@ And so on.
                            
 I use [awk_lab](https://github.com/xonixx/awk_lab) repo as a playground for my AWK experiments. A byproduct of such experiments was [my re-implementation of gron in AWK](https://github.com/xonixx/gron.awk).
 
-**It looks like you are having lots of fun with AWK**
+**It looks like you are having lots of fun with AWK...**
  
 Indeed! Find my [Bytebeating story](bytebeat_gawk.md). Also check my [cellular automata experiment](https://github.com/xonixx/cellulawk).
 
