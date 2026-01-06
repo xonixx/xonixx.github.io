@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 'TODO'
-description: 'TODO'
-image: TODO
+title: 'How I program in AWK'
+description: 'I describe what, how and why I program in AWK'
+image: program-in-awk.png
 ---
 
 # How I program in AWK
@@ -11,7 +11,7 @@ _January 2026_
 
 **What is AWK?** 
 
-AWK is a CLI utility (and a programming language), present in every Unix-like OS, targeted at text processing.
+AWK is a CLI utility (and a programming language), targeted at text processing, present in every Unix-like OS.
 
 **What do you program in AWK?** 
 
@@ -69,4 +69,4 @@ Indeed! Find my [Bytebeating story](bytebeat_gawk.md). Also check my [cellular a
 
 **Can you tell me more interesting facts about AWK?**
 
-You may find entertaining my [AWK technical notes](awk_tech_notes.md).
+You might find entertaining my [AWK technical notes](awk_tech_notes.md).
