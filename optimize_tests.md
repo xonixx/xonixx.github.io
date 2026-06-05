@@ -82,7 +82,7 @@ And if we take some thread dumps during the execution, we can see, that major pa
 
 Here is an excerpt from `init_data.json`:
 
-```json5
+```json
 {
   "person": [
     {
