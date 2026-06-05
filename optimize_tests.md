@@ -9,6 +9,7 @@ image: optimize_tests1.png
 .highlight .err {/* comments in JSON */
     color: #999988;
     font-style: italic;
+    background-color: transparent;
 }
 </style>
 
