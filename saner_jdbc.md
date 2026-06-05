@@ -5,6 +5,14 @@ description: 'I describe a trick to make your JDBC programming easier'
 image: saner_jdbc.png
 ---
 
+<style>
+.highlight .err {/* $ in Java */
+    color: #000000;
+    font-weight: bold;
+    background-color: transparent;
+}
+</style>
+
 # One method for easier JDBC
 
 _January 2025_ <span class="no-llm">No LLM was used to write this article</span>
