@@ -7,7 +7,7 @@ image: program-in-awk.png
 
 # How I program in AWK
 
-_January 2026_
+_January 2026_ <span style="display:inline-block; float:right; background: #f0f0f0; padding: 0 10px;margin-top:-5px">No LLM was used to write this article</span>
 
 **What is AWK?** 
 
