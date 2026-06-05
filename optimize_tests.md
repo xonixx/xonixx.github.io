@@ -4,6 +4,13 @@ title: 'Rewriting Spring Boot integration tests for 10x speedup'
 description: "The re-write of Spring Boot integration tests resulted in 10x execution speedup"
 image: optimize_tests1.png
 ---
+   
+<style>
+.highlight .err {/* comments in JSON */
+    color: #999988;
+    font-style: italic;
+}
+</style>
 
 # Rewriting Spring Boot integration tests for 10x speedup
 
