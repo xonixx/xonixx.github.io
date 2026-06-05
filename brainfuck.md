@@ -7,7 +7,7 @@ image: mercury.png
 
 # Implementing Brainfuck interpreter in Mercury
 
-_February 2011_
+_February 2011_ <span class="no-llm">No LLM was used to write this article</span>
    
 <sup>(This is an ancient article revived from my Blogspot. In those old times I was interested in the [Mercury](https://en.wikipedia.org/wiki/Mercury_(programming_language)) programming language)</sup>
 
