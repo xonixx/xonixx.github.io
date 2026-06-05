@@ -7,7 +7,7 @@ image: optimize_tests1.png
 
 # Rewriting Spring Boot integration tests for 10x speedup
 
-_April 2023_
+_April 2023_ <span class="no-llm">No LLM was used to write this article</span>
 
 ## Problem description
 

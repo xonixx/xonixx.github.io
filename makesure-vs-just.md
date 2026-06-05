@@ -6,7 +6,7 @@ description: 'This article compares the two tools on some particular real-world 
 
 # Makesure vs Just command runners on examples
 
-_December 2023_
+_December 2023_ <span class="no-llm">No LLM was used to write this article</span>
 
 - [Makesure](https://github.com/xonixx/makesure) is a task/command runner that
 I am developing. It is somewhat similar to the well-known `make` tool, but

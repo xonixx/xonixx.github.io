@@ -6,7 +6,7 @@ description: 'I describe some nuances of using 0x literals in MySQL'
 
 # Notes on 0x MySQL literals
 
-_November 2024_
+_November 2024_ <span class="no-llm">No LLM was used to write this article</span>
 
 I write this article as a reminder to myself since I found that I'm making the same mistake second time.
 

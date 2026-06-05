@@ -7,7 +7,7 @@ image: fhtagn.png
 
 # fhtagn -- a tiny CLI programs tester written in AWK
 
-_June 2023_
+_June 2023_ <span class="no-llm">No LLM was used to write this article</span>
 
 [fhtagn](https://github.com/xonixx/fhtagn) is a [tiny](https://github.com/xonixx/fhtagn/blob/764f6ecf600944ef043de3774a67478350740049/fhtagn.awk) CLI tool for literate testing for command-line programs.
 

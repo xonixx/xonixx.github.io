@@ -6,7 +6,7 @@ description: 'Just because you can use parameterized tests doesn''t mean you sho
 
 # You might not need parameterized tests
 
-_March 2025_
+_March 2025_ <span class="no-llm">No LLM was used to write this article</span>
 
 Let's consider an example of a typical JUnit parameterized test:
 

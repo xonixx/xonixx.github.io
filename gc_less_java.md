@@ -7,7 +7,7 @@ image: gc_less_java3.png
 
 # Experimenting with GC-less (heap-less) Java
 
-_February 2024_
+_February 2024_ <span class="no-llm">No LLM was used to write this article</span>
 
 ## What
 

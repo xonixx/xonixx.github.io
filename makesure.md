@@ -7,7 +7,7 @@ image: makesure.png
 
 # makesure -- make with a human face
 
-_February 2023_
+_February 2023_ <span class="no-llm">No LLM was used to write this article</span>
 
 How many of you use all sorts of helper shell scripts in your projects? It can also be Python or Perl scripts. Typically, such scripts are used during the build phase or for other project automation tasks.
 

@@ -6,7 +6,7 @@ description: "mdbooker -- tiny AWK script that can turn your project's README.md
 
 # mdbooker -- turn your README.md into a documentation site
 
-_March 2024_
+_March 2024_ <span class="no-llm">No LLM was used to write this article</span>
 
 In this article I want to present you the tiny utility [mdbooker](https://github.com/xonixx/mdbooker). 
 

@@ -7,7 +7,7 @@ image: python.png
 
 # Abusing Python's list comprehensions
 
-_December 2008_
+_December 2008_ <span class="no-llm">No LLM was used to write this article</span>
 
 <sup>(This is an ancient article revived from my Blogspot)</sup>
 

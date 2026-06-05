@@ -7,7 +7,7 @@ image: makesure.png
 
 # Fascination with AWK
 
-_March 2023_
+_March 2023_ <span class="no-llm">No LLM was used to write this article</span>
 
 AWK is a delightful mini-language almost unchanged for decades.
 

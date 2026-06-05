@@ -7,7 +7,7 @@ image: self-update.png
 
 # On one approach to implementing self-update
 
-_September 2025_
+_September 2025_ <span class="no-llm">No LLM was used to write this article</span>
 
 [Makesure](https://makesure.dev) is a task/command runner that I am developing. It is somewhat similar to the well-known `make` tool, but [without most of its idiosyncrasies](makesure-vs-make.md) (and with a couple of unique features!).
 

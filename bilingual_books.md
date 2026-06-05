@@ -7,7 +7,7 @@ image: bilingual_books2.png
 
 # Create bilingual books yourself
 
-_February 2023_
+_February 2023_ <span class="no-llm">No LLM was used to write this article</span>
 
 Bilingual books are incredibly useful for language learners. 
 

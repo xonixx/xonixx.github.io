@@ -7,7 +7,7 @@ image: saner_jdbc.png
 
 # One method for easier JDBC
 
-_January 2025_
+_January 2025_ <span class="no-llm">No LLM was used to write this article</span>
   
 When you work with database in Java using [JDBC](https://en.wikipedia.org/wiki/Java_Database_Connectivity) you often see the code like this:
 

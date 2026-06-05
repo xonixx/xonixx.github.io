@@ -6,7 +6,7 @@ description: 'I explain how to refactor complex if conditions'
 
 # Don't use complex expressions in if conditions
 
-_August 2024_
+_August 2024_ <span class="no-llm">No LLM was used to write this article</span>
      
 Let's consider a piece of code below. It belongs to a notification sub-system of some hypothetical application. The code determines if the notification should be sent to any particular user or not. 
 

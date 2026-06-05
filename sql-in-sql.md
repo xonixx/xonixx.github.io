@@ -6,7 +6,7 @@ description: 'I explain how to produce SQL with SQL using DuckDB and why it can 
 
 # Generate SQL in SQL with DuckDB
 
-_October 2025_
+_October 2025_ <span class="no-llm">No LLM was used to write this article</span>
 
 Here is an SQL query I came up with to produce SQL using [DuckDB](https://duckdb.org/).
 

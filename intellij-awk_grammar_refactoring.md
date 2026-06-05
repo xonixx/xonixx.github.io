@@ -7,7 +7,7 @@ image: intellij-awk_grammar_refactoring3.png
 
 ## A story about one refactoring of the parser grammar in IntelliJ-AWK
 
-_May 2023_
+_May 2023_ <span class="no-llm">No LLM was used to write this article</span>
 
 ### TL;DR
 

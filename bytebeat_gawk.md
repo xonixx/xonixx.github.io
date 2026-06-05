@@ -7,7 +7,7 @@ image: https://img.youtube.com/vi/qOenoyBO7XY/0.jpg
 
 # Bytebeating with GAWK
 
-_April 2023_
+_April 2023_ <span class="no-llm">No LLM was used to write this article</span>
 
 Not long ago I came across this [blog post](http://kmkeen.com/awk-music/). It describes a simple awk script that is able to generate harmonious audio sounds. 
 

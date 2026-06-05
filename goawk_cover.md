@@ -7,7 +7,7 @@ image: goawk_cover.png
 
 # Code Coverage for GoAWK
 
-_December 2022_
+_December 2022_ <span class="no-llm">No LLM was used to write this article</span>
 
 ### TL;DR
 

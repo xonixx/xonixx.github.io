@@ -7,7 +7,7 @@ image: parameterized_goals2.png
 
 # Adding parameterized goals to makesure
 
-_March 2023_
+_March 2023_ <span class="no-llm">No LLM was used to write this article</span>
 
 ## What is makesure?
 
