@@ -1,15 +1,15 @@
 ---
 layout: post
-title: 'TODO'
+title: 'Fun with floats'
 description: 'TODO'
-image: TODO
+image: floats-fun2.png
 ---
 
 # Fun with floats
 
 _July 2026_ <span class="no-llm">No LLM was used to write this article</span>
 
-Did you know that floating-point numbers have `0` and `-0`?
+Did you know that floating-point numbers ([IEEE 754](https://en.wikipedia.org/wiki/IEEE_754)) have `0` and `-0`?
 
 ![](floats-fun1.png)
 
@@ -37,13 +37,17 @@ Let's try to subtract.
 
 Well, this is very logical, isn't it?
 
-Let's continue. Let's consider arithmetics of zeros.
+In this regard it is not so logical that infinities are considered to be equal.
 
 ![](floats-fun6.png)
+
+Let's continue. Let's consider arithmetics of zeros.
+
+![](floats-fun7.png)
 
 Conclusion: positive zero beats negative.
 
 But not always
 
-![](floats-fun7.png)
+![](floats-fun8.png)
 
