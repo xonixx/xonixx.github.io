@@ -25,7 +25,7 @@ Further more.
 
 Not a number!
 
-Let's try to add infinities
+Let's try to add infinities.
 
 ![](floats-fun4.png)
 
@@ -51,7 +51,7 @@ Let's continue. Let's consider arithmetics of zeros.
 
 Conclusion: positive zero beats negative.
 
-But not always
+But not always.
 
 ![](floats-fun9.png)
 
