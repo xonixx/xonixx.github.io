@@ -8,6 +8,7 @@
 
 ## Blog
 
+- [Fun with floats](floats-fun.md) (July 2026)
 - [How I program in AWK](program-in-awk.md) (January 2026)
 - [Generate SQL in SQL with DuckDB](sql-in-sql.md) (October 2025)
 - [On one approach to implementing self-update](self-update.md) (September 2025)

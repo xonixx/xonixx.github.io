@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Fun with floats'
-description: 'TODO'
+description: 'I experiment with IEEE 754 positive and negative zeros, infinities, and NaNs'
 image: floats-fun2.png
 ---
 
@@ -41,13 +41,17 @@ In this regard it is not so logical that infinities are considered to be equal.
 
 ![](floats-fun6.png)
 
-Let's continue. Let's consider arithmetics of zeros.
+It's worth mentioning that `NaN` is the only float that doesn't equal to itself.
 
 ![](floats-fun7.png)
+
+Let's continue. Let's consider arithmetics of zeros.
+
+![](floats-fun8.png)
 
 Conclusion: positive zero beats negative.
 
 But not always
 
-![](floats-fun8.png)
+![](floats-fun9.png)
 
