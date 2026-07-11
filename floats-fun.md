@@ -13,7 +13,7 @@ Did you know that floating-point numbers ([IEEE 754](https://en.wikipedia.org/wi
 
 ![](floats-fun1.png)
 
-Looks like nothing spacial. They are just equal. 
+Looks like nothing special. They are just equal. 
                         
 But there is a nuance.
 
